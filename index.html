@@ -46,6 +46,19 @@
 
   --ease-reveal:cubic-bezier(.16,1,.3,1);
   --ease-exit:cubic-bezier(.7,0,.84,0);
+  --ease-spring:cubic-bezier(.22,1.12,.36,1);
+
+  /* ── visionOS-style spatial glass (frosted fill, no live blur — perf) ── */
+  --radius:20px;
+  --radius-lg:28px;
+  --radius-pill:999px;
+  --glass:linear-gradient(158deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 46%),rgba(13,19,32,.74);
+  --glass-2:linear-gradient(158deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 46%),rgba(20,28,46,.82);
+  --glass-solid:rgba(13,19,32,.9);
+  --glass-brd:rgba(255,255,255,.14);
+  --glass-brd-hi:rgba(255,255,255,.28);
+  --shadow-float:0 22px 60px -26px rgba(0,0,0,.78), 0 6px 18px -10px rgba(0,0,0,.55);
+  --sheen:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 44%);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -67,7 +80,15 @@ img,svg,video{display:block;max-width:100%}
 #shot{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
 #vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(130% 90% at 50% 38%,rgba(5,7,12,0) 40%,rgba(5,7,12,.55) 76%,rgba(5,7,12,.94) 100%)}
-#grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+/* ambient "spatial light" — soft radial glow, visionOS environment feel.
+   Pure gradient (already soft) + translate-only drift = no per-frame filter cost. */
+#lumen{position:fixed;z-index:1;pointer-events:none;top:50%;left:50%;width:90vmax;height:90vmax;
+  margin:-45vmax 0 0 -45vmax;opacity:.45;will-change:transform;
+  background:radial-gradient(closest-side,
+    color-mix(in srgb,var(--accent) 20%,transparent),
+    color-mix(in srgb,var(--accent) 6%,transparent) 45%, transparent 72%)}
+
+#grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* brand logomark "stamp" — a contained punctuation at the end of the hero,
@@ -83,32 +104,45 @@ img,svg,video{display:block;max-width:100%}
 /* ════════════════════════════════════════════════
    CHROME  (minimal — HUD removed)
 ════════════════════════════════════════════════ */
-.brandmark{position:fixed;top:26px;left:clamp(16px,4vw,40px);z-index:45;
-  font-family:var(--ff-d);font-weight:700;font-size:18px;letter-spacing:.06em;color:var(--white)}
+.brandmark{position:fixed;top:22px;left:clamp(16px,4vw,40px);z-index:45;
+  font-family:var(--ff-d);font-weight:700;font-size:17px;letter-spacing:.06em;color:var(--white);
+  padding:10px 18px;border-radius:var(--radius-pill);
+  background:var(--glass);border:1px solid var(--glass-brd);
+  box-shadow:0 10px 30px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14)}
 .brandmark b{color:var(--accent-bright)}
-.brandmark small{display:block;font-family:var(--ff-m);font-size:9px;letter-spacing:.3em;color:var(--dim);margin-top:3px}
+.brandmark small{display:block;font-family:var(--ff-m);font-size:9px;letter-spacing:.3em;color:var(--dim);margin-top:2px}
 
 .cta-pin{position:fixed;top:22px;right:clamp(16px,4vw,40px);z-index:45;
   font-family:var(--ff-m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--accent-bright);border:1px solid var(--accent);padding:11px 20px;
-  background:rgba(61,169,252,.06);transition:background .22s,color .22s,opacity .4s,transform .4s;
+  color:var(--white);border:1px solid var(--glass-brd-hi);padding:12px 22px;border-radius:var(--radius-pill);
+  background:var(--glass-2);
+  box-shadow:0 12px 34px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.16);
+  transition:background .22s,color .22s,box-shadow .3s,opacity .4s,transform .4s;
   opacity:0;transform:translateY(-8px);pointer-events:none}
 .cta-pin.show{opacity:1;transform:none;pointer-events:auto}
-.cta-pin:hover{background:var(--accent);color:var(--ink)}
+.cta-pin:hover{background:var(--accent);color:var(--ink);border-color:transparent;
+  box-shadow:0 12px 40px -12px color-mix(in srgb,var(--accent) 70%,transparent)}
 @media(max-width:600px){.cta-pin{display:none}}
 
 #progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:46;background:transparent}
-#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-bright))}
+#progress i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent-bright));
+  box-shadow:0 0 12px -1px var(--accent-bright)}
 
 /* ════════════════════════════════════════════════
    BUTTONS
 ════════════════════════════════════════════════ */
 .btn{display:inline-block;font-family:var(--ff-m);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  padding:15px 30px;background:var(--accent);color:var(--ink);border:1px solid var(--accent);font-weight:500;
-  transition:background .2s,box-shadow .2s,transform .2s}
-.btn:hover{background:var(--accent-bright);box-shadow:0 0 28px -4px var(--accent-bright);transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:var(--silver);border-color:var(--line-hi)}
-.btn.ghost:hover{background:rgba(198,210,226,.06);border-color:var(--accent);color:var(--white);box-shadow:none}
+  padding:15px 32px;background:var(--accent);color:var(--ink);border:1px solid transparent;font-weight:500;
+  border-radius:var(--radius-pill);
+  box-shadow:0 10px 30px -12px color-mix(in srgb,var(--accent) 65%,transparent),inset 0 1px 0 rgba(255,255,255,.45);
+  transition:background .22s,box-shadow .3s,transform .3s var(--ease-spring)}
+.btn:hover{background:var(--accent-bright);transform:translateY(-2px);
+  box-shadow:0 16px 44px -12px color-mix(in srgb,var(--accent-bright) 75%,transparent),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.ghost{background:var(--glass);color:var(--white);border-color:var(--glass-brd-hi);
+  box-shadow:0 10px 30px -18px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.14)}
+.btn.ghost:hover{background:var(--glass-2);border-color:var(--accent);color:var(--white);
+  box-shadow:0 14px 40px -16px color-mix(in srgb,var(--accent) 45%,transparent),inset 0 1px 0 rgba(255,255,255,.2)}
 
 /* ════════════════════════════════════════════════
    CHAPTER SHELL
@@ -131,11 +165,42 @@ img,svg,video{display:block;max-width:100%}
 .kin em{font-style:normal;color:var(--accent-bright)}
 .kin.gold em{color:var(--gold)}
 
-/* generic scroll reveal */
-.reveal{opacity:0;transform:translateY(26px);will-change:transform,opacity}
+/* generic scroll reveal — gentler, visionOS-calm (fade + micro-scale, not a big slide) */
+.reveal{opacity:0;transform:translateY(16px) scale(.99);will-change:transform,opacity}
 
 /* soften the blue → gold accent hand-off */
 .eyebrow,.eyebrow::before,#progress i,.brandmark b{transition:color .5s ease,background .5s ease}
+
+/* ════════════════════════════════════════════════
+   PREMIUM GLASS  (visionOS-style spatial material)
+════════════════════════════════════════════════ */
+.glass{
+  position:relative;isolation:isolate;
+  background:var(--glass);
+  border:1px solid var(--glass-brd);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-float), inset 0 1px 0 rgba(255,255,255,.12), inset 0 0 0 1px rgba(255,255,255,.02);
+  transition:box-shadow .45s ease, border-color .45s ease;
+}
+/* top sheen — a soft light rolling off the upper edge (no blend mode — perf) */
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:var(--sheen);opacity:.8;z-index:-1}
+/* cursor-follow specular highlight (JS sets --mx / --my as %) */
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  opacity:0;transition:opacity .4s ease;
+  background:radial-gradient(220px circle at var(--mx,50%) var(--my,0%),
+    rgba(255,255,255,.14), rgba(255,255,255,.04) 38%, transparent 62%)}
+.glass:hover{--lift:-5px;
+  box-shadow:var(--shadow-float), inset 0 1px 0 rgba(255,255,255,.22), 0 0 48px -16px color-mix(in srgb,var(--accent) 60%,transparent);
+  border-color:var(--glass-brd-hi)}
+.glass:hover::after{opacity:1}
+
+/* 2D translate only (never fights backdrop-filter — Chromium ghosts glass
+   panels under 3D transforms). --ty = GSAP reveal offset, --lift = hover. */
+@property --lift{syntax:"<length>";inherits:false;initial-value:0px}
+.tilt{transform:translate3d(0,calc(var(--ty,0px) + var(--lift,0px)),0);
+  transition:--lift .45s var(--ease-spring),box-shadow .45s ease,border-color .45s ease}
+.tilt.reveal{--ty:18px}
 
 /* ════════════════════════════════════════════════
    CH1 — COLD OPEN  (pinned scrub hero)
@@ -160,8 +225,8 @@ img,svg,video{display:block;max-width:100%}
 ════════════════════════════════════════════════ */
 #ch2 .wrap{max-width:960px}
 #ch2 .lead{max-width:26ch}
-.drain{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
-.drain .cell{background:var(--panel);padding:34px 26px}
+.drain{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+.drain .cell{padding:32px 26px}
 .drain .cell .k{font-family:var(--ff-m);color:var(--accent-bright);font-size:12px;letter-spacing:.14em}
 .drain .cell h3{font-size:1.15rem;color:var(--white);margin:14px 0 8px}
 .drain .cell p{font-size:14px;color:var(--dim)}
@@ -174,10 +239,8 @@ img,svg,video{display:block;max-width:100%}
 #ch3{height:280vh}
 #ch3 .stage{position:sticky;top:0;min-height:100vh;display:flex;align-items:center}
 #ch3 .stage .wrap{padding-top:clamp(64px,9vh,110px);padding-bottom:clamp(48px,7vh,90px)}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px}
-.pillars .cell{background:var(--panel);padding:38px 28px;position:relative}
-.pillars .cell::before{content:"";position:absolute;top:14px;left:14px;width:14px;height:14px;
-  border-top:1px solid var(--accent);border-left:1px solid var(--accent);opacity:.6}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.pillars .cell{padding:36px 28px}
 .pillars .n{font-family:var(--ff-m);color:var(--accent-bright);font-size:12px;letter-spacing:.14em}
 .pillars h3{font-size:1.4rem;color:var(--white);margin:16px 0 10px}
 .pillars p{font-size:14.5px;color:var(--dim)}
@@ -200,11 +263,12 @@ img,svg,video{display:block;max-width:100%}
 /* ════════════════════════════════════════════════
    CH5 — PICK YOUR TIER  (free scroll; accent → gold)
 ════════════════════════════════════════════════ */
-.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
-.tier{background:var(--panel);border:1px solid var(--line);padding:28px 22px;display:flex;flex-direction:column;position:relative}
-.tier.feature{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset,0 0 40px -12px rgba(217,178,106,.5)}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+.tier{padding:28px 22px;display:flex;flex-direction:column}
+.tier.feature{background:var(--glass-2);border-color:color-mix(in srgb,var(--accent) 55%,var(--glass-brd-hi));
+  box-shadow:var(--shadow-float),inset 0 1px 0 rgba(255,255,255,.18),0 0 46px -14px color-mix(in srgb,var(--accent) 60%,transparent)}
 .tier.feature::after{content:"RECOMMENDED";position:absolute;top:0;right:0;font-family:var(--ff-m);font-size:9px;letter-spacing:.18em;
-  background:var(--accent);color:var(--ink);padding:4px 10px}
+  background:var(--accent);color:var(--ink);padding:5px 12px;border-radius:0 var(--radius) 0 12px;z-index:1}
 .tier h3{font-size:1.25rem;color:var(--white);margin-bottom:4px}
 .tier .blurb{font-size:13px;color:var(--dim);min-height:52px}
 .tier .price{font-family:var(--ff-d);font-weight:700;font-size:1.7rem;color:var(--white);margin:16px 0 2px}
@@ -228,16 +292,21 @@ img,svg,video{display:block;max-width:100%}
 .why ul{list-style:none;margin-top:24px}
 .why li{padding:16px 0;border-bottom:1px solid var(--line);font-size:15px;display:flex;gap:12px;color:var(--dim)}
 .why li::before{content:"›";color:var(--accent-bright)}
-.why .card{background:var(--ink-2);border:1px solid var(--gold);padding:30px 28px;position:relative}
-.why .card::before{content:"ADVISORY";position:absolute;top:-1px;left:20px;transform:translateY(-50%);
-  background:var(--ink);color:var(--gold);font-family:var(--ff-m);font-size:9px;letter-spacing:.2em;padding:0 8px}
+.why .card{border-color:color-mix(in srgb,var(--gold) 50%,var(--glass-brd));padding:32px 30px}
+.why .card::before{content:"ADVISORY";position:absolute;top:0;left:22px;transform:translateY(-50%);z-index:1;
+  background:color-mix(in srgb,var(--ink) 82%,transparent);color:var(--gold);
+  border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:var(--radius-pill);
+  font-family:var(--ff-m);font-size:9px;letter-spacing:.2em;padding:3px 10px}
 .why .card h3{font-size:1.2rem;color:var(--gold);margin-bottom:14px}
 .why .card p{font-size:14px;color:var(--dim);margin-bottom:12px}
 .why .card b{color:var(--silver)}
 @media(max-width:820px){.why{grid-template-columns:1fr;gap:34px}}
 
-.faq{margin-top:44px;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line);padding:20px 0}
+.faq{margin-top:44px;padding:8px clamp(20px,3vw,30px);border-radius:var(--radius-lg);
+  background:var(--glass);border:1px solid var(--glass-brd);
+  box-shadow:var(--shadow-float),inset 0 1px 0 rgba(255,255,255,.10)}
+.faq details{border-bottom:1px solid rgba(255,255,255,.08);padding:20px 2px}
+.faq details:last-child{border-bottom:0}
 .faq summary{font-family:var(--ff-d);font-weight:500;font-size:1.05rem;color:var(--white);cursor:pointer;
   list-style:none;display:flex;justify-content:space-between;gap:16px}
 .faq summary::-webkit-details-marker{display:none}
@@ -253,8 +322,8 @@ img,svg,video{display:block;max-width:100%}
    CH7 — BUILD THE MACHINE  (pinned finale)
 ════════════════════════════════════════════════ */
 #ch7{height:200vh}
-#ch7 .stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-  border-top:1px solid var(--accent);background:linear-gradient(180deg,rgba(217,178,106,.07),rgba(5,7,12,.55))}
+#ch7 .stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+#ch7 .finale{padding:clamp(48px,7vw,80px) clamp(32px,6vw,72px);max-width:760px;border-radius:var(--radius-lg)}
 #ch7 h2{font-size:clamp(2rem,5vw,3.4rem);color:var(--white);max-width:18ch;margin:0 auto;text-shadow:0 0 40px rgba(217,178,106,.28)}
 #ch7 p{margin-top:16px;font-family:var(--ff-m);font-size:13px;color:var(--dim)}
 #ch7 .btn{margin-top:32px}
@@ -286,13 +355,23 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
   .kin .word{transform:none;opacity:1}
   .kin .line{overflow:visible}
   .reveal{opacity:1;transform:none}
-  #cue{display:none}
+  .tilt{transform:none}
+  #cue,#lumen{display:none}
+}
+
+/* respect OS "reduce transparency" / high-contrast — drop the frost, keep solid panels */
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .glass,.faq,.brandmark,.cta-pin,.btn.ghost{
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:var(--panel);border-color:var(--line-hi)}
+  .glass::before,.glass::after{display:none}
+  #lumen{opacity:.28}
 }
 </style>
 </head>
 <body class="no-js">
 
 <canvas id="shot"></canvas>
+<div id="lumen"></div>
 <div id="vignette"></div>
 <div id="grain"></div>
 <div id="lockup" aria-hidden="true">
@@ -351,9 +430,9 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
       <span class="line" aria-hidden="true"><span class="word">A</span><span class="word">bank</span><span class="word">that</span><span class="word"><em>goes quiet.</em></span></span>
     </h2>
     <div class="drain">
-      <div class="cell reveal"><div class="k">01</div><h3>The website</h3><p>A brochure nobody converts on. No clear offer, slow on mobile, no lead capture wired anywhere.</p></div>
-      <div class="cell reveal"><div class="k">02</div><h3>The ads</h3><p>Never running. No time to build them, no system to optimize them, no tracking that tells the truth.</p></div>
-      <div class="cell reveal"><div class="k">03</div><h3>The bank</h3><p>The relationship goes cold the moment you ask for money. Nothing structured, documented, or credit-built to borrow against.</p></div>
+      <div class="cell glass tilt reveal"><div class="k">01</div><h3>The website</h3><p>A brochure nobody converts on. No clear offer, slow on mobile, no lead capture wired anywhere.</p></div>
+      <div class="cell glass tilt reveal"><div class="k">02</div><h3>The ads</h3><p>Never running. No time to build them, no system to optimize them, no tracking that tells the truth.</p></div>
+      <div class="cell glass tilt reveal"><div class="k">03</div><h3>The bank</h3><p>The relationship goes cold the moment you ask for money. Nothing structured, documented, or credit-built to borrow against.</p></div>
     </div>
     <p class="close reveal">These aren't three projects. They're one system — and almost nobody builds it as one.</p>
   </div></div>
@@ -365,9 +444,9 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
     <p class="eyebrow reveal">Chapter 02 — What gets built</p>
     <h2 class="lead reveal" id="ch3-t">Three parts. One accountable operator.</h2>
     <div class="pillars">
-      <div class="cell"><div class="n">01</div><h3>A website that converts</h3><p>Not a brochure. A conversion-engineered site — clear offer, fast, mobile-first, real copy, lead capture wired straight to your inbox or CRM, and your Google Business Profile tuned to show up.</p></div>
-      <div class="cell"><div class="n">02</div><h3>Ads that produce leads</h3><p>Meta and Google campaigns built, launched, and optimized weekly. Dedicated landing pages, real creative, tracking that tells the truth. You approve the plan; the system runs it.</p></div>
-      <div class="cell"><div class="n">03</div><h3>Fundability that unlocks capital</h3><p>Entity and structure cleaned up, business credit profile built (D-U-N-S, tradelines), a lender-ready financial packet, and a shortlist of lenders you actually qualify for. Advisory — no guarantees, no brokering.</p></div>
+      <div class="cell glass tilt"><div class="n">01</div><h3>A website that converts</h3><p>Not a brochure. A conversion-engineered site — clear offer, fast, mobile-first, real copy, lead capture wired straight to your inbox or CRM, and your Google Business Profile tuned to show up.</p></div>
+      <div class="cell glass tilt"><div class="n">02</div><h3>Ads that produce leads</h3><p>Meta and Google campaigns built, launched, and optimized weekly. Dedicated landing pages, real creative, tracking that tells the truth. You approve the plan; the system runs it.</p></div>
+      <div class="cell glass tilt"><div class="n">03</div><h3>Fundability that unlocks capital</h3><p>Entity and structure cleaned up, business credit profile built (D-U-N-S, tradelines), a lender-ready financial packet, and a shortlist of lenders you actually qualify for. Advisory — no guarantees, no brokering.</p></div>
     </div>
   </div></div>
 </section>
@@ -392,7 +471,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
     <p class="eyebrow reveal">Chapter 04 — Tiers</p>
     <h2 class="lead reveal" id="ch5-t">Priced so the math works for both of us.</h2>
     <div class="tiers">
-      <div class="tier reveal">
+      <div class="tier glass tilt reveal">
         <h3>Foundation</h3>
         <div class="blurb">Get seen. A conversion site, live in 14 days.</div>
         <div class="price">$2,000 <small>one-time</small></div>
@@ -408,7 +487,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
         <a class="btn" href="https://whop.com/checkout/plan_2T2XreGKBAbHd">Start Foundation</a>
         <div class="mini">One payment. No retainer.</div>
       </div>
-      <div class="tier feature reveal">
+      <div class="tier feature glass tilt reveal">
         <h3>Growth</h3>
         <div class="blurb">Get leads. Site plus one ad platform, run weekly.</div>
         <div class="price">$2,500 <small>setup</small></div>
@@ -424,7 +503,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
         <a class="btn" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth — $2,500</a>
         <div class="mini">Monthly retainer (<a href="https://whop.com/checkout/plan_kUi4ob9FHMpuI">$1,500/mo</a>) begins after onboarding.</div>
       </div>
-      <div class="tier reveal">
+      <div class="tier glass tilt reveal">
         <h3>Scale &amp; Fund</h3>
         <div class="blurb">Get capital. Both platforms plus a fundability program.</div>
         <div class="price">$4,000 <small>setup</small></div>
@@ -441,7 +520,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
         <a class="btn ghost" href="#ch6">Request access</a>
         <div class="mini">Application only — limited slots.</div>
       </div>
-      <div class="tier reveal">
+      <div class="tier glass tilt reveal">
         <h3>Partner</h3>
         <div class="blurb">Multi-location or higher budgets. Custom scope.</div>
         <div class="price">From $6,000 <small>/ mo</small></div>
@@ -475,7 +554,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
           <li class="reveal">Straight answers. If a tier is wrong for where your business is, I'll tell you before you pay.</li>
         </ul>
       </div>
-      <div class="card reveal">
+      <div class="card glass tilt reveal">
         <h3>The fundability piece, said plainly</h3>
         <p>This is <b>advisory</b>. I help you organize the business, build its credit profile, prepare a lender-ready packet, and introduce you to real lenders you qualify for.</p>
         <p>I do <b>not</b> guarantee a funding amount, take a percentage of any funds you receive, broker loans, or touch your applications. Anyone promising "$250k guaranteed" is selling you a story.</p>
@@ -506,7 +585,7 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
 
 <!-- ═══════════ CH7 · BUILD THE MACHINE — pinned finale ═══════════ -->
 <section class="ch" id="ch7" aria-label="Call to action">
-  <div class="stage"><div>
+  <div class="stage"><div class="glass tilt finale">
     <h2>Stop patching leaks. Build the machine.</h2>
     <p>Foundation ships in 14 days. Start there.</p>
     <a class="btn" href="#ch5">Claim your system</a>
@@ -650,7 +729,8 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
     if (REDUCE || !window.gsap || !window.ScrollTrigger){
       document.querySelectorAll('.hero-beat').forEach(function(b){ b.style.opacity = 1; b.style.filter = 'none'; b.style.position = 'relative'; b.style.transform = 'none'; });
       document.querySelectorAll('.kin .word').forEach(function(w){ w.style.transform = 'none'; w.style.opacity = 1; });
-      document.querySelectorAll('.reveal').forEach(function(w){ w.style.opacity = 1; w.style.transform = 'none'; });
+      document.querySelectorAll('.reveal').forEach(function(w){ w.style.opacity = 1; w.style.transform = 'none'; w.style.setProperty('--ty','0px'); });
+      document.querySelectorAll('.tilt').forEach(function(w){ w.style.setProperty('--ty','0px'); });
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
@@ -705,16 +785,20 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
     gsap.utils.toArray('.kin').forEach(function (kin){
       var words = kin.querySelectorAll('.word');
       gsap.to(words, {
-        yPercent:0, opacity:1, duration:.7, ease:'power3.out', stagger:0.055,
-        scrollTrigger:{ trigger:kin, start:'top 78%' }
+        yPercent:0, opacity:1, duration:.8, ease:'power2.out', stagger:0.05,
+        scrollTrigger:{ trigger:kin, start:'top 80%' }
       });
     });
 
-    /* ═══ generic reveals (batched) ═══ */
+    /* ═══ generic reveals (batched) — glass tiles settle via --ty so the
+       pointer-tilt transform on the same element is never clobbered ═══ */
     ScrollTrigger.batch('.reveal', {
-      start:'top 85%',
+      start:'top 86%',
       onEnter:function (els){
-        gsap.to(els, { opacity:1, y:0, duration:.7, ease:'power3.out', stagger:0.08, overwrite:true });
+        var tilts = els.filter(function(e){ return e.classList.contains('tilt'); });
+        var plain = els.filter(function(e){ return !e.classList.contains('tilt'); });
+        if (tilts.length) gsap.to(tilts, { '--ty':'0px', opacity:1, duration:.9, ease:'power2.out', stagger:0.09, overwrite:true });
+        if (plain.length) gsap.to(plain, { y:0, scale:1, opacity:1, duration:.85, ease:'power2.out', stagger:0.08, overwrite:true });
       }
     });
 
@@ -725,10 +809,10 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
         ScrollTrigger.create({ trigger: sec, start:'top top', end:'bottom bottom', pin: sec.querySelector('.stage'), pinSpacing:true });
       });
 
-      // CH3 pillars track in on scrub
+      // CH3 pillars track in on scrub — drive --ty (composed by .tilt transform), not y
       gsap.fromTo('#ch3 .pillars .cell',
-        { opacity:0, y:60, rotateX:6 },
-        { opacity:1, y:0, rotateX:0, stagger:0.12, ease:'power2.out',
+        { opacity:0, '--ty':'64px' },
+        { opacity:1, '--ty':'0px', stagger:0.12, ease:'power2.out',
           scrollTrigger:{ trigger:'#ch3', start:'top top', end:'60% top', scrub:0.6 } });
 
       // CH4 steps reveal one by one on scrub
@@ -736,6 +820,30 @@ footer .legal{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);
         { opacity:0.15, x:-24 },
         { opacity:1, x:0, stagger:0.2, ease:'none',
           scrollTrigger:{ trigger:'#ch4', start:'top top', end:'bottom top', scrub:0.6 } });
+    }
+
+    /* ═══ visionOS spatial polish: ambient light drift + pointer specular/tilt ═══ */
+    var lumen = document.getElementById('lumen');
+    if (lumen && !MOBILE){
+      // translate-only drift — the compositor reuses the layer, no re-raster
+      gsap.to(lumen, { x:'8vw', y:'-5vh', duration:16, ease:'sine.inOut', yoyo:true, repeat:-1 });
+    }
+
+    /* cursor-follow specular gleam on every glass panel (desktop, fine pointer) */
+    if (!MOBILE && matchMedia('(hover:hover) and (pointer:fine)').matches){
+      gsap.utils.toArray('.glass').forEach(function (el){
+        var raf = 0, rect = null, ex = 0, ey = 0;
+        el.addEventListener('pointerenter', function(){ rect = el.getBoundingClientRect(); });
+        el.addEventListener('pointermove', function (e){
+          ex = e.clientX; ey = e.clientY;
+          if (raf) return;
+          raf = requestAnimationFrame(function (){
+            raf = 0; if (!rect) rect = el.getBoundingClientRect();
+            el.style.setProperty('--mx', ((ex - rect.left) / rect.width  * 100) + '%');
+            el.style.setProperty('--my', ((ey - rect.top)  / rect.height * 100) + '%');
+          });
+        });
+      });
     }
 
     /* ═══ accent → gold from the tiers onward, blue above ═══ */
