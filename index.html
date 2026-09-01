@@ -70,23 +70,17 @@
     }
     .founder__portrait {
       position: relative; align-self: center;
-      border-radius: 24px;
-      background:
-        radial-gradient(60% 60% at 50% 40%, color-mix(in srgb, #3da9fc 26%, transparent), transparent 72%),
-        linear-gradient(180deg, #0c1524, #070b13);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 40px 90px -40px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08);
-      padding: 10% 10% 0;
-      overflow: hidden;
+      padding: 4% 6% 0;
     }
-    .founder__portrait::after {   /* fade the head into the panel base instead of a hard crop */
-      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
-      background: linear-gradient(180deg, transparent, #080c14 88%);
+    .founder__portrait::before {   /* soft glow behind the head — no frame */
+      content: ""; position: absolute; inset: -4% 0 -2%;
+      background: radial-gradient(58% 54% at 50% 42%, color-mix(in srgb, #3da9fc 22%, transparent), transparent 72%);
       pointer-events: none;
     }
     .founder__portrait img {
+      position: relative; z-index: 1;
       display: block; width: 100%; height: auto;
-      filter: drop-shadow(0 24px 40px rgba(0,0,0,.55));
+      filter: drop-shadow(0 30px 55px rgba(0,0,0,.6));
     }
     .founder__eyebrow {
       display: block; font-family: var(--sw-font-display);
@@ -116,9 +110,59 @@
       .founder__inner { grid-template-columns: 1fr; text-align: left; }
       .founder__portrait { max-width: 320px; margin: 0 0 8px; }
     }
-    /* when the founder section is on screen, get the flight's fixed chrome out of the way */
-    body.at-founder .sw-route,
-    body.at-founder .sw-hint { opacity: 0 !important; pointer-events: none; }
+    /* when the outro (founder + tiers) is on screen, get the flight's fixed chrome out of the way */
+    body.past-flight .sw-route,
+    body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
+
+    /* ============ TIERS ============ */
+    .tiers {
+      position: relative; z-index: 45;
+      background: #05070c; color: #f2f6fc;
+      padding: clamp(64px, 10vh, 130px) clamp(20px, 6vw, 80px) clamp(80px, 12vh, 150px);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
+    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #68d0ff; }
+    .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
+    .tiers__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .tier {
+      display: flex; flex-direction: column;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)) , #0b1220;
+      border: 1px solid rgba(255,255,255,.10); border-radius: 18px;
+      padding: 26px 22px;
+    }
+    .tier--feature {
+      border-color: color-mix(in srgb, #3da9fc 55%, transparent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, #3da9fc 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #3da9fc 60%, transparent);
+      position: relative;
+    }
+    .tier--feature::after {
+      content: "RECOMMENDED"; position: absolute; top: 0; right: 0;
+      font-family: var(--sw-font-body); font-size: 9px; font-weight: 700; letter-spacing: .18em;
+      color: #05070c; background: var(--sw-accent, #3da9fc);
+      padding: 4px 10px; border-radius: 0 18px 0 12px;
+    }
+    .tier h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; }
+    .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
+    .tier__price { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.6rem; margin: 14px 0 2px; }
+    .tier__price small { font-family: var(--sw-font-body); font-size: 11px; color: #8898ac; font-weight: 400; }
+    .tier__sub { font-size: 11px; color: #d9b26a; min-height: 15px; margin-bottom: 16px; }
+    .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
+    .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
+    .tier li::before { content: "▪"; color: #68d0ff; flex: 0 0 auto; }
+    .tier li em { color: #f2f6fc; font-style: normal; }
+    .tier__btn {
+      display: block; text-align: center; text-decoration: none;
+      padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
+      background: var(--sw-accent, #3da9fc); color: #05070c; transition: transform .2s ease;
+    }
+    .tier__btn:hover { transform: translateY(-2px); }
+    .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
+    .tier__mini { font-size: 10px; color: #8898ac; margin-top: 10px; text-align: center; }
+    .tier__mini a { color: #d9b26a; }
+    .tiers__note { max-width: 1140px; margin: 30px auto 0; font-size: 12px; color: #8898ac; }
+    @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,10 +188,90 @@
         <p>Every engagement starts the same way: a call and a blueprint — the offer, the customer, the tier, the dates — then I build.</p>
         <div class="founder__cta">
           <a class="founder__btn founder__btn--primary" href="mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application">Book a call</a>
-          <a class="founder__btn founder__btn--ghost" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">See plans</a>
+          <a class="founder__btn founder__btn--ghost" href="#tiers">See the tiers</a>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ============ TIERS ============ -->
+  <section id="tiers" class="tiers" aria-label="Pick your tier">
+    <div class="tiers__head">
+      <span class="tiers__eyebrow">Pick your tier</span>
+      <h2 class="tiers__title">Priced so the math works for both of us.</h2>
+    </div>
+    <div class="tiers__grid">
+
+      <div class="tier">
+        <h3>Foundation</h3>
+        <div class="tier__blurb">Get seen. A conversion site, live in 14 days.</div>
+        <div class="tier__price">$2,000 <small>one-time</small></div>
+        <div class="tier__sub">&nbsp;</div>
+        <ul>
+          <li>5-page conversion website</li>
+          <li>Copywriting + mobile build</li>
+          <li>On-page SEO basics</li>
+          <li>Lead form → your inbox / CRM</li>
+          <li>Google Business Profile tune-up</li>
+          <li>1 revision round · 14-day delivery</li>
+        </ul>
+        <a class="tier__btn" href="https://whop.com/checkout/plan_2T2XreGKBAbHd">Start Foundation</a>
+        <div class="tier__mini">One payment. No retainer.</div>
+      </div>
+
+      <div class="tier tier--feature">
+        <h3>Growth</h3>
+        <div class="tier__blurb">Get leads. Site plus one ad platform, run weekly.</div>
+        <div class="tier__price">$2,500 <small>setup</small></div>
+        <div class="tier__sub">then $1,500 / month · 3-mo min</div>
+        <ul>
+          <li>Everything in Foundation</li>
+          <li>Meta <em>or</em> Google ads: full build</li>
+          <li>5 ad creatives + landing page</li>
+          <li>Weekly optimization</li>
+          <li>Lead tracking dashboard</li>
+          <li>Monthly report + strategy call</li>
+        </ul>
+        <a class="tier__btn" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth — $2,500</a>
+        <div class="tier__mini">Monthly retainer (<a href="https://whop.com/checkout/plan_kUi4ob9FHMpuI">$1,500/mo</a>) begins after onboarding.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Scale &amp; Fund</h3>
+        <div class="tier__blurb">Get capital. Both platforms plus a fundability program.</div>
+        <div class="tier__price">$4,000 <small>setup</small></div>
+        <div class="tier__sub">then $3,000 / month · 6-mo min</div>
+        <ul>
+          <li>Everything in Growth</li>
+          <li>Both ad platforms + retargeting</li>
+          <li>10 creatives/mo · 2 landing pages</li>
+          <li>Business credit profile (D-U-N-S, tradelines)</li>
+          <li>Lender-ready financial packet</li>
+          <li>Fundability scorecard + lender shortlist</li>
+          <li>Bi-weekly calls</li>
+        </ul>
+        <a class="tier__btn tier__btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application">Request access</a>
+        <div class="tier__mini">Application only — limited slots.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Partner</h3>
+        <div class="tier__blurb">Multi-location or higher budgets. Custom scope.</div>
+        <div class="tier__price">From $6,000 <small>/ mo</small></div>
+        <div class="tier__sub">custom engagement</div>
+        <ul>
+          <li>Everything in Scale &amp; Fund</li>
+          <li>Deeper platform + budget coverage</li>
+          <li>Quarterly planning</li>
+          <li>Priority capacity</li>
+          <li>Scope + price quoted per business</li>
+        </ul>
+        <a class="tier__btn tier__btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Partner%20engagement%20%E2%80%94%20enquiry">Book a call</a>
+        <div class="tier__mini">By conversation.</div>
+      </div>
+
+    </div>
+    <p class="tiers__note">Ad spend is paid by you, directly to Meta / Google — never routed through me. Recommended minimum spend: $1,000–1,500/mo on Growth, more on Scale &amp; Fund.</p>
   </section>
 
   <script>
@@ -640,7 +764,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
   <script>
     mountScrollWorld(document.getElementById('world'), {
       brand: { name: 'OPM Ventures', href: '#top', logo: 'assets/img/logo.png' },
-      cta: { label: 'Claim your system', href: 'https://whop.com/checkout/plan_Je2JIYPJq7F01' },
+      cta: { label: 'Claim your system', href: '#tiers' },
       hint: 'scroll to fly in',
       diveScroll: 1.3,
       sections: [
@@ -707,7 +831,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           tags: [],
           cta: {
             primary:   { label: 'Book a call', href: 'mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application' },
-            secondary: { label: 'See plans', href: 'https://whop.com/checkout/plan_Je2JIYPJq7F01' },
+            secondary: { label: 'See the tiers', href: '#tiers' },
           },
         },
       ],
@@ -716,14 +840,18 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       connectors: [],
     });
 
-    /* Fade the flight's fixed chrome (route rail, scroll hint) out once the founder
-       section scrolls into view, and back when you scroll up into the flight. */
+    /* Fade the flight's fixed chrome (route rail, scroll hint) out once the outro
+       (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
     (function () {
-      var founder = document.getElementById('founder');
-      if (!founder || !('IntersectionObserver' in window)) return;
-      new IntersectionObserver(function (entries) {
-        document.body.classList.toggle('at-founder', entries[0].isIntersecting);
-      }, { threshold: 0.12 }).observe(founder);
+      if (!('IntersectionObserver' in window)) return;
+      var outro = ['founder', 'tiers'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      if (!outro.length) return;
+      var seen = new Set();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); });
+        document.body.classList.toggle('past-flight', seen.size > 0);
+      }, { threshold: 0.1 });
+      outro.forEach(function (el) { io.observe(el); });
     })();
   </script>
 </body>
