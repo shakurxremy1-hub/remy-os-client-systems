@@ -426,15 +426,16 @@ function mountMobileStory(container, config) {
   }
 }
 
-function copyHTML(s, i, N) {
-  return '<span class="mv-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
-    (s.eyebrow ? '<span class="mv-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
-    (s.title ? '<h2 class="mv-copy__title">' + msesc(s.title) + '</h2>' : '') +
-    (s.body ? '<p class="mv-copy__body">' + msesc(s.body) + '</p>' : '') +
-    (s.tags && s.tags.length ? '<ul class="mv-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
-    (s.cta ? '<div class="mv-copy__cta">' +
-      (s.cta.primary ? '<a class="mv-btn mv-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
-      (s.cta.secondary ? '<a class="mv-btn mv-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
+function copyHTML(s, i, N, px) {
+  px = px || 'mv';
+  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
+    (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
+    (s.title ? '<h2 class="' + px + '-copy__title">' + msesc(s.title) + '</h2>' : '') +
+    (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
+    (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
+    (s.cta ? '<div class="' + px + '-copy__cta">' +
+      (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+      (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
       '</div>' : '');
 }
 
@@ -492,12 +493,191 @@ function injectMobileCSS() {
   document.head.appendChild(st);
 }
 
+/* ============================================================================
+   mountDesktopFlight — desktop: ONE continuous flight video, scroll-scrubbed.
+   Six separate clips meant the camera couldn't move until a whole ~2 MB clip
+   buffered (and stalled again at every scene boundary). One faststart video is
+   seekable from its first few hundred KB, so the flight is scrollable almost
+   immediately and there are no per-scene stalls — the rest streams by range as
+   you scrub. Keeps the desktop chrome: logo bar, nav, route rail, pinned copy,
+   blue→gold accent, scroll hint.
+   ========================================================================== */
+function mountDesktopFlight(container, config) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const S = config.sections || [];
+  const SRC = config.desktopVideo;
+  const N = S.length;
+  if (!N || !SRC) return false;
+  injectDFCSS();
+  container.classList.add('df-root');
+  container.style.setProperty('--df-accent', S[0].accent || '#3da9fc');
+
+  // fixed background
+  const bg = mel('div', 'df-bg');
+  const poster = mel('img', 'df-poster'); poster.src = config.desktopPoster || S[0].still || ''; poster.alt = '';
+  const video = mel('video', 'df-video');
+  video.muted = true; video.defaultMuted = true; video.playsInline = true; video.loop = false; video.preload = 'auto';
+  video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('preload', 'auto');
+  video.src = SRC;
+  bg.appendChild(poster); bg.appendChild(video); bg.appendChild(mel('div', 'df-veil'));
+
+  // top bar
+  const bar = mel('div', 'df-bar');
+  const brand = mel('a', 'df-brand'); brand.href = (config.brand && config.brand.href) || '#top';
+  if (config.brand && config.brand.logo) { const lg = mel('img', 'df-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
+  const bnm = mel('span', 'df-brand__name'); bnm.textContent = (config.brand && config.brand.name) || ''; brand.appendChild(bnm);
+  bar.appendChild(brand);
+  const nav = mel('nav', 'df-nav');
+  const navItems = S.map((s, i) => { const t = mel('button', 'df-nav__item'); t.textContent = s.label || ('0' + (i + 1)); t.addEventListener('click', () => jumpTo(i)); nav.appendChild(t); return t; });
+  bar.appendChild(nav);
+  if (config.cta && config.cta.label) { const c = mel('a', 'df-bar__cta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label; bar.appendChild(c); }
+
+  const prog = mel('div', 'df-progress'); const progFill = mel('i'); prog.appendChild(progFill);
+
+  // copy + route
+  const copylayer = mel('div', 'df-copylayer');
+  const copies = S.map((s, i) => { const c = mel('article', 'df-copy'); c.innerHTML = copyHTML(s, i, N, 'df'); copylayer.appendChild(c); return c; });
+  const route = mel('div', 'df-route');
+  const dots = S.map((s, i) => { const d = mel('button', 'df-route__dot'); d.innerHTML = '<span>' + msesc(s.label || '') + '</span><i></i>'; d.addEventListener('click', () => jumpTo(i)); route.appendChild(d); return d; });
+  const hint = mel('div', 'df-hint'); hint.innerHTML = '<span>' + msesc(config.hint || 'scroll') + '</span><i></i>';
+
+  const track = mel('div', 'df-track');
+  [bg, bar, prog, copylayer, route, hint, track].forEach(n => container.appendChild(n));
+
+  const PER = 1.5;                         // viewport-heights of scroll per scene
+  track.style.height = (N * PER * 100) + 'vh';
+
+  let DUR = 0, cur = 0, tgt = 0, ticking = false, active = -1;
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+  const lerpColor = (c1, c2, t) => {
+    const p = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+    const a = p(c1), b = p(c2);
+    return 'rgb(' + a.map((v, k) => Math.round(v + (b[k] - v) * t)).join(',') + ')';
+  };
+
+  function jumpTo(i) { window.scrollTo({ top: track.offsetTop + (i + 0.5) / N * (track.offsetHeight - window.innerHeight), behavior: reduce ? 'auto' : 'smooth' }); }
+
+  function prime() { const p = video.play(); if (p && p.then) p.then(() => { try { video.pause(); } catch (e) {} }).catch(() => {}); }
+  video.addEventListener('loadedmetadata', () => { DUR = video.duration || 1; prime(); read(); });
+  let shown = false;
+  const reveal = () => { if (!shown) { shown = true; bg.classList.add('df-on'); } };
+  video.addEventListener('seeked', reveal, { once: true });
+  video.addEventListener('canplay', () => setTimeout(reveal, 300));
+  window.addEventListener('pointerdown', prime, { once: true });
+
+  function read() {
+    const vh = window.innerHeight;
+    const h = track.offsetHeight - vh;
+    const p = h > 0 ? clamp((window.scrollY - track.offsetTop) / h) : 0;
+    tgt = p;
+    const pn = p * N;
+    const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
+    for (let i = 0; i < N; i++) {
+      let op = 0, ty = 10;
+      if (i === near) { const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8; }
+      copies[i].style.opacity = op.toFixed(3);
+      copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+      copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
+    }
+    if (near !== active) {
+      active = near;
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
+      // accent eases between the outgoing and incoming scene colours
+    }
+    const a0 = S[near].accent || '#3da9fc';
+    const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
+    const frac = clamp(pn - near - 0.5);
+    container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
+    progFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    hint.style.opacity = clamp(1 - pn * 2);
+    bar.style.setProperty('--df-barbg', p > 0.01 ? '.66' : '.32');
+    ticking = false;
+  }
+  function raf() {
+    if (DUR) {
+      cur += (tgt - cur) * 0.15;
+      const t = clamp(cur, 0, 0.999) * DUR;
+      if (!video.seeking && Math.abs(video.currentTime - t) > 0.033) { try { video.currentTime = t; } catch (e) {} }
+    }
+    requestAnimationFrame(raf);
+  }
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
+  window.addEventListener('resize', read);
+  read();
+  requestAnimationFrame(raf);
+  return true;
+}
+
+function injectDFCSS() {
+  if (document.getElementById('df-css')) return;
+  const st = document.createElement('style'); st.id = 'df-css';
+  st.textContent = `
+  .df-root{position:relative;z-index:1;--df-accent:#3da9fc;}
+  .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
+  .df-poster,.df-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
+  .df-video{opacity:0;transition:opacity .5s ease;}
+  .df-on .df-video{opacity:1;} .df-on .df-poster{opacity:0;transition:opacity .5s ease;}
+  .df-veil{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(5,7,12,.82) 0%,rgba(5,7,12,.45) 32%,rgba(5,7,12,.08) 60%,transparent 100%),
+      linear-gradient(180deg,rgba(5,7,12,.5) 0%,transparent 22%,transparent 70%,rgba(5,7,12,.6) 100%);}
+  .df-bar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:clamp(14px,2.2vw,24px) clamp(20px,4vw,56px);
+    background:linear-gradient(180deg,rgba(5,7,12,var(--df-barbg,.32)),transparent);transition:background .3s;}
+  .df-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#f2f6fc;}
+  .df-brand__logo{width:42px;height:42px;border-radius:50%;object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.16);}
+  .df-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.08rem;}
+  .df-nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:color-mix(in srgb,#0c1220 78%,transparent);
+    border:1px solid color-mix(in srgb,var(--df-accent) 30%,transparent);}
+  .df-nav__item{font:inherit;font-size:.8rem;color:#aab6c8;border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
+  .df-nav__item:hover{color:#fff;} .df-nav__item.is-active{color:#05070c;background:var(--df-accent);}
+  .df-bar__cta{text-decoration:none;font-weight:600;font-size:.9rem;color:#05070c;background:var(--df-accent);
+    padding:10px 20px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 26px -12px color-mix(in srgb,var(--df-accent) 70%,transparent);}
+  .df-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:color-mix(in srgb,var(--df-accent) 14%,transparent);}
+  .df-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--df-accent);}
+  .df-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
+  .df-copy{position:absolute;left:0;bottom:0;width:min(56vw,620px);
+    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);opacity:0;transition:opacity .4s ease,transform .4s ease;}
+  .df-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
+  .df-copy__eyebrow{display:block;margin-top:16px;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
+  .df-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
+    font-size:clamp(2.2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
+  .df-copy__body{margin-top:18px;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
+  .df-copy__tags{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
+  .df-copy__tags li{font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:999px;color:#eef3f9;
+    background:color-mix(in srgb,var(--df-accent) 20%,rgba(5,7,12,.4));border:1px solid color-mix(in srgb,var(--df-accent) 40%,transparent);}
+  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;}
+  .df-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;pointer-events:auto;}
+  .df-btn--primary{background:var(--df-accent);color:#05070c;}
+  .df-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
+  .df-route{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:20px;}
+  .df-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
+  .df-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--df-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
+  .df-route__dot.is-active i{background:var(--df-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--df-accent) 22%,transparent);}
+  .df-route__dot span{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.76rem;font-weight:600;color:#f2f6fc;
+    background:color-mix(in srgb,#0c1220 88%,transparent);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
+  .df-route__dot:hover span,.df-route__dot.is-active span{opacity:1;transform:translateY(-50%);}
+  .df-hint{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:9px;
+    font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#93a2b8;transition:opacity .3s;}
+  .df-hint i{width:22px;height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.28);position:relative;}
+  .df-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--df-accent);transform:translateX(-50%);animation:df-wheel 1.7s ease-in-out infinite;}
+  @keyframes df-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+  .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
+  body.past-flight .df-bg,body.past-flight .df-route,body.past-flight .df-hint{opacity:0!important;transition:opacity .4s ease;}
+  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} }
+  `;
+  document.head.appendChild(st);
+}
+
 function mountScrollWorld(container, config) {
   // Real phones get a different build entirely (see mountMobileStory). Decide once
   // at load from the pointer type / width — a device does not change mid-session.
   if (window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860) {
     return mountMobileStory(container, config);
   }
+  // Desktop: single continuous flight video, scrubbed (see mountDesktopFlight).
+  if (config.desktopVideo && mountDesktopFlight(container, config)) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phone detection. `coarse` is captured once (input type doesn't change mid-session);
   // the ≤860px query is read live via isMobile() so a desktop resize/DevTools toggle
@@ -930,6 +1110,8 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       brand: { name: 'OPM Ventures', href: '#top', logo: 'assets/img/logo.png' },
       cta: { label: 'Claim your system', href: '#tiers' },
       mobileVideo: 'assets/vid/flight-m.mp4',
+      desktopVideo: 'assets/vid/flight-d.mp4',
+      desktopPoster: 'assets/flight-d-poster.jpg',
       hint: 'scroll to fly in',
       diveScroll: 1.3,
       sections: [
