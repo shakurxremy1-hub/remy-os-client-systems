@@ -167,12 +167,13 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- fonts load non-render-blocking so the first scene paints immediately -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
   <link rel="preload" as="image" href="assets/s1.jpg" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/s1-m.jpg" media="(max-width: 860px)" />
-  <!-- start the first flight clip downloading during HTML parse, before the engine script runs -->
-  <link rel="preload" as="fetch" href="assets/vid/s1.mp4" type="video/mp4" fetchpriority="high" media="(min-width: 861px)" />
 </head>
 <body>
   <div id="top"></div>
@@ -692,10 +693,11 @@ function mountScrollWorld(container, config) {
       s.el.style.opacity = op; s.visible = op > 0.001;
       s.el.style.zIndex = (i === ci) ? '120' : String(100 + Math.round(op * 10));
       if (!s.hasClip || !s.ready) {
-        // Hold the still on the clip's frame-0 crop (no scroll-driven zoom) so that
-        // when the video takes over it resumes from the exact same frame — the
-        // hand-off is invisible instead of a visible "still, then it starts".
-        s.img.style.transform = `translateX(${stageX - 2}vw) scale(1.03)`;
+        // Only a whisper of scroll-driven zoom before the clip is ready (was 0.14) —
+        // enough that scrolling feels acknowledged, small enough that the still→video
+        // hand-off doesn't visibly jump.
+        const sc = reduce ? 1 : 1.03 + local * 0.05;
+        s.img.style.transform = `translateX(${stageX - 2}vw) scale(${sc.toFixed(3)})`;
       }
     }
 
