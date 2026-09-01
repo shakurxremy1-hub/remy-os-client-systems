@@ -113,8 +113,7 @@
     /* when the outro (founder + tiers) is on screen, get the flight's fixed chrome out of the way */
     body.past-flight .sw-route,
     body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
-    body.past-flight .mv-copylayer,
-    body.past-flight .mv-stage { opacity: 0 !important; pointer-events: none; transition: opacity .3s ease; }
+    body.past-flight .mv-bg { opacity: 0 !important; transition: opacity .4s ease; }
 
     /* ============ TIERS ============ */
     .tiers {
@@ -344,11 +343,11 @@
    ========================================================================== */
 
 /* ============================================================================
-   mountMobileStory — the phone experience: ONE continuous flight video,
-   scroll-scrubbed. iOS chokes on many <video> elements at once, but a single
-   element scrubbed by scrollY is fine. A tall spacer track provides the scroll
-   distance; scroll fraction -> video.currentTime. Copy is pinned and fades
-   scene by scene. Reduced-motion falls back to stacked stills.
+   mountMobileStory — the phone experience: ONE seamless looping flight video
+   as a fixed cinematic background, with the scene copy scrolling over it as
+   normal sections. The video is NOT tied to scroll (that is what kept breaking
+   on iOS) — it just plays, muted + looping, forever. Bulletproof on every phone.
+   Reduced-motion / blocked autoplay falls back to a still background.
    ========================================================================== */
 function mountMobileStory(container, config) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -358,6 +357,25 @@ function mountMobileStory(container, config) {
   const N = S.length;
   injectMobileCSS();
   container.classList.add('mv-root');
+
+  // ---- fixed background: video + poster + veil ----
+  const bg = mel('div', 'mv-bg');
+  const poster = mel('img', 'mv-bg__poster');
+  poster.src = S[0].stillMobile || S[0].still || ''; poster.alt = '';
+  bg.appendChild(poster);
+  if (!reduce && SRC) {
+    const v = mel('video', 'mv-bg__video');
+    v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true; v.autoplay = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('loop', ''); v.setAttribute('autoplay', '');
+    v.src = SRC;
+    const go = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    v.addEventListener('loadeddata', () => { go(); });
+    v.addEventListener('playing', () => bg.classList.add('mv-bg--on'), { once: true });
+    window.addEventListener('touchstart', go, { once: true, passive: true });
+    window.addEventListener('pointerdown', go, { once: true, passive: true });
+    bg.appendChild(v);
+  }
+  bg.appendChild(mel('div', 'mv-bg__veil'));
 
   // ---- top bar ----
   const bar = mel('div', 'mv-bar');
@@ -371,98 +389,38 @@ function mountMobileStory(container, config) {
     const c = mel('a', 'mv-bar__cta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label; bar.appendChild(c);
   }
   const prog = mel('div', 'mv-progress'); const progFill = mel('i'); prog.appendChild(progFill);
-  container.appendChild(bar); container.appendChild(prog);
 
-  // ---- reduced motion: stacked stills, no video ----
-  if (reduce || !SRC) {
-    S.forEach((s, i) => {
-      const sec = mel('section', 'mv-still-scene'); sec.id = s.id || ('mv' + i);
-      sec.style.setProperty('--mv-accent', s.accent || '#3da9fc');
-      const img = mel('img', 'mv-still-scene__img'); img.src = s.stillMobile || s.still || ''; img.alt = '';
-      const scrim = mel('div', 'mv-still-scene__scrim');
-      const copy = mel('div', 'mv-copy mv-copy--static'); copy.innerHTML = copyHTML(s, i, N);
-      sec.appendChild(img); sec.appendChild(scrim); sec.appendChild(copy); container.appendChild(sec);
-    });
-    return;
-  }
-
-  // ---- stage: one poster + one video ----
-  const stage = mel('div', 'mv-stage');
-  const poster = mel('img', 'mv-poster'); poster.src = S[0].stillMobile || S[0].still || ''; poster.alt = '';
-  const video = mel('video', 'mv-video');
-  video.muted = true; video.defaultMuted = true; video.playsInline = true; video.loop = false; video.preload = 'auto';
-  video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('preload', 'auto');
-  video.src = SRC;
-  stage.appendChild(poster); stage.appendChild(video);
-
-  // ---- copy layer ----
-  const copylayer = mel('div', 'mv-copylayer');
-  const copies = S.map((s, i) => {
-    const c = mel('div', 'mv-copy'); c.style.setProperty('--mv-accent', s.accent || '#3da9fc');
-    c.innerHTML = copyHTML(s, i, N);
-    copylayer.appendChild(c); return c;
+  // ---- scrolling copy sections ----
+  const flow = mel('div', 'mv-flow');
+  S.forEach((s, i) => {
+    const sec = mel('section', 'mv-sec' + (i === 0 ? ' mv-sec--hero' : '') + (i === N - 1 ? ' mv-sec--last' : ''));
+    sec.id = s.id || ('mv' + i);
+    sec.style.setProperty('--mv-accent', s.accent || '#3da9fc');
+    const inner = mel('div', 'mv-sec__inner');
+    inner.innerHTML = copyHTML(s, i, N);
+    sec.appendChild(inner);
+    flow.appendChild(sec);
   });
 
-  // ---- scroll spacer ----
-  const track = mel('div', 'mv-track');
-  container.appendChild(stage); container.appendChild(copylayer); container.appendChild(track);
+  container.appendChild(bg); container.appendChild(bar); container.appendChild(prog); container.appendChild(flow);
 
-  let DUR = 0, cur = 0, target = 0, ticking = false, ready = false;
+  // progress bar
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    progFill.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0).toFixed(4) + ')';
+    bar.style.setProperty('--mv-barbg', window.scrollY > 12 ? '.72' : '.32');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  function primeOnce() {
-    const p = video.play();
-    if (p && p.then) p.then(() => { try { video.pause(); } catch (e) {} }).catch(() => {});
+  // reveal each section as it enters
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('mv-in'); }),
+      { threshold: 0.35 });
+    flow.querySelectorAll('.mv-sec').forEach(el => io.observe(el));
+  } else {
+    flow.querySelectorAll('.mv-sec').forEach(el => el.classList.add('mv-in'));
   }
-  video.addEventListener('loadedmetadata', () => { DUR = video.duration || 1; primeOnce(); read(); });
-  const revealVid = () => { stage.classList.add('mv-ready'); ready = true; };
-  video.addEventListener('seeked', revealVid, { once: true });
-  video.addEventListener('canplay', () => { setTimeout(() => { if (!ready) revealVid(); }, 400); });
-  window.addEventListener('touchstart', primeOnce, { once: true, passive: true });
-  window.addEventListener('pointerdown', primeOnce, { once: true, passive: true });
-
-  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
-
-  function read() {
-    const vh = window.innerHeight;
-    const h = track.offsetHeight - vh;
-    const p = h > 0 ? clamp((window.scrollY - track.offsetTop) / h) : 0;
-    target = p;
-    // Show exactly ONE scene's copy at a time (bottom-anchored, so overlapping two
-    // reads as mush). Nearest scene wins; it eases from 1.0 at band-centre down to a
-    // ~0.6 floor at the band edge, so the headline never fully blinks out at a seam.
-    const pn = p * N;
-    const active = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
-    for (let i = 0; i < N; i++) {
-      let op = 0, ty = 8;
-      if (i === active) {
-        const d = Math.abs(pn - (i + 0.5));          // 0 centre … 0.5 edge
-        op = 0.6 + 0.4 * smooth(1 - d / 0.5);
-        ty = (0.5 - d) * 8;
-      }
-      copies[i].style.opacity = op.toFixed(3);
-      copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
-      copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
-    }
-    progFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
-    bar.style.setProperty('--mv-barbg', p > 0.02 ? '.72' : '.4');
-    ticking = false;
-  }
-  function raf() {
-    if (DUR) {
-      cur += (target - cur) * 0.16;
-      const t = clamp(cur, 0, 0.999) * DUR;
-      if (video && !video.seeking && Math.abs(video.currentTime - t) > 0.033) {
-        try { video.currentTime = t; } catch (e) {}
-      }
-    }
-    requestAnimationFrame(raf);
-  }
-  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
-  window.addEventListener('resize', read);
-  window.addEventListener('orientationchange', read);
-  read();
-  requestAnimationFrame(raf);
 }
 
 function copyHTML(s, i, N) {
@@ -484,46 +442,49 @@ function injectMobileCSS() {
   const st = document.createElement('style'); st.id = 'mv-css';
   st.textContent = `
   .mv-root{position:relative;z-index:1;}
+  .mv-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
+  .mv-bg__poster,.mv-bg__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 46%;}
+  .mv-bg__video{opacity:0;transition:opacity .6s ease;}
+  .mv-bg--on .mv-bg__video{opacity:1;}
+  .mv-bg--on .mv-bg__poster{opacity:0;transition:opacity .6s ease;}
+  .mv-bg__veil{position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 12%, rgba(5,7,12,.66), rgba(5,7,12,.28) 46%, rgba(5,7,12,.5) 100%),
+      linear-gradient(180deg, rgba(5,7,12,.34) 0%, rgba(5,7,12,.12) 34%, rgba(5,7,12,.62) 100%);}
   .mv-bar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
     gap:12px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
-    background:linear-gradient(180deg,rgba(5,7,12,var(--mv-barbg,.4)),rgba(5,7,12,0));transition:background .3s;}
+    background:linear-gradient(180deg,rgba(5,7,12,var(--mv-barbg,.32)),rgba(5,7,12,0));transition:background .3s;}
   .mv-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
   .mv-brand__logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.16);}
   .mv-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.98rem;}
   .mv-bar__cta{flex:0 0 auto;text-decoration:none;font-weight:600;font-size:.82rem;color:#05070c;background:#d9b26a;
     padding:9px 15px;border-radius:999px;white-space:nowrap;}
   .mv-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:rgba(255,255,255,.08);}
-  .mv-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:#68d0ff;}
-  .mv-stage{position:fixed;inset:0;z-index:10;background:#05070c;overflow:hidden;}
-  .mv-poster,.mv-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
-  .mv-video{opacity:0;transition:opacity .45s ease;}
-  .mv-stage.mv-ready .mv-video{opacity:1;}
-  .mv-stage.mv-ready .mv-poster{opacity:0;transition:opacity .45s ease;}
-  .mv-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
-  .mv-copy{position:absolute;left:0;right:0;bottom:0;padding:0 20px calc(34px + env(safe-area-inset-bottom));
-    display:flex;flex-direction:column;align-items:flex-start;opacity:0;transition:opacity .35s ease,transform .35s ease;
-    background:linear-gradient(180deg,rgba(5,7,12,0) 0%,rgba(5,7,12,.55) 42%,rgba(5,7,12,.92) 100%);padding-top:30vh;}
-  .mv-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;color:#8898ac;}
+  .mv-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:#68d0ff;transition:transform .12s linear;}
+  .mv-flow{position:relative;z-index:10;}
+  .mv-sec{min-height:88svh;min-height:88vh;display:flex;align-items:flex-end;padding:0 20px calc(46px + env(safe-area-inset-bottom));}
+  .mv-sec--hero{align-items:center;min-height:100svh;min-height:100vh;}
+  .mv-sec--last{min-height:96svh;}
+  .mv-sec__inner{width:100%;max-width:34rem;display:flex;flex-direction:column;align-items:flex-start;
+    opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+  .mv-sec.mv-in .mv-sec__inner{opacity:1;transform:none;}
+  .mv-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;color:#9aa7b8;}
   .mv-copy__eyebrow{margin-top:12px;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.74rem;
     letter-spacing:.16em;text-transform:uppercase;color:var(--mv-accent);}
   .mv-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
-    font-size:clamp(2rem,8.5vw,2.8rem);line-height:1.04;margin:10px 0 0;letter-spacing:-.01em;text-shadow:0 2px 24px rgba(5,7,12,.85);}
-  .mv-copy__body{margin:12px 0 0;font-size:1.02rem;line-height:1.5;color:#c7d0de;max-width:34ch;text-shadow:0 1px 12px rgba(5,7,12,.9);}
-  .mv-copy__tags{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
-  .mv-copy__tags li{font-size:.76rem;font-weight:600;padding:6px 12px;border-radius:999px;
-    color:color-mix(in srgb,var(--mv-accent) 82%,#fff);background:color-mix(in srgb,var(--mv-accent) 15%,transparent);
-    border:1px solid color-mix(in srgb,var(--mv-accent) 34%,transparent);}
-  .mv-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;}
-  .mv-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:999px;
-    text-decoration:none;font-weight:600;font-size:.95rem;}
-  .mv-btn--primary{background:var(--mv-accent);color:#05070c;}
-  .mv-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.32);}
-  .mv-track{position:relative;z-index:1;width:100%;height:900svh;height:900vh;pointer-events:none;}
-  /* reduced-motion fallback */
-  .mv-still-scene{position:relative;min-height:100svh;min-height:100vh;overflow:hidden;display:flex;}
-  .mv-still-scene__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
-  .mv-still-scene__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.4) 0%,rgba(5,7,12,0) 30%,rgba(5,7,12,.6) 66%,rgba(5,7,12,.95) 100%);}
-  .mv-copy--static{position:relative;opacity:1;background:none;padding-top:0;align-self:flex-end;z-index:2;}
+    font-size:clamp(2rem,8.7vw,2.9rem);line-height:1.03;margin:10px 0 0;letter-spacing:-.01em;
+    text-shadow:0 3px 30px rgba(5,7,12,.95),0 1px 4px rgba(5,7,12,.9);}
+  .mv-copy__body{margin:14px 0 0;font-size:1.04rem;line-height:1.5;color:#dbe2ec;max-width:32ch;
+    text-shadow:0 2px 16px rgba(5,7,12,.95);}
+  .mv-copy__tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+  .mv-copy__tags li{font-size:.78rem;font-weight:600;padding:7px 13px;border-radius:999px;color:#eef3f9;
+    background:color-mix(in srgb,var(--mv-accent) 24%,rgba(5,7,12,.5));
+    border:1px solid color-mix(in srgb,var(--mv-accent) 42%,transparent);backdrop-filter:blur(4px);}
+  .mv-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+  .mv-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;
+    text-decoration:none;font-weight:600;font-size:.98rem;}
+  .mv-btn--primary{background:var(--mv-accent);color:#05070c;box-shadow:0 10px 30px -12px color-mix(in srgb,var(--mv-accent) 70%,transparent);}
+  .mv-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.4);background:rgba(5,7,12,.35);backdrop-filter:blur(4px);}
   `;
   document.head.appendChild(st);
 }
