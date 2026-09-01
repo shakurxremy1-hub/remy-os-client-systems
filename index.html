@@ -172,11 +172,18 @@
         onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
-  <link rel="preload" as="image" href="assets/s1.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/flight-d-poster.jpg" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/s1-m.jpg" media="(max-width: 860px)" />
 </head>
 <body>
   <div id="top"></div>
+  <!-- Start the desktop flight video downloading during HTML parse (before the engine
+       script runs). <source media> keeps phones from ever fetching it. The engine
+       adopts this element instead of creating its own. -->
+  <video id="df-pre" muted playsinline preload="auto" aria-hidden="true"
+         style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;z-index:0;background:#05070c">
+    <source src="assets/vid/flight-d.mp4" type="video/mp4" media="(min-width: 861px)" />
+  </video>
   <div id="world"></div>
 
   <!-- ============ FOUNDER (below the flight) ============ -->
@@ -354,6 +361,7 @@
    ========================================================================== */
 function mountMobileStory(container, config) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pre = document.getElementById('df-pre'); if (pre) pre.remove();   // desktop-only preload element
   const S = config.sections || [];
   const SRC = config.mobileVideo;
   if (!S.length) return;
@@ -515,10 +523,14 @@ function mountDesktopFlight(container, config) {
   // fixed background
   const bg = mel('div', 'df-bg');
   const poster = mel('img', 'df-poster'); poster.src = config.desktopPoster || S[0].still || ''; poster.alt = '';
-  const video = mel('video', 'df-video');
+  // Adopt the <video> that the HTML already started downloading during parse; only
+  // fall back to creating one if that element isn't there.
+  let video = document.getElementById('df-pre');
+  if (video) { video.removeAttribute('id'); video.removeAttribute('style'); video.className = 'df-video'; }
+  else { video = mel('video', 'df-video'); }
   video.muted = true; video.defaultMuted = true; video.playsInline = true; video.loop = false; video.preload = 'auto';
   video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('preload', 'auto');
-  video.src = SRC;
+  if (!video.currentSrc && !video.querySelector('source')) video.src = SRC;
   bg.appendChild(poster); bg.appendChild(video); bg.appendChild(mel('div', 'df-veil'));
 
   // top bar
