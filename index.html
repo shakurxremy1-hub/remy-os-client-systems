@@ -9,7 +9,9 @@
   <meta property="og:description" content="A website that converts, paid traffic engineered to feed it, and a business made lender-ready. One system." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#05070c" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305070c'/%3E%3Crect x='8' y='17' width='3.4' height='7' rx='1.2' fill='%233da9fc'/%3E%3Crect x='14.3' y='12' width='3.4' height='12' rx='1.2' fill='%233da9fc'/%3E%3Crect x='20.6' y='8' width='3.4' height='16' rx='1.2' fill='%23d9b26a'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
   <style>
     :root, .sw-root {
       --sw-bg: #05070c;          /* == generated scene background */
@@ -239,6 +241,11 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
   <link rel="preload" as="image" href="assets/frames/f0001.jpg" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0002.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0003.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0004.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0005.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0006.jpg" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/s1-m.jpg" media="(max-width: 860px)" />
 </head>
 <body>
@@ -639,13 +646,17 @@ function mountDesktopFlight(container, config) {
   // ---- progressive frame loader ----
   const imgs = new Array(FRAMES), state = new Uint8Array(FRAMES);   // 0 idle · 1 loading · 2 done
   let inflight = 0, seq = 0, firstDrawn = false;
-  const MAXP = 8;
+  const MAXP = 12;                          // browsers cap HTTP/2 streams generously; keep the pipe full
   function want(i) {
     i = Math.max(0, Math.min(FRAMES - 1, i));
     if (state[i]) return;
     state[i] = 1; inflight++;
     const im = new Image(); im.decoding = 'async';
-    im.onload = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); };
+    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); };
+    im.onload = () => {
+      // Decode off the main thread first so the later ctx.drawImage can't stall a scroll frame.
+      if (im.decode) im.decode().then(done, done); else done();
+    };
     im.onerror = () => { state[i] = 0; inflight--; if (i < seq) seq = i; pump(); };
     im.src = frameURL(i);
   }
@@ -712,7 +723,7 @@ function mountDesktopFlight(container, config) {
   const PER = 1.5;                         // viewport-heights of scroll per scene
   track.style.height = (N * PER * 100) + 'vh';
 
-  let cur = 0, tgt = 0, ticking = false, active = -1;
+  let cur = 0, tgt = 0, ticking = false, active = -1, lastP = 0;
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
   const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
   const lerpColor = (c1, c2, t) => {
@@ -733,7 +744,9 @@ function mountDesktopFlight(container, config) {
     tgt = p;
     // prioritise frames around where the reader actually is
     const ti = Math.round(p * (FRAMES - 1));
-    want(ti); want(ti + 3); want(ti + 8); want(ti - 2);
+    // prioritise a run of frames in the direction of travel so scrubbing stays ahead of the loader
+    const dir = p >= lastP ? 1 : -1; lastP = p;
+    for (let k = -2; k <= 14; k++) want(ti + k * dir);
     const pn = p * N;
     const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
     for (let i = 0; i < N; i++) {
