@@ -194,6 +194,40 @@
       color: #f2f6fc; text-decoration: none; font-size: 1.1rem;
       border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.04);
     }
+
+    /* ============ PREMIUM DETAILS ============ */
+    /* fine film grain over everything — static, no blend mode (cheap) */
+    #fx-grain {
+      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 140px 140px;
+    }
+    /* cursor-follow glow on the dark ground (desktop, fine pointer) */
+    #fx-glow {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
+      background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
+        color-mix(in srgb, var(--df-accent, #3da9fc) 12%, transparent), transparent 62%);
+    }
+    @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
+
+    /* tier cards: top sheen + cursor specular */
+    .tier { position: relative; overflow: hidden; }
+    .tier::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 42%; pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .tier::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
+      background: radial-gradient(200px circle at var(--gx, 50%) var(--gy, 0%),
+        rgba(255,255,255,.14), transparent 60%);
+    }
+    .tier:hover::after { opacity: 1; }
+    .tier { transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease; }
+    .tier:hover { transform: translateY(-4px); }
+
+    /* magnetic buttons return smoothly */
+    .df-bar__cta, .tier__btn, .contact__btn, .founder__btn { transition: transform .3s cubic-bezier(.22,1,.36,1), background .2s ease, border-color .2s ease; will-change: transform; }
     @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
   </style>
@@ -209,6 +243,8 @@
 </head>
 <body>
   <div id="top"></div>
+  <div id="fx-glow" aria-hidden="true"></div>
+  <div id="fx-grain" aria-hidden="true"></div>
   <div id="world"></div>
 
   <!-- ============ FOUNDER (below the flight) ============ -->
@@ -1325,6 +1361,44 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         document.body.classList.toggle('past-flight', seen.size > 0);
       }, { threshold: 0.1 });
       outro.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---- premium micro-details (desktop, fine pointer, motion-ok) ---- */
+    (function () {
+      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!fine || still) return;
+      var root = document.documentElement, glow = document.getElementById('fx-glow');
+      var gx = 0.5, gy = 0.4, tx = 0.5, ty = 0.4, raf = 0;
+      function loop() {
+        gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
+        if (glow) { root.style.setProperty('--fx-x', (gx * 100).toFixed(2) + '%'); root.style.setProperty('--fx-y', (gy * 100).toFixed(2) + '%'); }
+        raf = (Math.abs(tx - gx) > 0.001 || Math.abs(ty - gy) > 0.001) ? requestAnimationFrame(loop) : 0;
+      }
+      window.addEventListener('pointermove', function (e) {
+        tx = e.clientX / window.innerWidth; ty = e.clientY / window.innerHeight;
+        if (!raf) raf = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      // cursor specular on tier cards
+      document.querySelectorAll('.tier').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+        }, { passive: true });
+      });
+
+      // magnetic pull on the key buttons
+      document.querySelectorAll('.df-bar__cta, .tier__btn, .contact__btn--primary, .founder__btn--primary').forEach(function (btn) {
+        btn.addEventListener('pointermove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+          var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+          btn.style.transform = 'translate(' + (dx * 5).toFixed(1) + 'px,' + (dy * 5).toFixed(1) + 'px)';
+        }, { passive: true });
+        btn.addEventListener('pointerleave', function () { btn.style.transform = ''; }, { passive: true });
+      });
     })();
   </script>
 </body>
