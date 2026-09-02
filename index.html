@@ -5,9 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>REMY OS — Client Systems · Websites, Paid Ads &amp; Fundability</title>
   <meta name="description" content="One operator, one system. A website engineered to convert, ad campaigns that produce leads, and a business made fundable enough to borrow and scale. Built through REMY OS." />
-  <meta property="og:title" content="REMY OS — Client Systems" />
+  <meta property="og:title" content="OPM Ventures — One system: Websites, Paid Ads & Fundability" />
   <meta property="og:description" content="A website that converts, paid traffic engineered to feed it, and a business made lender-ready. One system." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://opmventuresllc.com/" />
+  <meta property="og:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OPM Ventures — One system" />
+  <meta name="twitter:description" content="Websites, paid ads and fundability, built as one system." />
+  <meta name="twitter:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
   <meta name="theme-color" content="#05070c" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png" />
@@ -498,11 +506,12 @@
    ========================================================================== */
 
 /* ============================================================================
-   mountMobileStory — the phone experience: an editorial scroll story
-   (maddogs.cosmos.studio-style). A cinematic hero, then one narrative section
-   per scene with a big headline, a framed inline still, copy and proof chips.
-   No scroll-scrubbing, no fixed video behind text — content-forward and
-   bulletproof on every phone. Founder + tiers + contact flow after.
+   mountMobileStory — the phone experience: full-bleed cinematic panels.
+   One 100svh panel per scene: the scene image full-bleed with a slow Ken-Burns
+   push and scroll parallax, its short clip autoplaying once as you arrive (a
+   single <video> at a time — the pattern iOS actually allows), a kinetic
+   word-mask headline, chips and CTAs over a scrim. Scroll-snap between panels,
+   a dot rail down the side. Founder + tiers + contact flow after.
    ========================================================================== */
 function mountMobileStory(container, config) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -511,10 +520,13 @@ function mountMobileStory(container, config) {
   const N = S.length;
   injectMobileCSS();
   container.classList.add('mv2-root');
+  try { document.documentElement.style.scrollSnapType = 'y proximity'; } catch (e) {}
 
   const ids = S.map((s, i) => s.id || ('s' + (i + 1)));
+  const kinetic = t => '<span class="mv2-kt">' + String(t).split(' ')
+    .map(w => '<span class="mv2-kt__w"><span class="mv2-kt__i">' + msesc(w) + '</span></span>').join(' ') + '</span>';
 
-  // ---- top bar + menu ----
+  // top bar + menu
   const bar = mel('div', 'mv2-bar');
   const brand = mel('a', 'mv2-brand'); brand.href = '#top';
   if (config.brand && config.brand.logo) { const lg = mel('img', 'mv2-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
@@ -522,73 +534,98 @@ function mountMobileStory(container, config) {
   bar.appendChild(brand);
   const menuBtn = mel('button', 'mv2-menu-btn'); menuBtn.setAttribute('aria-label', 'Menu'); menuBtn.innerHTML = '<i></i><i></i><i></i>';
   bar.appendChild(menuBtn);
-
   const menu = mel('nav', 'mv2-menu');
-  const menuLinks = S.map((s, i) => ({ href: '#' + ids[i], label: s.label || ('0' + (i + 1)) }))
+  const links = S.map((s, i) => ({ href: '#' + ids[i], label: s.label || ('0' + (i + 1)) }))
     .concat([{ href: '#founder', label: 'The operator' }, { href: '#tiers', label: 'Pricing' }, { href: '#contact', label: 'Contact' }]);
-  menu.innerHTML = menuLinks.map(l => '<a href="' + l.href + '">' + msesc(l.label) + '</a>').join('');
+  menu.innerHTML = links.map(l => '<a href="' + l.href + '">' + msesc(l.label) + '</a>').join('');
   const closeMenu = () => document.body.classList.remove('mv2-menu-open');
   menuBtn.addEventListener('click', () => document.body.classList.toggle('mv2-menu-open'));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-
   container.appendChild(bar); container.appendChild(menu);
 
-  // ---- hero (scene 1) ----
-  const hero = mel('section', 'mv2-hero'); hero.id = ids[0];
-  const hmedia = mel('div', 'mv2-hero__media');
-  const himg = mel('img', 'mv2-hero__img'); himg.src = S[0].stillMobile || S[0].still || ''; himg.alt = ''; himg.decoding = 'async';
-  hmedia.appendChild(himg);
-  if (!reduce && config.mobileVideo) {
-    const v = mel('video', 'mv2-hero__video');
-    v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true; v.autoplay = true; v.preload = 'auto';
-    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('loop', ''); v.setAttribute('autoplay', '');
-    v.src = config.mobileVideo;
-    v.addEventListener('playing', () => hero.classList.add('mv2-hero--vid'), { once: true });
-    const go = () => { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); };
-    v.addEventListener('loadeddata', go); window.addEventListener('touchstart', go, { once: true, passive: true });
-    hmedia.appendChild(v);
-  }
-  const hscrim = mel('div', 'mv2-hero__scrim');
-  const hcopy = mel('div', 'mv2-hero__copy');
-  hcopy.style.setProperty('--mv2-accent', S[0].accent || '#3da9fc');
-  hcopy.innerHTML =
-    (S[0].eyebrow ? '<span class="mv2-eyebrow">' + msesc(S[0].eyebrow) + '</span>' : '') +
-    '<h1 class="mv2-hero__title">' + msesc(S[0].title || '') + '</h1>' +
-    (S[0].body ? '<p class="mv2-hero__body">' + msesc(S[0].body) + '</p>' : '') +
-    (S[0].tags && S[0].tags.length ? '<ul class="mv2-chips">' + S[0].tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
-    '<a class="mv2-scrollcue" href="#' + ids[1] + '"><span>Scroll</span><i></i></a>';
-  hero.appendChild(hmedia); hero.appendChild(hscrim); hero.appendChild(hcopy);
-  container.appendChild(hero);
+  // dot rail
+  const rail = mel('div', 'mv2-rail');
+  const dots = S.map(() => { const d = mel('i'); rail.appendChild(d); return d; });
+  container.appendChild(rail);
 
-  // ---- narrative sections (scenes 2..N) ----
-  for (let i = 1; i < N; i++) {
-    const s = S[i];
-    const sec = mel('section', 'mv2-sec'); sec.id = ids[i];
+  // panels
+  const panels = S.map((s, i) => {
+    const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
+    sec.id = ids[i];
     sec.style.setProperty('--mv2-accent', s.accent || '#3da9fc');
-    let html = '<div class="mv2-sec__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</div>';
+    const bg = mel('div', 'mv2-panel__bg');
+    const img = mel('img', 'mv2-panel__img');
+    img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
+    img.alt = ''; img.decoding = 'async'; img.loading = i < 2 ? 'eager' : 'lazy';
+    bg.appendChild(img);
+    const scrim = mel('div', 'mv2-panel__scrim');
+    const copy = mel('div', 'mv2-panel__copy');
+    let html = '<div class="mv2-panel__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</div>';
     if (s.eyebrow) html += '<span class="mv2-eyebrow">' + msesc(s.eyebrow) + '</span>';
-    if (s.title) html += '<h2 class="mv2-sec__title">' + msesc(s.title) + '</h2>';
-    html += '<figure class="mv2-sec__figure"><img src="' + msesc(s.still || s.stillMobile || '') + '" alt="" loading="lazy" decoding="async"></figure>';
-    if (s.body) html += '<p class="mv2-sec__body">' + msesc(s.body) + '</p>';
+    if (s.title) html += (i === 0 ? '<h1 class="mv2-panel__title">' : '<h2 class="mv2-panel__title">') + kinetic(s.title) + (i === 0 ? '</h1>' : '</h2>');
+    if (s.body) html += '<p class="mv2-panel__body">' + msesc(s.body) + '</p>';
     if (s.tags && s.tags.length) html += '<ul class="mv2-chips">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>';
-    if (s.cta) {
-      html += '<div class="mv2-sec__cta">' +
-        (s.cta.primary ? '<a class="mv2-btn mv2-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
-        (s.cta.secondary ? '<a class="mv2-btn mv2-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
-        '</div>';
-    }
-    sec.innerHTML = '<div class="mv2-sec__inner">' + html + '</div>';
+    if (s.cta) html += '<div class="mv2-panel__cta">' +
+      (s.cta.primary ? '<a class="mv2-btn mv2-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+      (s.cta.secondary ? '<a class="mv2-btn mv2-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') + '</div>';
+    if (i === 0) html += '<a class="mv2-scrollcue" href="#' + ids[1] + '"><span>Scroll</span><i></i></a>';
+    copy.innerHTML = html;
+    sec.appendChild(bg); sec.appendChild(scrim); sec.appendChild(copy);
     container.appendChild(sec);
-  }
+    return { sec, bg, img, video: null, clip: 'assets/vid/scene' + (i + 1) + '.mp4', vis: false };
+  });
 
-  // reveal on enter
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('mv2-in'); io.unobserve(e.target); } }), { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
-    container.querySelectorAll('.mv2-sec, .mv2-hero__copy').forEach(el => io.observe(el));
-  } else {
-    container.querySelectorAll('.mv2-sec, .mv2-hero__copy').forEach(el => el.classList.add('mv2-in'));
+  // one video at a time, played on arrival
+  let playing = null;
+  function enter(o, i) {
+    o.sec.classList.add('mv2-live', 'mv2-vis'); o.vis = true;
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    if (reduce) return;
+    if (playing && playing !== o && playing.video) { try { playing.video.pause(); playing.video.currentTime = 0; } catch (e) {} }
+    playing = o;
+    if (!o.video) {
+      const v = mel('video', 'mv2-panel__video');
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = false; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
+      v.src = o.clip;
+      v.addEventListener('loadeddata', () => o.sec.classList.add('mv2-hasvid'));
+      o.bg.appendChild(v); o.video = v;
+    }
+    try { o.video.currentTime = 0; } catch (e) {}
+    const pr = o.video.play(); if (pr && pr.catch) pr.catch(() => {});
   }
+  function leave(o) { o.vis = false; o.sec.classList.remove('mv2-vis'); if (o.video) { try { o.video.pause(); o.video.currentTime = 0; } catch (e) {} } }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const i = panels.findIndex(x => x.sec === e.target); if (i < 0) return;
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) enter(panels[i], i);
+      else if (!e.isIntersecting) leave(panels[i]);
+    }), { threshold: [0, 0.55, 0.9] });
+    panels.forEach(o => io.observe(o.sec));
+  } else {
+    panels.forEach((o, i) => enter(o, i));
+  }
+  enter(panels[0], 0);
+
+  // parallax on the live panel's background
+  let tick = false;
+  function onScroll() {
+    if (tick) return; tick = true;
+    requestAnimationFrame(() => {
+      const vh = window.innerHeight;
+      panels.forEach(o => {
+        if (!o.vis) return;
+        const r = o.sec.getBoundingClientRect();
+        const prog = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
+        o.bg.style.transform = 'translateY(' + (prog * 6).toFixed(2) + '%) scale(1.06)';
+      });
+      tick = false;
+    });
+  }
+  if (!reduce) window.addEventListener('scroll', onScroll, { passive: true });
 }
+
 
 function copyHTML(s, i, N, px) {
   px = px || 'mv';
@@ -611,7 +648,7 @@ function injectMobileCSS() {
   st.textContent = `
   .mv2-root{position:relative;z-index:1;--mv2-accent:#3da9fc;}
   .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
-    padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.7),transparent);}
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
   .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
   .mv2-brand__logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.16);}
   .mv2-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.98rem;}
@@ -621,50 +658,59 @@ function injectMobileCSS() {
   body.mv2-menu-open .mv2-menu-btn i:nth-child(2){opacity:0;}
   body.mv2-menu-open .mv2-menu-btn i:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
   .mv2-menu{position:fixed;inset:0;z-index:69;background:rgba(5,7,12,.97);backdrop-filter:blur(6px);
-    display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 30px;
+    display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 30px;
     opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
   body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
-  .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.6rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+  .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
   .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#3da9fc);}
+  .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
+  .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
+  .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
   .mv2-eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mv2-accent);}
   .mv2-chips{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
   .mv2-chips li{font-size:.76rem;font-weight:600;padding:7px 13px;border-radius:999px;color:#eef3f9;
-    background:color-mix(in srgb,var(--mv2-accent) 16%,rgba(255,255,255,.03));border:1px solid color-mix(in srgb,var(--mv2-accent) 38%,transparent);}
-  /* hero */
-  .mv2-hero{position:relative;min-height:100svh;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;}
-  .mv2-hero__media{position:absolute;inset:0;background:#05070c;overflow:hidden;}
-  .mv2-hero__img,.mv2-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
-  .mv2-hero__video{opacity:0;transition:opacity .6s ease;}
-  .mv2-hero--vid .mv2-hero__video{opacity:1;} .mv2-hero--vid .mv2-hero__img{opacity:0;transition:opacity .6s ease;}
-  @media (prefers-reduced-motion:no-preference){ .mv2-hero__img{animation:mv2-kb 16s ease-out both;} }
-  @keyframes mv2-kb{from{transform:scale(1.12)}to{transform:scale(1)}}
-  .mv2-hero__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.5) 0%,rgba(5,7,12,0) 26%,rgba(5,7,12,.5) 60%,rgba(5,7,12,.95) 100%);}
-  .mv2-hero__copy{position:relative;z-index:2;padding:0 22px calc(40px + env(safe-area-inset-bottom));width:100%;
-    opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
-  .mv2-hero__copy.mv2-in{opacity:1;transform:none;}
-  .mv2-hero__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;margin:12px 0 0;
-    font-size:clamp(2.4rem,11vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-shadow:0 3px 30px rgba(5,7,12,.85);}
-  .mv2-hero__body{margin:14px 0 0;font-size:1.04rem;line-height:1.5;color:#d7deea;max-width:32ch;text-shadow:0 1px 12px rgba(5,7,12,.9);}
-  .mv2-scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:26px;text-decoration:none;color:#9aa7b8;
-    font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
+    background:color-mix(in srgb,var(--mv2-accent) 16%,rgba(255,255,255,.03));border:1px solid color-mix(in srgb,var(--mv2-accent) 38%,transparent);
+    opacity:0;transform:translateY(10px);transition:opacity .5s ease .25s,transform .5s ease .25s;}
+  .mv2-live .mv2-chips li{opacity:1;transform:none;}
+
+  .mv2-panel{position:relative;min-height:100svh;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;scroll-snap-align:start;}
+  .mv2-panel__bg{position:absolute;inset:-3% -3%;will-change:transform;transform:scale(1.06);}
+  .mv2-panel__img,.mv2-panel__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
+  .mv2-panel__video{opacity:0;transition:opacity .5s ease;}
+  .mv2-panel.mv2-hasvid .mv2-panel__video{opacity:1;}
+  @media (prefers-reduced-motion:no-preference){
+    .mv2-panel.mv2-live .mv2-panel__img{animation:mv2-kb 14s ease-out both;}
+    .mv2-panel:not(.mv2-vis) .mv2-panel__img{animation-play-state:paused;}
+  }
+  @keyframes mv2-kb{from{transform:scale(1.16)}to{transform:scale(1)}}
+  .mv2-panel__scrim{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(5,7,12,.42) 0%,rgba(5,7,12,0) 24%,rgba(5,7,12,0) 46%,rgba(5,7,12,.66) 72%,rgba(5,7,12,.96) 100%);}
+  .mv2-panel__copy{position:relative;z-index:2;width:100%;padding:0 20px calc(40px + env(safe-area-inset-bottom));}
+  .mv2-panel--hero .mv2-panel__copy{padding-bottom:calc(56px + env(safe-area-inset-bottom));}
+  .mv2-panel__num{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;color:#9aa7b8;margin-bottom:8px;
+    opacity:0;transition:opacity .5s ease;} .mv2-live .mv2-panel__num{opacity:1;}
+  .mv2-panel__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f8fbff;margin:10px 0 0;
+    font-size:clamp(2.3rem,10.5vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-shadow:0 3px 30px rgba(5,7,12,.85);}
+  .mv2-kt__w{display:inline-block;overflow:hidden;vertical-align:top;}
+  .mv2-kt__i{display:inline-block;transform:translateY(112%);transition:transform .7s cubic-bezier(.2,1,.3,1);}
+  .mv2-live .mv2-kt__i{transform:none;}
+  .mv2-kt__w:nth-child(2) .mv2-kt__i{transition-delay:.06s}
+  .mv2-kt__w:nth-child(3) .mv2-kt__i{transition-delay:.12s}
+  .mv2-kt__w:nth-child(4) .mv2-kt__i{transition-delay:.18s}
+  .mv2-kt__w:nth-child(n+5) .mv2-kt__i{transition-delay:.24s}
+  .mv2-panel__body{margin:16px 0 0;font-size:1.05rem;line-height:1.5;color:#d7deea;max-width:32ch;text-shadow:0 1px 12px rgba(5,7,12,.9);
+    opacity:0;transform:translateY(12px);transition:opacity .55s ease .18s,transform .55s ease .18s;}
+  .mv2-live .mv2-panel__body{opacity:1;transform:none;}
+  .mv2-panel__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .55s ease .3s,transform .55s ease .3s;}
+  .mv2-live .mv2-panel__cta{opacity:1;transform:none;}
+  .mv2-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;}
+  .mv2-btn--primary{background:var(--mv2-accent);color:#05070c;}
+  .mv2-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
+  .mv2-scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:24px;text-decoration:none;color:#9aa7b8;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
   .mv2-scrollcue i{width:20px;height:32px;border-radius:11px;border:2px solid rgba(255,255,255,.3);position:relative;}
   .mv2-scrollcue i::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:var(--mv2-accent);transform:translateX(-50%);animation:mv2-wheel 1.7s ease-in-out infinite;}
   @keyframes mv2-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,9px)}}
-  /* narrative section */
-  .mv2-sec{padding:clamp(64px,12vh,120px) 22px;}
-  .mv2-sec__inner{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
-  .mv2-sec.mv2-in .mv2-sec__inner{opacity:1;transform:none;}
-  .mv2-sec__num{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;letter-spacing:.14em;color:#8898ac;margin-bottom:12px;}
-  .mv2-sec__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;margin:10px 0 0;
-    font-size:clamp(2rem,8.6vw,2.7rem);line-height:1.04;letter-spacing:-.012em;}
-  .mv2-sec__figure{margin:22px 0 0;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 30px 70px -40px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.06);aspect-ratio:16/10;background:#0b1220;}
-  .mv2-sec__figure img{width:100%;height:100%;object-fit:cover;display:block;}
-  .mv2-sec__body{margin:20px 0 0;font-size:1.04rem;line-height:1.55;color:#c7d0de;max-width:36ch;}
-  .mv2-sec__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
-  .mv2-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;}
-  .mv2-btn--primary{background:var(--mv2-accent);color:#05070c;}
-  .mv2-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.32);}
+  @media (prefers-reduced-motion:reduce){ .mv2-kt__i{transform:none;} .mv2-panel__body,.mv2-panel__cta,.mv2-chips li,.mv2-panel__num{opacity:1;transform:none;} }
   `;
   document.head.appendChild(st);
 }
@@ -1521,7 +1567,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           if (e.isIntersecting && !seenS.has(e.target)) { seenS.add(e.target); scramble(e.target); sIO.unobserve(e.target); }
         });
       }, { threshold: 0.6 });
-      document.querySelectorAll('.df-copy__title, .mv2-hero__title, .mv2-sec__title, .founder__title, .tiers__title, .contact__title')
+      document.querySelectorAll('.df-copy__title, .founder__title, .tiers__title, .contact__title')
         .forEach(function (el) { sIO.observe(el); });
 
       // price count-up
