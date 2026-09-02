@@ -75,23 +75,33 @@
       padding: clamp(120px, 24vh, 260px) clamp(20px, 6vw, 80px) clamp(72px, 12vh, 150px);
     }
     .founder__inner {
-      max-width: 1080px; margin: 0 auto;
-      display: grid; grid-template-columns: minmax(240px, 420px) 1fr;
-      gap: clamp(32px, 6vw, 88px); align-items: center;
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(240px, 360px) minmax(0, 560px);
+      gap: clamp(32px, 6vw, 96px); align-items: center; justify-content: center;
     }
     .founder__portrait {
       position: relative; align-self: center;
       padding: 4% 6% 0;
     }
     .founder__portrait::before {   /* soft glow behind the head — no frame */
-      content: ""; position: absolute; inset: -4% 0 -2%;
-      background: radial-gradient(58% 54% at 50% 42%, color-mix(in srgb, #3da9fc 22%, transparent), transparent 72%);
+      content: ""; position: absolute; inset: -6% -4% -2%;
+      background: radial-gradient(56% 52% at 50% 40%, color-mix(in srgb, #3da9fc 24%, transparent), transparent 72%);
       pointer-events: none;
+    }
+    .founder__portrait::after {    /* warm pedestal so the face is grounded, not floating */
+      content: ""; position: absolute; left: 50%; bottom: 1%; width: 76%; height: 22%;
+      transform: translateX(-50%);
+      background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, #d9b26a 28%, transparent), transparent 70%);
+      filter: blur(6px); pointer-events: none;
     }
     .founder__portrait img {
       position: relative; z-index: 1;
       display: block; width: 100%; height: auto;
       filter: drop-shadow(0 30px 55px rgba(0,0,0,.6));
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .founder__portrait img { animation: founder-float 7s ease-in-out infinite; }
+      @keyframes founder-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
     }
     .founder__eyebrow {
       display: block; font-family: var(--sw-font-display);
@@ -145,14 +155,21 @@
     }
     .tier--feature {
       border-color: color-mix(in srgb, #3da9fc 55%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, #3da9fc 12%, transparent), rgba(255,255,255,.02)), #0b1424;
       box-shadow: 0 0 0 1px color-mix(in srgb, #3da9fc 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #3da9fc 60%, transparent);
       position: relative;
     }
-    .tier--feature::after {
-      content: "RECOMMENDED"; position: absolute; top: 0; right: 0;
-      font-family: var(--sw-font-body); font-size: 9px; font-weight: 700; letter-spacing: .18em;
-      color: #05070c; background: var(--sw-accent, #3da9fc);
-      padding: 4px 10px; border-radius: 0 18px 0 12px;
+    .tier__badge {
+      align-self: flex-start; margin: -2px 0 12px;
+      font-family: var(--sw-font-display); font-size: 10px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase; color: #05070c;
+      background: linear-gradient(100deg, #3da9fc, #68d0ff);
+      padding: 5px 12px; border-radius: 999px;
+      box-shadow: 0 6px 18px -8px color-mix(in srgb, #3da9fc 80%, transparent);
+    }
+    .tier:not(.tier--feature) .tier__badge { display: none; }
+    @media (min-width: 1001px) {
+      .tier--feature { margin-top: -14px; }
     }
     .tier h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; }
     .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
@@ -176,15 +193,28 @@
 
     /* ============ CONTACT ============ */
     .contact {
-      position: relative; z-index: 45;
+      position: relative; z-index: 45; overflow: hidden;
       background:
         radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #3da9fc 10%, transparent), transparent 70%),
         #05070c;
       color: #f2f6fc;
-      padding: clamp(80px, 14vh, 170px) clamp(20px, 6vw, 80px);
+      padding: clamp(72px, 12vh, 150px) clamp(20px, 6vw, 80px);
       text-align: center;
     }
-    .contact__inner { max-width: 640px; margin: 0 auto; }
+    .contact::before {   /* slow aurora drift behind the headline */
+      content: ""; position: absolute; left: 50%; top: -10%;
+      width: min(760px, 92vw); height: 340px; transform: translateX(-50%);
+      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #3da9fc 16%, transparent), transparent 70%);
+      pointer-events: none; filter: blur(20px);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .contact::before { animation: contact-aurora 12s ease-in-out infinite; }
+      @keyframes contact-aurora {
+        0%,100% { transform: translateX(-50%) translateY(0) scale(1); opacity: .9; }
+        50%     { transform: translateX(-50%) translateY(22px) scale(1.12); opacity: 1; }
+      }
+    }
+    .contact__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
     .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #68d0ff; }
     .contact__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; margin: 14px 0 0; letter-spacing: -.015em; }
     .contact__lead { margin: 18px auto 0; max-width: 40ch; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; color: color-mix(in srgb, #f2f6fc 80%, #8898ac); }
@@ -239,6 +269,13 @@
 
     /* magnetic buttons return smoothly */
     .df-bar__cta, .tier__btn, .contact__btn, .founder__btn { transition: transform .3s cubic-bezier(.22,1,.36,1), background .2s ease, border-color .2s ease; will-change: transform; }
+    /* tactile press */
+    .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
+    .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
+    /* brand-tinted text selection + a clean keyboard focus ring */
+    ::selection { background: color-mix(in srgb, #3da9fc 42%, transparent); color: #fff; }
+    :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
+    :focus:not(:focus-visible) { outline: none; }
     @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
 
@@ -368,6 +405,7 @@
       </div>
 
       <div class="tier tier--feature">
+        <span class="tier__badge">Recommended</span>
         <h3>Growth</h3>
         <div class="tier__blurb">Get leads. Site plus one ad platform, run weekly.</div>
         <div class="tier__price">$2,500 <small>setup</small></div>
