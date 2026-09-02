@@ -310,7 +310,12 @@
   <link rel="preload" as="image" href="assets/frames/f0004.jpg" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0005.jpg" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0006.jpg" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/s1-m.jpg" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.jpg" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0002.jpg" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0003.jpg" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0004.jpg" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0005.jpg" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0006.jpg" media="(max-width: 860px)" />
 </head>
 <body>
   <div id="top"></div>
@@ -822,7 +827,7 @@ function mountDesktopFlight(container, config) {
   const track = mel('div', 'df-track');
   [bg, bar, prog, copylayer, route, hint, track].forEach(n => container.appendChild(n));
 
-  const PER = 1.5;                         // viewport-heights of scroll per scene
+  const PER = config.scrollPer || 1.5;     // viewport-heights of scroll per scene
   track.style.height = (N * PER * 100) + 'vh';
 
   let cur = 0, tgt = 0, ticking = false, active = -1, lastP = 0;
@@ -943,17 +948,49 @@ function injectDFCSS() {
   .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
   body.past-flight .df-route,body.past-flight .df-hint,body.past-flight .df-copylayer{opacity:0!important;pointer-events:none;transition:opacity .5s ease;}
   @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} }
+
+  /* ---- phone: same flight, portrait chrome ---- */
+  .df-root--m .df-veil{
+    background:linear-gradient(180deg,rgba(5,7,12,.34) 0%,transparent 20%,transparent 42%,rgba(5,7,12,.62) 74%,rgba(5,7,12,.9) 100%);}
+  .df-root--m .df-bar{padding:11px 14px;gap:10px;}
+  .df-root--m .df-brand__logo{width:34px;height:34px;}
+  .df-root--m .df-brand__name{font-size:.98rem;}
+  .df-root--m .df-nav{display:none;}
+  .df-root--m .df-bar__cta{font-size:.8rem;padding:9px 15px;}
+  .df-root--m .df-copy{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
+  .df-root--m .df-copy__title{font-size:clamp(2.35rem,8.6vw,3rem);line-height:1.02;}
+  .df-root--m .df-copy__body{font-size:1rem;max-width:34ch;}
+  .df-root--m .df-copy__cta{margin-top:20px;}
+  .df-root--m .df-btn{padding:13px 22px;font-size:.94rem;}
+  .df-root--m .df-route{right:9px;gap:13px;}
+  .df-root--m .df-route__dot span{display:none;}
+  .df-root--m .df-hint{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);font-size:.68rem;}
   `;
   document.head.appendChild(st);
 }
 
 function mountScrollWorld(container, config) {
-  // Real phones get a different build entirely (see mountMobileStory). Decide once
-  // at load from the pointer type / width — a device does not change mid-session.
-  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860) {
+  // Decide once at load from the pointer type / width — a device does not change mid-session.
+  const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+
+  // Phones run the SAME canvas frame-sequence flight as desktop, just pointed at a
+  // portrait (720×1280) frame set. Canvas blitting has none of the iOS <video>
+  // autoplay / currentTime-seek limits that made the old per-scene clips freeze.
+  if (isPhone && config.frameCountMobile) {
+    container.classList.add('df-root--m');
+    const mcfg = Object.assign({}, config, {
+      frameDir: config.frameDirMobile || 'assets/frames-m/',
+      frameCount: config.frameCountMobile,
+      scrollPer: config.scrollPerMobile || 1.15
+    });
+    if (mountDesktopFlight(container, mcfg)) return;
+    container.classList.remove('df-root--m');
+  }
+  // Fallback build for phones if the frame set is unavailable (see mountMobileStory).
+  if (isPhone) {
     return mountMobileStory(container, config);
   }
-  // Desktop: single continuous flight video, scrubbed (see mountDesktopFlight).
+  // Desktop: single continuous flight, scrubbed (see mountDesktopFlight).
   if (config.frameCount && mountDesktopFlight(container, config)) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phone detection. `coarse` is captured once (input type doesn't change mid-session);
@@ -1389,6 +1426,9 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       mobileVideo: 'assets/vid/flight-m.mp4',
       frameCount: 386,
       frameDir: 'assets/frames/',
+      frameCountMobile: 386,
+      frameDirMobile: 'assets/frames-m/',
+      scrollPerMobile: 1.15,
       hint: 'scroll to fly in',
       diveScroll: 1.3,
       sections: [
