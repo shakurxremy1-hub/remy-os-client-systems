@@ -12,6 +12,10 @@ Last updated: 2026-09-02.
   video clips, images.
 - **Host**: GitHub Pages, served from `main` branch, root (`/`).
 - **Repo**: `git@github.com:shakurxremy1-hub/remy-os-client-systems.git` (public — must stay public for free Pages).
+- **Built from**: the reusable template at
+  https://github.com/shakurxremy1-hub/cinematic-scroll-template (private, "Use this
+  template" button). Engine, effects, frame pipeline, and deploy/runbook docs live
+  there — start new sites from it rather than copying this repo.
 
 ---
 
