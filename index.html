@@ -781,6 +781,7 @@ function mountDesktopFlight(container, config) {
   container.classList.add('df-root');
   container.style.setProperty('--df-accent', S[0].accent || '#3da9fc');
   const FEXT = config.frameExt || 'jpg';
+  const FIT = config.fit || 'contain';   // 'contain' = whole frame in view (letterboxed); 'cover' = fill + crop
   const frameURL = i => FDIR + 'f' + String(i + 1).padStart(4, '0') + '.' + FEXT;
 
   // fixed background — a <canvas> we blit pre-rendered JPEG frames onto (Apple-style).
@@ -841,8 +842,15 @@ function mountDesktopFlight(container, config) {
     const cvW = canvas.width, cvH = canvas.height;
     const ir = im.width / im.height, cr = cvW / cvH;
     let w, h, x, y;
-    if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
-    x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch (matches object-position)
+    if (FIT === 'contain') {
+      // show the whole frame, letterboxed into the (matching) #05070c backdrop
+      if (ir > cr) { w = cvW; h = w / ir; } else { h = cvH; w = h * ir; }
+      x = (cvW - w) / 2; y = (cvH - h) * 0.42;
+      if (w < cvW - 1 || h < cvH - 1) { ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, cvW, cvH); }
+    } else {
+      if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
+      x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch
+    }
     ctx.drawImage(im, x, y, w, h);
     if (!firstDrawn) { firstDrawn = true; bg.classList.add('df-on'); }
   }
@@ -1028,7 +1036,8 @@ function mountScrollWorld(container, config) {
       scrollPer: config.scrollPerMobile || 1.15,
       maxParallel: config.maxParallelMobile || 24,
       lookAhead: config.lookAheadMobile || 26,
-      chase: config.chaseMobile || 0.12
+      chase: config.chaseMobile || 0.12,
+      fit: config.fitMobile || 'cover'   // mobile stays fill-and-crop (looks right on the 9:16 frames)
     });
     if (mountDesktopFlight(container, mcfg)) return;
     container.classList.remove('df-root--m');
