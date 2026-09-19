@@ -675,6 +675,7 @@ function mountMobileStory(container, config) {
 
 function copyHTML(s, i, N, px) {
   px = px || 'mv';
+  if (px === 'df') return copyHTMLGiant(s, i, N, px);
   return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
     (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
     (s.title ? '<h2 class="' + px + '-copy__title">' + msesc(s.title) + '</h2>' : '') +
@@ -684,6 +685,30 @@ function copyHTML(s, i, N, px) {
       (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
       (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
       '</div>' : '');
+}
+
+// Desktop/phone-flight copy: a massive outline wordmark (the section's `label`)
+// that brightens into focus as you scroll into it, a centered photo window
+// crossfading on top (otsuka-air.jp style), plus a compact eyebrow/title/body/
+// tags/cta block pinned bottom-left that cascades in.
+function copyHTMLGiant(s, i, N, px) {
+  const word = (s.label || s.title || '').toUpperCase();
+  const still = s.stillMobile && !s.still ? s.stillMobile : (s.still || '');
+  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
+    '<div class="' + px + '-copy__stage">' +
+      (word ? '<h2 class="' + px + '-copy__word">' + msesc(word) + '</h2>' : '') +
+      (still ? '<div class="' + px + '-copy__photo"><img src="' + msesc(still) + '" alt="" decoding="async" loading="' + (i < 2 ? 'eager' : 'lazy') + '"></div>' : '') +
+    '</div>' +
+    '<div class="' + px + '-copy__meta">' +
+      (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
+      (s.title ? '<h3 class="' + px + '-copy__title">' + msesc(s.title) + '</h3>' : '') +
+      (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
+      (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
+      (s.cta ? '<div class="' + px + '-copy__cta">' +
+        (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
+        (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
+        '</div>' : '') +
+    '</div>';
 }
 
 function msesc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
@@ -793,6 +818,28 @@ function mountDesktopFlight(container, config) {
   const canvas = mel('canvas', 'df-canvas'); const ctx = canvas.getContext('2d', { alpha: false });
   bg.appendChild(poster); bg.appendChild(canvas); bg.appendChild(mel('div', 'df-veil'));
 
+  // ---- branded preloader: gates first paint on the frame sequence being ready,
+  // a percent counter in the corner (noomoagency.com-style) instead of a pop-in flight ----
+  const pre = mel('div', 'df-preload');
+  pre.innerHTML = '<div class="df-preload__mark">' + msesc((config.brand && config.brand.name) || '') + '</div><div class="df-preload__pct">0%</div>';
+  document.body.appendChild(pre);
+  const prePct = pre.querySelector('.df-preload__pct');
+  let preDone = false;
+  function preFinish() {
+    if (preDone) return;
+    preDone = true;
+    pre.classList.add('is-done');
+    setTimeout(() => pre.remove(), 700);
+  }
+  function preTick() {
+    if (preDone) return;
+    let n = 0; for (let k = 0; k < FRAMES; k++) if (state[k] === 2) n++;
+    const pct = Math.min(100, Math.round((n / FRAMES) * 100));
+    prePct.textContent = pct + '%';
+    if (pct >= 100) preFinish();
+  }
+  setTimeout(preFinish, 5000);   // safety net: never block the site past 5s
+
   // ---- progressive frame loader ----
   const imgs = new Array(FRAMES), state = new Uint8Array(FRAMES);   // 0 idle · 1 loading · 2 done
   let inflight = 0, seq = 0, firstDrawn = false;
@@ -803,7 +850,7 @@ function mountDesktopFlight(container, config) {
     if (state[i]) return;
     state[i] = 1; inflight++;
     const im = new Image(); im.decoding = 'async';
-    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); };
+    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); preTick(); };
     im.onload = () => {
       // Decode off the main thread first so the later ctx.drawImage can't stall a scroll frame.
       if (im.decode) im.decode().then(done, done); else done();
@@ -871,6 +918,8 @@ function mountDesktopFlight(container, config) {
   // copy + route
   const copylayer = mel('div', 'df-copylayer');
   const copies = S.map((s, i) => { const c = mel('article', 'df-copy'); c.innerHTML = copyHTML(s, i, N, 'df'); copylayer.appendChild(c); return c; });
+  const wordEls = copies.map(c => c.querySelector('.df-copy__word'));
+  const metaKids = copies.map(c => Array.from(c.querySelector('.df-copy__meta').children));
   const route = mel('div', 'df-route');
   const dots = S.map((s, i) => { const d = mel('button', 'df-route__dot'); d.innerHTML = '<span>' + msesc(s.label || '') + '</span><i></i>'; d.addEventListener('click', () => jumpTo(i)); route.appendChild(d); return d; });
   const hint = mel('div', 'df-hint'); hint.innerHTML = '<span>' + msesc(config.hint || 'scroll') + '</span><i></i>';
@@ -909,7 +958,21 @@ function mountDesktopFlight(container, config) {
     const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
     for (let i = 0; i < N; i++) {
       let op = 0, ty = 10;
-      if (i === near) { const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8; }
+      if (i === near) {
+        const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8;
+        // one-directional "coming into focus": ramps 0->1 over the first 40% of this
+        // section's scroll span and then holds, independent of the symmetric fade
+        // above (which stays >=0.6 the whole time the section is near) — otherwise
+        // the brightening rides the same narrow band as the fade and never reads.
+        const local = clamp(pn - i, 0, 1);
+        const wb = smooth(Math.min(1, local / 0.4));
+        if (wordEls[i]) wordEls[i].style.setProperty('--wb', wb.toFixed(3));
+        metaKids[i].forEach((el, j) => {
+          const kt = smooth(clamp((local - j * 0.09) / 0.28, 0, 1));
+          el.style.opacity = kt.toFixed(3);
+          el.style.transform = 'translateY(' + ((1 - kt) * 16).toFixed(1) + 'px)';
+        });
+      }
       copies[i].style.opacity = op.toFixed(3);
       copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
       copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
@@ -970,17 +1033,31 @@ function injectDFCSS() {
   .df-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:color-mix(in srgb,var(--df-accent) 14%,transparent);}
   .df-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--df-accent);}
   .df-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
-  .df-copy{position:absolute;left:0;bottom:0;width:min(56vw,620px);
-    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);opacity:0;transition:opacity .4s ease,transform .4s ease;}
-  .df-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
-  .df-copy__eyebrow{display:block;margin-top:16px;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
+  .df-copy{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .4s ease,transform .4s ease;}
+  .df-copy__num{position:absolute;top:clamp(78px,11vh,110px);left:clamp(20px,4vw,56px);
+    font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
+  .df-copy__stage{position:absolute;inset:0;display:grid;place-items:center;}
+  .df-copy__word{position:absolute;max-width:92vw;margin:0;padding:0 2vw;text-align:center;
+    font-family:var(--sw-font-display,system-ui);font-weight:800;text-transform:uppercase;
+    font-size:clamp(3.6rem,12vw,12.5rem);line-height:.84;letter-spacing:-.02em;
+    color:rgba(247,250,254,calc(.05 + .82 * var(--wb,0)));
+    -webkit-text-stroke:1.5px rgba(247,250,254,calc(.5 + .45 * var(--wb,0)));
+    text-shadow:0 0 60px rgba(5,7,12,.4);user-select:none;pointer-events:none;}
+  .df-copy__photo{position:relative;z-index:2;width:min(20vw,260px);aspect-ratio:4/5;
+    border-radius:1rem;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.1);
+    pointer-events:none;}
+  .df-copy__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .df-copy__meta{position:absolute;left:0;bottom:0;width:min(46vw,520px);
+    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);}
+  .df-copy__meta>*{opacity:0;transform:translateY(16px);}
+  .df-copy__eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
   .df-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
-    font-size:clamp(2.2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
-  .df-copy__body{margin-top:18px;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
-  .df-copy__tags{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
+    font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.15;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
+  .df-copy__body{margin-top:14px;font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
+  .df-copy__tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
   .df-copy__tags li{font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:999px;color:#eef3f9;
     background:color-mix(in srgb,var(--df-accent) 20%,rgba(5,7,12,.4));border:1px solid color-mix(in srgb,var(--df-accent) 40%,transparent);}
-  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;}
+  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px;}
   .df-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;pointer-events:auto;}
   .df-btn--primary{background:var(--df-accent);color:#05070c;}
   .df-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
@@ -998,7 +1075,7 @@ function injectDFCSS() {
   @keyframes df-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
   .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
   body.past-flight .df-route,body.past-flight .df-hint,body.past-flight .df-copylayer{opacity:0!important;pointer-events:none;transition:opacity .5s ease;}
-  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} }
+  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} .df-copy__meta>*{opacity:1!important;transform:none!important;transition:none!important;} }
 
   /* ---- phone: same flight, portrait chrome ---- */
   .df-root--m .df-veil{
@@ -1008,14 +1085,25 @@ function injectDFCSS() {
   .df-root--m .df-brand__name{font-size:.98rem;}
   .df-root--m .df-nav{display:none;}
   .df-root--m .df-bar__cta{font-size:.8rem;padding:9px 15px;}
-  .df-root--m .df-copy{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
-  .df-root--m .df-copy__title{font-size:clamp(2.35rem,8.6vw,3rem);line-height:1.02;}
-  .df-root--m .df-copy__body{font-size:1rem;max-width:34ch;}
+  .df-root--m .df-copy__num{top:calc(env(safe-area-inset-top,0px) + 64px);left:16px;}
+  .df-root--m .df-copy__word{font-size:clamp(2.6rem,15vw,4.6rem);}
+  .df-root--m .df-copy__photo{width:min(38vw,180px);}
+  .df-root--m .df-copy__meta{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
+  .df-root--m .df-copy__title{font-size:clamp(1.15rem,5vw,1.4rem);line-height:1.15;}
+  .df-root--m .df-copy__body{font-size:.94rem;max-width:34ch;}
   .df-root--m .df-copy__cta{margin-top:20px;}
   .df-root--m .df-btn{padding:13px 22px;font-size:.94rem;}
   .df-root--m .df-route{right:9px;gap:13px;}
   .df-root--m .df-route__dot span{display:none;}
   .df-root--m .df-hint{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);font-size:.68rem;}
+  .df-preload{position:fixed;inset:0;z-index:200;background:#05070c;display:flex;flex-direction:column;
+    align-items:flex-start;justify-content:flex-end;padding:0 0 clamp(28px,6vh,64px) clamp(20px,4vw,56px);
+    gap:8px;transition:opacity .6s ease;}
+  .df-preload__mark{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.85rem;
+    letter-spacing:.18em;text-transform:uppercase;color:#93a2b8;}
+  .df-preload__pct{font-family:ui-monospace,Menlo,monospace;font-size:1.7rem;color:#f7fafe;letter-spacing:.03em;}
+  .df-preload.is-done{opacity:0;pointer-events:none;}
+  @media (prefers-reduced-motion:reduce){ .df-preload{transition:none;} }
   `;
   document.head.appendChild(st);
 }
