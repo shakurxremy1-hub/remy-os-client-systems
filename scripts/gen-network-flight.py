@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Generate the hero flythrough frame sequence: a camera flying through a
-particle/node network that starts sparse and dark and becomes dense, glowing,
-and connected as the journey progresses (Invisible -> System -> ... -> Scale),
-with a few flat HUD data-readout panels (pipeline chart, systems meter, lead
-counter) fading in for the back half. Fully procedural, no stock/AI assets.
+curving wireframe data-corridor — glowing octagonal rings receding into the
+distance, connected into tunnel walls, with drifting light nodes inside —
+that starts sparse/dark and becomes dense, glowing, and gold as the journey
+progresses (Invisible -> System -> ... -> Scale). A few flat HUD data-readout
+panels (pipeline chart, systems meter, lead counter) fade in for the back
+half. Fully procedural, no stock/AI assets.
 
 Usage: python3 scripts/gen-network-flight.py [--frames N] [--test]
 Writes assets/frames/f####.jpg (1920x1080) and assets/frames-m/f####.webp
@@ -24,14 +26,19 @@ OUT_MOB = os.path.join(ROOT, "assets/frames-m")
 DESK_W, DESK_H = 1920, 1080
 MOB_W, MOB_H = 576, 1024
 
-N = 210
-NEAR = 40.0
-FAR = 900.0
-LOOP = FAR - NEAR
+NEAR = 30.0
+FAR = 1500.0
+RING_SPACING = 48.0
+RING_SIDES = 8
+TOTAL_TRAVEL = 4300.0
+N_RINGS = int(TOTAL_TRAVEL / RING_SPACING) + int(FAR / RING_SPACING) + 6
 
-COOL = np.array([61, 169, 252])   # #3da9fc — Invisible / The System
+N_PARTICLES = 170
+LOOP = FAR - NEAR   # particle recycle range, independent of the ring index space
+
+COOL = np.array([61, 169, 252])    # #3da9fc — Invisible / The System
 COOL2 = np.array([104, 208, 255])  # #68d0ff — Paid Traffic
-WARM = np.array([217, 178, 106])  # #d9b26a — Lender-Ready / Funded / Scale
+WARM = np.array([217, 178, 106])   # #d9b26a — Lender-Ready / Funded / Scale
 
 FONT_PATH = "/System/Library/Fonts/Menlo.ttc"
 
@@ -45,14 +52,37 @@ def lerp(a, b, t):
     return a + (b - a) * t
 
 
+# ---- the corridor's centerline: a lazy lissajous curve so the tunnel banks
+# and winds instead of being a boring straight tube. k is "rings of distance".
+def path_x(k):
+    return 95 * math.sin(k * 0.052) + 40 * math.sin(k * 0.021 + 1.3)
+
+
+def path_y(k):
+    return 70 * math.sin(k * 0.037 + 0.6)
+
+
+def ring_radius(k):
+    return 130 + 22 * math.sin(k * 0.09 + 2.0)
+
+
+def build_rings():
+    rings = []
+    for k in range(N_RINGS):
+        rings.append({"k": k, "z0": k * RING_SPACING, "r": ring_radius(k),
+                      "cx": path_x(k), "cy": path_y(k)})
+    return rings
+
+
 def build_particles():
     ps = []
-    for _ in range(N):
+    for _ in range(N_PARTICLES):
+        ang = random.uniform(0, 2 * math.pi)
+        rad = random.uniform(0.15, 0.92)
         ps.append({
-            "x": random.uniform(-1, 1) * random.uniform(0.35, 1.0) * 210,
-            "y": random.uniform(-1, 1) * random.uniform(0.35, 1.0) * 120,
+            "ang": ang, "rad": rad,
             "z0": random.uniform(0, LOOP),
-            "activation": random.uniform(0, 0.82),
+            "activation": random.uniform(0, 0.8),
             "size_bias": random.uniform(0.7, 1.5),
             "warm_bias": random.uniform(-0.15, 0.15),
         })
@@ -116,7 +146,6 @@ def get_pipeline_walk(n=48):
 
 def draw_hud(draw, w, h, t, accent, font_sm, font_lg):
     ac = tuple(int(c) for c in accent) + (255,)
-    # --- pipeline chart, bottom-right ---
     reveal = smoothstep((t - 0.40) / 0.5)
     if reveal > 0.02:
         pw, ph = int(w * 0.17), int(h * 0.15)
@@ -139,7 +168,6 @@ def draw_hud(draw, w, h, t, accent, font_sm, font_lg):
             draw.line(pts, fill=ac[:3] + (int(210 * reveal),), width=2)
             draw.ellipse([pts[-1][0] - 3, pts[-1][1] - 3, pts[-1][0] + 3, pts[-1][1] + 3],
                          fill=ac[:3] + (int(255 * reveal),))
-    # --- systems meter bars, top-left ---
     reveal2 = smoothstep((t - 0.50) / 0.4)
     if reveal2 > 0.02:
         bx, by = int(w * 0.045), int(h * 0.16)
@@ -150,7 +178,6 @@ def draw_hud(draw, w, h, t, accent, font_sm, font_lg):
             level = 0.4 + 0.5 * (0.5 + 0.5 * math.sin(t * 14 + i * 1.7))
             draw.rounded_rectangle([bx, yy, bx + bw, yy + 5], radius=2, fill=(255, 255, 255, int(28 * reveal2)))
             draw.rounded_rectangle([bx, yy, bx + bw * level, yy + 5], radius=2, fill=ac[:3] + (int(220 * reveal2),))
-    # --- lead counter, mid-right ---
     reveal3 = smoothstep((t - 0.58) / 0.35)
     if reveal3 > 0.02:
         val = int(4200 * smoothstep((t - 0.58) / 0.42))
@@ -162,57 +189,95 @@ def draw_hud(draw, w, h, t, accent, font_sm, font_lg):
         draw.text((cx + 16, cy + 26), f"{val:,}", font=font_lg, fill=(247, 250, 254, int(240 * reveal3)))
 
 
-def render_frame(t, w, h, particles, sprite_cache, font_sm, font_lg):
-    focal = max(w, h) * 0.27
-    S = (t ** 1.15) * LOOP * 1.35
-    color = COOL + (WARM - COOL) * smoothstep(t)
-    if smoothstep(t) < 0.6:
+def ring_points(ring, sides=RING_SIDES):
+    pts = []
+    for s in range(sides):
+        a = (s / sides) * 2 * math.pi
+        pts.append((ring["cx"] + ring["r"] * math.cos(a), ring["cy"] + ring["r"] * math.sin(a)))
+    return pts
+
+
+def project(x, y, z, w, h, focal, cam_x, cam_y):
+    sx = w / 2.0 + (x - cam_x) * focal / z
+    sy = h * 0.46 + (y - cam_y) * focal / z
+    return sx, sy
+
+
+def render_frame(t, w, h, rings, particles, sprite_cache, font_sm, font_lg):
+    focal = max(w, h) * 0.30
+    S = (t ** 1.15) * TOTAL_TRAVEL
+    st = smoothstep(t)
+    color = COOL + (WARM - COOL) * st
+    if st < 0.6:
         color = color + (COOL2 - COOL) * (0.4 * math.sin(t * 6.0) * 0.5 + 0.5) * 0.15
+    cc = tuple(int(c) for c in color)
+
+    cam_k = S / RING_SPACING
+    cam_x, cam_y = path_x(cam_k), path_y(cam_k)
 
     img = make_bg(w, h, color)
-    glow_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    struct_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(struct_layer)
 
+    # how "built out" the corridor is: fewer wall edges + dimmer early on,
+    # a fully-braced glowing tube by the back half.
+    edges_on = 2 + int(round(lerp(0, RING_SIDES - 2, smoothstep((t - 0.05) / 0.9))))
+    wall_alpha_max = lerp(40, 190, st)
+    ring_alpha_max = lerp(70, 230, st)
+
+    visible = []
+    for ring in rings:
+        z = ring["z0"] - S + NEAR
+        if z < NEAR or z > FAR:
+            continue
+        pts = [project(px, py, z, w, h, focal, cam_x, cam_y) for px, py in ring_points(ring)]
+        depth_f = focal / z
+        fade = smoothstep(1 - (z - NEAR) / (FAR - NEAR))
+        visible.append((ring["k"], z, pts, depth_f, fade))
+
+    visible.sort(key=lambda v: -v[1])   # far to near, so near rings draw on top
+
+    # ring outlines
+    for k, z, pts, depth_f, fade in visible:
+        a = int(ring_alpha_max * fade)
+        if a > 3:
+            sd.line(pts + [pts[0]], fill=cc + (a,), width=max(1, int(depth_f * 2.2)))
+
+    # longitudinal wall edges between consecutive rings
+    by_k = {v[0]: v for v in visible}
+    for k, z, pts, depth_f, fade in visible:
+        nxt = by_k.get(k + 1)
+        if not nxt:
+            continue
+        npts = nxt[2]
+        nfade = nxt[4]
+        a = int(wall_alpha_max * min(fade, nfade))
+        if a <= 3:
+            continue
+        for s in range(min(edges_on, len(pts))):
+            sd.line([pts[s], npts[s]], fill=cc + (a,), width=1)
+
+    img = Image.alpha_composite(img.convert("RGBA"), struct_layer)
+
+    # ---- drifting light nodes inside the corridor ----
+    glow_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     active = []
     for p in particles:
         if t < p["activation"]:
             continue
         d = (p["z0"] - S) % LOOP
         z = NEAR + d
-        sx = w / 2.0 + p["x"] * focal / z
-        sy = h * 0.46 + p["y"] * focal / z
+        k = z / RING_SPACING + cam_k
+        r = ring_radius(k) * p["rad"]
+        wx = path_x(k) + r * math.cos(p["ang"])
+        wy = path_y(k) + r * math.sin(p["ang"])
+        sx, sy = project(wx, wy, z, w, h, focal, cam_x, cam_y)
         if sx < -60 or sx > w + 60 or sy < -60 or sy > h + 60:
             continue
         depth_f = focal / z
-        size = max(1.5, min(40, p["size_bias"] * depth_f * 2.0))
-        bright = max(0.12, min(1.0, depth_f * 0.85))
+        size = max(1.5, min(34, p["size_bias"] * depth_f * 1.6))
+        bright = max(0.15, min(1.0, depth_f * 0.8))
         active.append((sx, sy, size, bright, p))
-
-    max_dist = lerp(70, 230, smoothstep(t))
-    grid = {}
-    cell = max(30.0, max_dist)
-    for i, (sx, sy, size, bright, p) in enumerate(active):
-        grid.setdefault((int(sx // cell), int(sy // cell)), []).append(i)
-
-    edge_draw = ImageDraw.Draw(glow_layer)
-    line_alpha_max = lerp(35, 130, smoothstep(t))
-    for i, (sx, sy, size, bright, p) in enumerate(active):
-        gx, gy = int(sx // cell), int(sy // cell)
-        neighbors = []
-        for dxg in (-1, 0, 1):
-            for dyg in (-1, 0, 1):
-                for j in grid.get((gx + dxg, gy + dyg), ()):
-                    if j <= i:
-                        continue
-                    ox, oy, osize, obright, op = active[j]
-                    dist = math.hypot(sx - ox, sy - oy)
-                    if dist < max_dist:
-                        neighbors.append((dist, j, ox, oy, obright))
-        neighbors.sort(key=lambda n: n[0])
-        for dist, j, ox, oy, obright in neighbors[:2]:
-            a = int(line_alpha_max * (1 - dist / max_dist) * min(bright, obright))
-            if a > 3:
-                cc = tuple(int(c) for c in color)
-                edge_draw.line([(sx, sy), (ox, oy)], fill=cc + (a,), width=1)
 
     buckets = glow_bucket_sizes()
     for sx, sy, size, bright, p in active:
@@ -230,7 +295,7 @@ def render_frame(t, w, h, particles, sprite_cache, font_sm, font_lg):
         px0, py0 = int(sx - sprite.width / 2), int(sy - sprite.height / 2)
         glow_layer.alpha_composite(tinted, (px0, py0))
 
-    img = Image.alpha_composite(img.convert("RGBA"), glow_layer)
+    img = Image.alpha_composite(img, glow_layer)
 
     hud_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     hud_draw = ImageDraw.Draw(hud_layer)
@@ -246,6 +311,7 @@ def main():
     ap.add_argument("--test", action="store_true", help="render 8 sample frames to /tmp for a quick look")
     args = ap.parse_args()
 
+    rings = build_rings()
     particles = build_particles()
     vign_desk = make_vignette(DESK_W, DESK_H)
     vign_mob = make_vignette(MOB_W, MOB_H)
@@ -255,8 +321,8 @@ def main():
 
     if args.test:
         os.makedirs("/tmp/flight-preview", exist_ok=True)
-        for i, t in enumerate([0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.0]):
-            img = render_frame(t, DESK_W, DESK_H, particles, sprite_cache, font_sm, font_lg)
+        for i, t in enumerate([0, 0.08, 0.2, 0.35, 0.5, 0.65, 0.8, 0.92, 1.0]):
+            img = render_frame(t, DESK_W, DESK_H, rings, particles, sprite_cache, font_sm, font_lg)
             img = Image.alpha_composite(img.convert("RGBA"), vign_desk).convert("RGB")
             path = f"/tmp/flight-preview/t{t:.2f}.jpg"
             img.save(path, quality=85)
@@ -268,11 +334,11 @@ def main():
     n = args.frames
     for i in range(n):
         t = i / (n - 1)
-        d = render_frame(t, DESK_W, DESK_H, particles, sprite_cache, font_sm, font_lg)
+        d = render_frame(t, DESK_W, DESK_H, rings, particles, sprite_cache, font_sm, font_lg)
         d = Image.alpha_composite(d.convert("RGBA"), vign_desk).convert("RGB")
         d.save(os.path.join(OUT_DESK, f"f{i+1:04d}.jpg"), quality=82, optimize=True)
 
-        m = render_frame(t, MOB_W, MOB_H, particles, sprite_cache, font_sm, font_lg)
+        m = render_frame(t, MOB_W, MOB_H, rings, particles, sprite_cache, font_sm, font_lg)
         m = Image.alpha_composite(m.convert("RGBA"), vign_mob).convert("RGB")
         m.save(os.path.join(OUT_MOB, f"f{i+1:04d}.webp"), quality=80)
 
