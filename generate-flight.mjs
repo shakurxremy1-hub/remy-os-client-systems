@@ -51,7 +51,14 @@ const SCENES = [
   },
   {
     id: 'scene6',
-    motion: `The camera glides smoothly into the penthouse interior: marble floors, warm ambient lighting, floor-to-ceiling windows framing the full glittering Manhattan skyline at night. A well-dressed figure stands quietly at the window, backlit in silhouette against the city lights, looking out over the skyline, still and calm - minimal motion from the figure. Camera continues a slow, smooth forward push toward the window and the skyline beyond. Cinematic, no sudden moves.`,
+    // Deliberately a fresh still too (not chained from scene5), cut to via crossfade.
+    // The figure goes IN THE STILL this time - Kling motion-only prompts proved
+    // unreliable at introducing a new person who wasn't in the seed image (two prior
+    // attempts rendered an empty room despite the prompt asking for a figure). Flux
+    // renders people into a still directly and far more reliably; Kling then only has
+    // to animate camera + ambient motion around an already-composed scene.
+    image: `Photorealistic cinematic interior shot of a luxurious penthouse living room at night: marble floors, a warm red patterned rug, a cream sofa and dark wood coffee table, floor-to-ceiling windows framing a glittering Manhattan skyline at dusk. A well-dressed man in a tailored dark suit stands facing the window, back partly to camera, backlit in silhouette against the city lights, calm and composed posture. Photorealistic, cinematic, warm ambient interior lighting, shallow depth of field, 35mm lens. No text, no logos.`,
+    motion: `Slow, smooth cinematic forward push toward the window and the standing figure, the figure remains still and calm with only minimal natural motion, warm ambient light glimmers gently, no sudden moves, cinematic.`,
   },
 ];
 
