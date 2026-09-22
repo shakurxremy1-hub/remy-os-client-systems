@@ -25,8 +25,8 @@
       --sw-bg: #05070c;          /* == generated scene background */
       --sw-ink: #f2f6fc;
       --sw-ink-soft: #93a2b8;
-      --sw-accent: #3da9fc;      /* per-section accents override at runtime */
-      --sw-font-display: "Chakra Petch", "Inter", system-ui, sans-serif;
+      --sw-accent: #5b6b85;      /* per-section accents override at runtime */
+      --sw-font-display: "Fraunces", Georgia, serif;
       --sw-font-body: "Inter", system-ui, sans-serif;
     }
     html, body { background: #05070c; }
@@ -70,7 +70,7 @@
          this section — no seam, one continuous space into the face and beyond */
       background:
         linear-gradient(180deg, transparent 0, rgba(5,7,12,.55) 16vh, #05070c 40vh),
-        radial-gradient(62% 58% at 82% 24%, color-mix(in srgb, #3da9fc 16%, transparent), transparent 64%);
+        radial-gradient(62% 58% at 82% 24%, color-mix(in srgb, #5b6b85 16%, transparent), transparent 64%);
       color: #f2f6fc;
       padding: clamp(120px, 24vh, 260px) clamp(20px, 6vw, 80px) clamp(72px, 12vh, 150px);
     }
@@ -85,7 +85,7 @@
     }
     .founder__portrait::before {   /* soft glow behind the head — no frame */
       content: ""; position: absolute; inset: -6% -4% -2%;
-      background: radial-gradient(56% 52% at 50% 40%, color-mix(in srgb, #3da9fc 24%, transparent), transparent 72%);
+      background: radial-gradient(56% 52% at 50% 40%, color-mix(in srgb, #5b6b85 24%, transparent), transparent 72%);
       pointer-events: none;
     }
     .founder__portrait::after {    /* warm pedestal so the face is grounded, not floating */
@@ -106,7 +106,7 @@
     .founder__eyebrow {
       display: block; font-family: var(--sw-font-display);
       font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase;
-      color: #68d0ff;
+      color: #8aa0b8;
     }
     .founder__title {
       font-family: var(--sw-font-display); font-weight: 700;
@@ -144,7 +144,7 @@
 
     }
     .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
-    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #68d0ff; }
+    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #8aa0b8; }
     .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
     .tiers__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     .tier {
@@ -154,18 +154,18 @@
       padding: 26px 22px;
     }
     .tier--feature {
-      border-color: color-mix(in srgb, #3da9fc 55%, transparent);
-      background: linear-gradient(180deg, color-mix(in srgb, #3da9fc 12%, transparent), rgba(255,255,255,.02)), #0b1424;
-      box-shadow: 0 0 0 1px color-mix(in srgb, #3da9fc 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #3da9fc 60%, transparent);
+      border-color: color-mix(in srgb, #5b6b85 55%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, #5b6b85 12%, transparent), rgba(255,255,255,.02)), #0b1424;
+      box-shadow: 0 0 0 1px color-mix(in srgb, #5b6b85 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #5b6b85 60%, transparent);
       position: relative;
     }
     .tier__badge {
       align-self: flex-start; margin: -2px 0 12px;
       font-family: var(--sw-font-display); font-size: 10px; font-weight: 700;
       letter-spacing: .16em; text-transform: uppercase; color: #05070c;
-      background: linear-gradient(100deg, #3da9fc, #68d0ff);
+      background: linear-gradient(100deg, #5b6b85, #8aa0b8);
       padding: 5px 12px; border-radius: 999px;
-      box-shadow: 0 6px 18px -8px color-mix(in srgb, #3da9fc 80%, transparent);
+      box-shadow: 0 6px 18px -8px color-mix(in srgb, #5b6b85 80%, transparent);
     }
     .tier:not(.tier--feature) .tier__badge { display: none; }
     @media (min-width: 1001px) {
@@ -178,12 +178,12 @@
     .tier__sub { font-size: 11px; color: #d9b26a; min-height: 15px; margin-bottom: 16px; }
     .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
     .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
-    .tier li::before { content: "▪"; color: #68d0ff; flex: 0 0 auto; }
+    .tier li::before { content: "▪"; color: #8aa0b8; flex: 0 0 auto; }
     .tier li em { color: #f2f6fc; font-style: normal; }
     .tier__btn {
       display: block; text-align: center; text-decoration: none;
       padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
-      background: var(--sw-accent, #3da9fc); color: #05070c; transition: transform .2s ease;
+      background: var(--sw-accent, #5b6b85); color: #05070c; transition: transform .2s ease;
     }
     .tier__btn:hover { transform: translateY(-2px); }
     .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
@@ -195,7 +195,7 @@
     .contact {
       position: relative; z-index: 45; overflow: hidden;
       background:
-        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #3da9fc 10%, transparent), transparent 70%),
+        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #5b6b85 10%, transparent), transparent 70%),
         #05070c;
       color: #f2f6fc;
       padding: clamp(72px, 12vh, 150px) clamp(20px, 6vw, 80px);
@@ -204,7 +204,7 @@
     .contact::before {   /* slow aurora drift behind the headline */
       content: ""; position: absolute; left: 50%; top: -10%;
       width: min(760px, 92vw); height: 340px; transform: translateX(-50%);
-      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #3da9fc 16%, transparent), transparent 70%);
+      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #5b6b85 16%, transparent), transparent 70%);
       pointer-events: none; filter: blur(20px);
     }
     @media (prefers-reduced-motion: no-preference) {
@@ -215,7 +215,7 @@
       }
     }
     .contact__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
-    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #68d0ff; }
+    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #8aa0b8; }
     .contact__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; margin: 14px 0 0; letter-spacing: -.015em; }
     .contact__lead { margin: 18px auto 0; max-width: 40ch; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; color: color-mix(in srgb, #f2f6fc 80%, #8898ac); }
     .contact__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
@@ -247,7 +247,7 @@
     #fx-glow {
       position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
       background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
-        color-mix(in srgb, var(--df-accent, #3da9fc) 12%, transparent), transparent 62%);
+        color-mix(in srgb, var(--df-accent, #5b6b85) 12%, transparent), transparent 62%);
     }
     @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
@@ -273,7 +273,7 @@
     .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
     .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
     /* brand-tinted text selection + a clean keyboard focus ring */
-    ::selection { background: color-mix(in srgb, #3da9fc 42%, transparent); color: #fff; }
+    ::selection { background: color-mix(in srgb, #5b6b85 42%, transparent); color: #fff; }
     :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
     :focus:not(:focus-visible) { outline: none; }
     @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
@@ -307,12 +307,12 @@
     .tier__ring {
       position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
       background: conic-gradient(from var(--fx-ang),
-        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 0deg,
+        color-mix(in srgb, var(--sw-accent, #5b6b85) 96%, #fff) 0deg,
         transparent 70deg, transparent 180deg,
-        color-mix(in srgb, #68d0ff 96%, #fff) 250deg, transparent 320deg,
-        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 360deg);
+        color-mix(in srgb, #8aa0b8 96%, #fff) 250deg, transparent 320deg,
+        color-mix(in srgb, var(--sw-accent, #5b6b85) 96%, #fff) 360deg);
     }
-    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #3da9fc) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #3da9fc) 65%, transparent); }
+    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #5b6b85) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #5b6b85) 65%, transparent); }
     @media (prefers-reduced-motion: no-preference) {
       .tier__ring { animation: fx-ring 5.5s linear infinite; }
       @keyframes fx-ring { to { --fx-ang: 360deg; } }
@@ -340,17 +340,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- fonts load non-render-blocking so the first scene paints immediately -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
         onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
-  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=5" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=6" media="(min-width: 861px)" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/frames/f0002.jpg?v=5" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0003.jpg?v=5" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0004.jpg?v=5" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0005.jpg?v=5" media="(min-width: 861px)" />
   <link rel="preload" as="image" href="assets/frames/f0006.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=5" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=6" media="(max-width: 860px)" fetchpriority="high" />
   <link rel="preload" as="image" href="assets/frames-m/f0002.webp?v=5" media="(max-width: 860px)" />
   <link rel="preload" as="image" href="assets/frames-m/f0003.webp?v=5" media="(max-width: 860px)" />
   <link rel="preload" as="image" href="assets/frames-m/f0004.webp?v=5" media="(max-width: 860px)" />
@@ -598,7 +598,7 @@ function mountMobileStory(container, config) {
   const panels = S.map((s, i) => {
     const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
     sec.id = ids[i];
-    sec.style.setProperty('--mv2-accent', s.accent || '#3da9fc');
+    sec.style.setProperty('--mv2-accent', s.accent || '#5b6b85');
     const bg = mel('div', 'mv2-panel__bg');
     const img = mel('img', 'mv2-panel__img');
     img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
@@ -715,7 +715,7 @@ function injectMobileCSS() {
   if (document.getElementById('mv-css')) return;
   const st = document.createElement('style'); st.id = 'mv-css';
   st.textContent = `
-  .mv2-root{position:relative;z-index:1;--mv2-accent:#3da9fc;}
+  .mv2-root{position:relative;z-index:1;--mv2-accent:#5b6b85;}
   .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
     padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
   .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
@@ -731,7 +731,7 @@ function injectMobileCSS() {
     opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
   body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
   .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#3da9fc);}
+  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#5b6b85);}
   .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
   .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
   .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
@@ -802,7 +802,7 @@ function mountDesktopFlight(container, config) {
   if (!N || !FRAMES) return false;
   injectDFCSS();
   container.classList.add('df-root');
-  container.style.setProperty('--df-accent', S[0].accent || '#3da9fc');
+  container.style.setProperty('--df-accent', S[0].accent || '#5b6b85');
   const FEXT = config.frameExt || 'jpg';
   const FIT = config.fit || 'contain';   // 'contain' = whole frame in view (letterboxed); 'cover' = fill + crop
   // cache-bust: the frame files keep the same names across content updates, so
@@ -985,7 +985,7 @@ function mountDesktopFlight(container, config) {
       navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
       // accent eases between the outgoing and incoming scene colours
     }
-    const a0 = S[near].accent || '#3da9fc';
+    const a0 = S[near].accent || '#5b6b85';
     const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
     const frac = clamp(pn - near - 0.5);
     container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
@@ -1011,7 +1011,7 @@ function injectDFCSS() {
   if (document.getElementById('df-css')) return;
   const st = document.createElement('style'); st.id = 'df-css';
   st.textContent = `
-  .df-root{position:relative;z-index:1;--df-accent:#3da9fc;}
+  .df-root{position:relative;z-index:1;--df-accent:#5b6b85;}
   .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
   .df-poster,.df-canvas{position:absolute;inset:0;width:100%;height:100%;}
   .df-poster{object-fit:cover;object-position:center 44%;}
@@ -1565,7 +1565,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       brand: { name: 'OPM Ventures', href: '#top', logo: 'assets/img/logo.png' },
       cta: { label: 'Claim your system', href: '#tiers' },
       mobileVideo: 'assets/vid/flight-m.mp4',
-      assetVersion: '5',
+      assetVersion: '6',
       frameCount: 360,
       frameDir: 'assets/frames/',
       frameCountMobile: 360,
@@ -1579,7 +1579,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           id: 's1', label: 'Invisible',
           still: 'assets/s1.jpg', stillMobile: 'assets/s1-m.jpg',
           clip: 'assets/vid/s1.mp4', clipMobile: 'assets/vid/s1-m.mp4',
-          accent: '#3da9fc',
+          accent: '#5b6b85',
           scroll: 1.7, linger: 0.4,
           eyebrow: 'Where most businesses stall',
           title: "You're invisible.",
@@ -1590,7 +1590,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           id: 's2', label: 'The System',
           still: 'assets/s2.jpg', stillMobile: 'assets/s2-m.jpg',
           clip: 'assets/vid/s2.mp4', clipMobile: 'assets/vid/s2-m.mp4',
-          accent: '#3da9fc',
+          accent: '#5b6b85',
           eyebrow: 'Step one',
           title: 'We build the system.',
           body: 'A conversion-built website engineered as the core everything else plugs into.',
@@ -1600,7 +1600,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           id: 's3', label: 'Paid Traffic',
           still: 'assets/s3.jpg', stillMobile: 'assets/s3-m.jpg',
           clip: 'assets/vid/s3.mp4', clipMobile: 'assets/vid/s3-m.mp4',
-          accent: '#68d0ff',
+          accent: '#8aa0b8',
           eyebrow: 'Step two',
           title: 'Then we drive traffic.',
           body: 'Paid campaigns tuned to push qualified buyers straight into the system.',

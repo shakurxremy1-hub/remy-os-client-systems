@@ -1,0 +1,10 @@
+{
+  "name": "remy-os-client-systems-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Build tooling for the flythrough video (not part of the deployed static site)",
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1"
+  }
+}
