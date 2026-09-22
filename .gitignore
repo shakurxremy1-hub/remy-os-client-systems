@@ -1,6 +1,8 @@
 .DS_Store
 index.jarvis-backup.html
 .gstack/
+.claude-flow/
 assets/_old-frames-backup/
+assets/_buggy-v1-frames-backup/
 node_modules/
 src/

@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>REMY OS — Client Systems · Websites, Paid Ads &amp; Fundability</title>
-  <meta name="description" content="One operator, one system. A website engineered to convert, ad campaigns that produce leads, and a business made fundable enough to borrow and scale. Built through REMY OS." />
-  <meta property="og:title" content="OPM Ventures — One system: Websites, Paid Ads & Fundability" />
-  <meta property="og:description" content="A website that converts, paid traffic engineered to feed it, and a business made lender-ready. One system." />
+  <!-- ✏️ EDIT everything from <title> down to the favicon links: title, description,
+       og:/twitter: tags, og:url + og:image (your domain), theme-color. -->
+  <title>OPM Ventures: Websites, Paid Ads &amp; Fundability</title>
+  <meta name="description" content="One operator. One system. A website engineered to convert, ad campaigns built to produce leads, and a business made fundable enough to borrow and scale." />
+  <meta property="og:title" content="OPM Ventures: One System for Websites, Ads &amp; Fundability" />
+  <meta property="og:description" content="A website that converts. Paid traffic engineered to feed it. A business made lender-ready. One system." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://opmventuresllc.com/" />
   <meta property="og:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="OPM Ventures — One system" />
-  <meta name="twitter:description" content="Websites, paid ads and fundability, built as one system." />
+  <meta name="twitter:title" content="OPM Ventures: One System, Built to Convert" />
+  <meta name="twitter:description" content="Websites, paid ads, and fundability. Built as one system." />
   <meta name="twitter:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
   <meta name="theme-color" content="#05070c" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
@@ -183,7 +185,7 @@
     .tier__btn {
       display: block; text-align: center; text-decoration: none;
       padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
-      background: var(--sw-accent, #5b6b85); color: #05070c; transition: transform .2s ease;
+      background: var(--sw-accent, #3da9fc); color: #05070c; transition: transform .2s ease;
     }
     .tier__btn:hover { transform: translateY(-2px); }
     .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
@@ -247,7 +249,7 @@
     #fx-glow {
       position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
       background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
-        color-mix(in srgb, var(--df-accent, #5b6b85) 12%, transparent), transparent 62%);
+        color-mix(in srgb, var(--df-accent, #3da9fc) 12%, transparent), transparent 62%);
     }
     @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
@@ -307,12 +309,12 @@
     .tier__ring {
       position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
       background: conic-gradient(from var(--fx-ang),
-        color-mix(in srgb, var(--sw-accent, #5b6b85) 96%, #fff) 0deg,
+        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 0deg,
         transparent 70deg, transparent 180deg,
-        color-mix(in srgb, #8aa0b8 96%, #fff) 250deg, transparent 320deg,
-        color-mix(in srgb, var(--sw-accent, #5b6b85) 96%, #fff) 360deg);
+        color-mix(in srgb, #68d0ff 96%, #fff) 250deg, transparent 320deg,
+        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 360deg);
     }
-    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #5b6b85) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #5b6b85) 65%, transparent); }
+    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #3da9fc) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #3da9fc) 65%, transparent); }
     @media (prefers-reduced-motion: no-preference) {
       .tier__ring { animation: fx-ring 5.5s linear infinite; }
       @keyframes fx-ring { to { --fx-ang: 360deg; } }
@@ -333,9 +335,6 @@
       }
       .fx-rise.fx-in { opacity: 1; transform: none; }
     }
-
-    /* hide the "01 / 06" scene counter in the flythrough */
-    .df-copy__num, .sw-copy__num, .mv2-panel__num { display: none !important; }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -344,26 +343,74 @@
         onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"></noscript>
   <!-- paint the first scene's poster instantly while the engine boots -->
-  <link rel="preload" as="image" href="assets/frames/f0001.jpg?v=6" media="(min-width: 861px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames/f0002.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0003.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0004.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0005.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0006.jpg?v=5" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0001.webp?v=6" media="(max-width: 860px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames-m/f0002.webp?v=5" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0003.webp?v=5" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0004.webp?v=5" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0005.webp?v=5" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0006.webp?v=5" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames/f0001.jpg" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames/f0002.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0003.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0004.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0005.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames/f0006.jpg" media="(min-width: 861px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0001.webp" media="(max-width: 860px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/frames-m/f0002.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0003.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0004.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0005.webp" media="(max-width: 860px)" />
+  <link rel="preload" as="image" href="assets/frames-m/f0006.webp" media="(max-width: 860px)" />
 </head>
 <body>
+  <!-- ========================================================================
+       CINEMATIC SCROLL TEMPLATE  ·  how to make a new site from this file
+       ========================================================================
+       Everything below is proven, working code. To rebrand, you only touch
+       CONTENT and ASSETS — never the engine (the big script block after the
+       CONTACT section) or the effects CSS.
+
+       1. HEAD  (top of file)
+          - <title>, <meta name="description">, all og:/twitter: tags
+          - og:image:  URL of assets/img/og.jpg  (1200x630 share card)
+          - <meta name="theme-color">  (your dark bg, must match --sw-bg)
+          - favicon links -> assets/img/favicon-32|180|192.png
+          - (optional) swap the Google Fonts + --sw-font-display / --sw-font-body
+
+       2. ASSETS  (see README.md -> "Frame pipeline" and build-frames.sh)
+          assets/frames/     f0001.jpg ...  desktop landscape frames (~1440w)
+          assets/frames-m/   f0001.webp ... mobile portrait frames  (640x1138)
+          assets/img/logo.png        circular brand mark, ~256px, transparent
+          assets/img/founder.png     cutout portrait, background removed
+          assets/img/og.jpg          1200x630 social card
+          assets/img/favicon-32|180|192.png
+          Keep the frame COUNT identical for desktop + mobile (config below).
+
+       3. SECTION CONTENT  (markup lives right here in <body>)
+          #founder  - portrait img + eyebrow + <h2> + 2 <p> + 2 buttons
+          #tiers    - eyebrow + <h2> + N <div class="tier"> cards
+                      (mark the recommended one class="tier tier--feature"
+                       and give it <span class="tier__badge">Recommended</span>)
+          #contact  - eyebrow + <h2> + lead + 3 buttons + fine print
+
+       4. BOOKING LINK
+          One place: the Calendly IIFE just after the CONTACT section.
+          Set CAL = your scheduling URL. Every <a data-calendly> inherits it.
+
+       5. FLIGHT CONFIG
+          The mountScrollWorld({...}) call at the very bottom of the file:
+          brand.name/logo, cta, frameCount(+Mobile), frameDir(+Mobile),
+          and the 6 `sections` entries (id, label, accent hex, eyebrow,
+          title, body, tags[], and cta on the LAST one only).
+          - accent: hex that tints that scene's UI; it eases scene->scene.
+          - scroll / linger: optional per-scene pacing (see comments there).
+
+       6. DEPLOY  -> DEPLOY.md   |   OPERATE / RECOVER -> RUNBOOK.template.md
+       ======================================================================== -->
+
   <div id="top"></div>
   <div id="fx-glow" aria-hidden="true"></div>
   <div id="fx-grain" aria-hidden="true"></div>
   <div id="world"></div>
 
   <!-- ============ FOUNDER (below the flight) ============ -->
+  <!-- ✏️ EDIT: portrait img src/alt, eyebrow, <h2>, the two <p>, both buttons.
+       The section top is deliberately see-through so the last flight frame
+       dissolves into the face — don't add a background or border here. -->
   <section id="founder" class="founder" aria-label="The operator">
     <div class="founder__inner">
       <div class="founder__portrait">
@@ -372,8 +419,8 @@
       <div class="founder__body">
         <span class="founder__eyebrow">The operator</span>
         <h2 class="founder__title">One person runs your whole system.</h2>
-        <p>I'm Shakur — founder of OPM&nbsp;Ventures&nbsp;LLC. I build the website, run the paid traffic, and get your business lender-ready. One person accountable for the entire chain, not three vendors pointing at each other.</p>
-        <p>Every engagement starts the same way: a call and a blueprint — the offer, the customer, the tier, the dates — then I build.</p>
+        <p>I'm Shakur, founder of OPM&nbsp;Ventures&nbsp;LLC. I build the website. I run the paid traffic. I get your business lender-ready. One person, accountable for the entire chain. Not three vendors pointing at each other.</p>
+        <p>Every engagement starts the same way: a call, then a blueprint. The offer, the customer, the tier, the dates. Then I build.</p>
         <div class="founder__cta">
           <a class="founder__btn founder__btn--primary" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
           <a class="founder__btn founder__btn--ghost" href="#tiers">See the tiers</a>
@@ -383,6 +430,11 @@
   </section>
 
   <!-- ============ TIERS ============ -->
+  <!-- ✏️ EDIT: eyebrow + <h2>, then one <div class="tier"> per plan.
+       Grid auto-fits 1 / 2 / 4 columns. The recommended plan gets
+       class="tier tier--feature" AND <span class="tier__badge">Recommended</span>
+       as its first child. Buttons: class="tier__btn" (filled) or
+       "tier__btn tier__btn--ghost" (outline). data-calendly for a booking link. -->
   <section id="tiers" class="tiers" aria-label="Pick your tier">
     <div class="tiers__head">
       <span class="tiers__eyebrow">Pick your tier</span>
@@ -421,7 +473,7 @@
           <li>Lead tracking dashboard</li>
           <li>Monthly report + strategy call</li>
         </ul>
-        <a class="tier__btn" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth — $2,500</a>
+        <a class="tier__btn" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth: $2,500</a>
         <div class="tier__mini">Monthly retainer (<a href="https://whop.com/checkout/plan_kUi4ob9FHMpuI">$1,500/mo</a>) begins after onboarding.</div>
       </div>
 
@@ -440,7 +492,7 @@
           <li>Bi-weekly calls</li>
         </ul>
         <a class="tier__btn tier__btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application">Request access</a>
-        <div class="tier__mini">Application only — limited slots.</div>
+        <div class="tier__mini">Application only. Limited slots.</div>
       </div>
 
       <div class="tier">
@@ -463,6 +515,8 @@
   </section>
 
   <!-- ============ CONTACT ============ -->
+  <!-- ✏️ EDIT: eyebrow, <h2>, lead line, the 3 buttons, and the fine-print
+       line (business name · domain · email). -->
   <section id="contact" class="contact" aria-label="Get in touch">
     <div class="contact__inner">
       <span class="contact__eyebrow">Get started</span>
@@ -479,7 +533,7 @@
   </section>
 
   <script>
-    /* single place to set the real Calendly link */
+    /* ✏️ EDIT: your booking URL. Every <a data-calendly> on the page uses it. */
     (function(){ var CAL='https://calendly.com/shakur-opmventuresllc/30min';
       document.querySelectorAll('[data-calendly]').forEach(function(a){ a.href=CAL; }); })();
   </script>
@@ -598,7 +652,7 @@ function mountMobileStory(container, config) {
   const panels = S.map((s, i) => {
     const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
     sec.id = ids[i];
-    sec.style.setProperty('--mv2-accent', s.accent || '#5b6b85');
+    sec.style.setProperty('--mv2-accent', s.accent || '#3da9fc');
     const bg = mel('div', 'mv2-panel__bg');
     const img = mel('img', 'mv2-panel__img');
     img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
@@ -675,7 +729,6 @@ function mountMobileStory(container, config) {
 
 function copyHTML(s, i, N, px) {
   px = px || 'mv';
-  if (px === 'df') return copyHTMLGiant(s, i, N, px);
   return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
     (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
     (s.title ? '<h2 class="' + px + '-copy__title">' + msesc(s.title) + '</h2>' : '') +
@@ -687,35 +740,13 @@ function copyHTML(s, i, N, px) {
       '</div>' : '');
 }
 
-// Desktop/phone-flight copy: a massive outline wordmark (the section's `label`)
-// that brightens into focus as you scroll into it, over the straight network
-// flythrough, plus a compact eyebrow/title/body/tags/cta block pinned
-// bottom-left that cascades in.
-function copyHTMLGiant(s, i, N, px) {
-  const word = (s.label || s.title || '').toUpperCase();
-  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
-    '<div class="' + px + '-copy__stage">' +
-      (word ? '<h2 class="' + px + '-copy__word">' + msesc(word) + '</h2>' : '') +
-    '</div>' +
-    '<div class="' + px + '-copy__meta">' +
-      (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
-      (s.title ? '<h3 class="' + px + '-copy__title">' + msesc(s.title) + '</h3>' : '') +
-      (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
-      (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
-      (s.cta ? '<div class="' + px + '-copy__cta">' +
-        (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
-        (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
-        '</div>' : '') +
-    '</div>';
-}
-
 function msesc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function mel(t, c) { const n = document.createElement(t); if (c) n.className = c; return n; }
 function injectMobileCSS() {
   if (document.getElementById('mv-css')) return;
   const st = document.createElement('style'); st.id = 'mv-css';
   st.textContent = `
-  .mv2-root{position:relative;z-index:1;--mv2-accent:#5b6b85;}
+  .mv2-root{position:relative;z-index:1;--mv2-accent:#3da9fc;}
   .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
     padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
   .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
@@ -731,7 +762,7 @@ function injectMobileCSS() {
     opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
   body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
   .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#5b6b85);}
+  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#3da9fc);}
   .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
   .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
   .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
@@ -802,14 +833,9 @@ function mountDesktopFlight(container, config) {
   if (!N || !FRAMES) return false;
   injectDFCSS();
   container.classList.add('df-root');
-  container.style.setProperty('--df-accent', S[0].accent || '#5b6b85');
+  container.style.setProperty('--df-accent', S[0].accent || '#3da9fc');
   const FEXT = config.frameExt || 'jpg';
-  const FIT = config.fit || 'contain';   // 'contain' = whole frame in view (letterboxed); 'cover' = fill + crop
-  // cache-bust: the frame files keep the same names across content updates, so
-  // browsers/CDNs will happily keep serving stale bytes at the same URL forever
-  // unless the URL itself changes — bump config.assetVersion whenever frames change.
-  const AV = config.assetVersion ? ('?v=' + config.assetVersion) : '';
-  const frameURL = i => FDIR + 'f' + String(i + 1).padStart(4, '0') + '.' + FEXT + AV;
+  const frameURL = i => FDIR + 'f' + String(i + 1).padStart(4, '0') + '.' + FEXT;
 
   // fixed background — a <canvas> we blit pre-rendered JPEG frames onto (Apple-style).
   // No <video>: setting video.currentTime triggers a slow decoder seek and needs the
@@ -819,28 +845,6 @@ function mountDesktopFlight(container, config) {
   const poster = mel('img', 'df-poster'); poster.src = frameURL(0); poster.alt = '';
   const canvas = mel('canvas', 'df-canvas'); const ctx = canvas.getContext('2d', { alpha: false });
   bg.appendChild(poster); bg.appendChild(canvas); bg.appendChild(mel('div', 'df-veil'));
-
-  // ---- branded preloader: gates first paint on the frame sequence being ready,
-  // a percent counter in the corner (noomoagency.com-style) instead of a pop-in flight ----
-  const pre = mel('div', 'df-preload');
-  pre.innerHTML = '<div class="df-preload__mark">' + msesc((config.brand && config.brand.name) || '') + '</div><div class="df-preload__pct">0%</div>';
-  document.body.appendChild(pre);
-  const prePct = pre.querySelector('.df-preload__pct');
-  let preDone = false;
-  function preFinish() {
-    if (preDone) return;
-    preDone = true;
-    pre.classList.add('is-done');
-    setTimeout(() => pre.remove(), 700);
-  }
-  function preTick() {
-    if (preDone) return;
-    let n = 0; for (let k = 0; k < FRAMES; k++) if (state[k] === 2) n++;
-    const pct = Math.min(100, Math.round((n / FRAMES) * 100));
-    prePct.textContent = pct + '%';
-    if (pct >= 100) preFinish();
-  }
-  setTimeout(preFinish, 5000);   // safety net: never block the site past 5s
 
   // ---- progressive frame loader ----
   const imgs = new Array(FRAMES), state = new Uint8Array(FRAMES);   // 0 idle · 1 loading · 2 done
@@ -852,7 +856,7 @@ function mountDesktopFlight(container, config) {
     if (state[i]) return;
     state[i] = 1; inflight++;
     const im = new Image(); im.decoding = 'async';
-    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); preTick(); };
+    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); };
     im.onload = () => {
       // Decode off the main thread first so the later ctx.drawImage can't stall a scroll frame.
       if (im.decode) im.decode().then(done, done); else done();
@@ -891,15 +895,8 @@ function mountDesktopFlight(container, config) {
     const cvW = canvas.width, cvH = canvas.height;
     const ir = im.width / im.height, cr = cvW / cvH;
     let w, h, x, y;
-    if (FIT === 'contain') {
-      // show the whole frame, letterboxed into the (matching) #05070c backdrop
-      if (ir > cr) { w = cvW; h = w / ir; } else { h = cvH; w = h * ir; }
-      x = (cvW - w) / 2; y = (cvH - h) * 0.42;
-      if (w < cvW - 1 || h < cvH - 1) { ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, cvW, cvH); }
-    } else {
-      if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
-      x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch
-    }
+    if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
+    x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch (matches object-position)
     ctx.drawImage(im, x, y, w, h);
     if (!firstDrawn) { firstDrawn = true; bg.classList.add('df-on'); }
   }
@@ -920,8 +917,6 @@ function mountDesktopFlight(container, config) {
   // copy + route
   const copylayer = mel('div', 'df-copylayer');
   const copies = S.map((s, i) => { const c = mel('article', 'df-copy'); c.innerHTML = copyHTML(s, i, N, 'df'); copylayer.appendChild(c); return c; });
-  const wordEls = copies.map(c => c.querySelector('.df-copy__word'));
-  const metaKids = copies.map(c => Array.from(c.querySelector('.df-copy__meta').children));
   const route = mel('div', 'df-route');
   const dots = S.map((s, i) => { const d = mel('button', 'df-route__dot'); d.innerHTML = '<span>' + msesc(s.label || '') + '</span><i></i>'; d.addEventListener('click', () => jumpTo(i)); route.appendChild(d); return d; });
   const hint = mel('div', 'df-hint'); hint.innerHTML = '<span>' + msesc(config.hint || 'scroll') + '</span><i></i>';
@@ -960,21 +955,7 @@ function mountDesktopFlight(container, config) {
     const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
     for (let i = 0; i < N; i++) {
       let op = 0, ty = 10;
-      if (i === near) {
-        const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8;
-        // one-directional "coming into focus": ramps 0->1 over the first 40% of this
-        // section's scroll span and then holds, independent of the symmetric fade
-        // above (which stays >=0.6 the whole time the section is near) — otherwise
-        // the brightening rides the same narrow band as the fade and never reads.
-        const local = clamp(pn - i, 0, 1);
-        const wb = smooth(Math.min(1, local / 0.4));
-        if (wordEls[i]) wordEls[i].style.setProperty('--wb', wb.toFixed(3));
-        metaKids[i].forEach((el, j) => {
-          const kt = smooth(clamp((local - j * 0.09) / 0.28, 0, 1));
-          el.style.opacity = kt.toFixed(3);
-          el.style.transform = 'translateY(' + ((1 - kt) * 16).toFixed(1) + 'px)';
-        });
-      }
+      if (i === near) { const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8; }
       copies[i].style.opacity = op.toFixed(3);
       copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
       copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
@@ -985,7 +966,7 @@ function mountDesktopFlight(container, config) {
       navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
       // accent eases between the outgoing and incoming scene colours
     }
-    const a0 = S[near].accent || '#5b6b85';
+    const a0 = S[near].accent || '#3da9fc';
     const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
     const frac = clamp(pn - near - 0.5);
     container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
@@ -1011,7 +992,7 @@ function injectDFCSS() {
   if (document.getElementById('df-css')) return;
   const st = document.createElement('style'); st.id = 'df-css';
   st.textContent = `
-  .df-root{position:relative;z-index:1;--df-accent:#5b6b85;}
+  .df-root{position:relative;z-index:1;--df-accent:#3da9fc;}
   .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
   .df-poster,.df-canvas{position:absolute;inset:0;width:100%;height:100%;}
   .df-poster{object-fit:cover;object-position:center 44%;}
@@ -1035,27 +1016,17 @@ function injectDFCSS() {
   .df-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:color-mix(in srgb,var(--df-accent) 14%,transparent);}
   .df-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--df-accent);}
   .df-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
-  .df-copy{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .4s ease,transform .4s ease;}
-  .df-copy__num{position:absolute;top:clamp(78px,11vh,110px);left:clamp(20px,4vw,56px);
-    font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
-  .df-copy__stage{position:absolute;inset:0;display:grid;place-items:center;}
-  .df-copy__word{position:absolute;max-width:92vw;margin:0;padding:0 2vw;text-align:center;
-    font-family:var(--sw-font-display,system-ui);font-weight:800;text-transform:uppercase;
-    font-size:clamp(3.6rem,12vw,12.5rem);line-height:.84;letter-spacing:-.02em;
-    color:rgba(247,250,254,calc(.05 + .82 * var(--wb,0)));
-    -webkit-text-stroke:1.5px rgba(247,250,254,calc(.5 + .45 * var(--wb,0)));
-    text-shadow:0 0 60px rgba(5,7,12,.4);user-select:none;pointer-events:none;}
-  .df-copy__meta{position:absolute;left:0;bottom:0;width:min(46vw,520px);
-    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);}
-  .df-copy__meta>*{opacity:0;transform:translateY(16px);}
-  .df-copy__eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
+  .df-copy{position:absolute;left:0;bottom:0;width:min(56vw,620px);
+    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);opacity:0;transition:opacity .4s ease,transform .4s ease;}
+  .df-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
+  .df-copy__eyebrow{display:block;margin-top:16px;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
   .df-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
-    font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.15;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
-  .df-copy__body{margin-top:14px;font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
-  .df-copy__tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
+    font-size:clamp(2.2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
+  .df-copy__body{margin-top:18px;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
+  .df-copy__tags{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
   .df-copy__tags li{font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:999px;color:#eef3f9;
     background:color-mix(in srgb,var(--df-accent) 20%,rgba(5,7,12,.4));border:1px solid color-mix(in srgb,var(--df-accent) 40%,transparent);}
-  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px;}
+  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;}
   .df-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;pointer-events:auto;}
   .df-btn--primary{background:var(--df-accent);color:#05070c;}
   .df-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
@@ -1073,7 +1044,7 @@ function injectDFCSS() {
   @keyframes df-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
   .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
   body.past-flight .df-route,body.past-flight .df-hint,body.past-flight .df-copylayer{opacity:0!important;pointer-events:none;transition:opacity .5s ease;}
-  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} .df-copy__meta>*{opacity:1!important;transform:none!important;transition:none!important;} }
+  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} }
 
   /* ---- phone: same flight, portrait chrome ---- */
   .df-root--m .df-veil{
@@ -1083,24 +1054,14 @@ function injectDFCSS() {
   .df-root--m .df-brand__name{font-size:.98rem;}
   .df-root--m .df-nav{display:none;}
   .df-root--m .df-bar__cta{font-size:.8rem;padding:9px 15px;}
-  .df-root--m .df-copy__num{top:calc(env(safe-area-inset-top,0px) + 64px);left:16px;}
-  .df-root--m .df-copy__word{font-size:clamp(2.6rem,15vw,4.6rem);}
-  .df-root--m .df-copy__meta{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
-  .df-root--m .df-copy__title{font-size:clamp(1.15rem,5vw,1.4rem);line-height:1.15;}
-  .df-root--m .df-copy__body{font-size:.94rem;max-width:34ch;}
+  .df-root--m .df-copy{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
+  .df-root--m .df-copy__title{font-size:clamp(2.35rem,8.6vw,3rem);line-height:1.02;}
+  .df-root--m .df-copy__body{font-size:1rem;max-width:34ch;}
   .df-root--m .df-copy__cta{margin-top:20px;}
   .df-root--m .df-btn{padding:13px 22px;font-size:.94rem;}
   .df-root--m .df-route{right:9px;gap:13px;}
   .df-root--m .df-route__dot span{display:none;}
   .df-root--m .df-hint{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);font-size:.68rem;}
-  .df-preload{position:fixed;inset:0;z-index:200;background:#05070c;display:flex;flex-direction:column;
-    align-items:flex-start;justify-content:flex-end;padding:0 0 clamp(28px,6vh,64px) clamp(20px,4vw,56px);
-    gap:8px;transition:opacity .6s ease;}
-  .df-preload__mark{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.85rem;
-    letter-spacing:.18em;text-transform:uppercase;color:#93a2b8;}
-  .df-preload__pct{font-family:ui-monospace,Menlo,monospace;font-size:1.7rem;color:#f7fafe;letter-spacing:.03em;}
-  .df-preload.is-done{opacity:0;pointer-events:none;}
-  @media (prefers-reduced-motion:reduce){ .df-preload{transition:none;} }
   `;
   document.head.appendChild(st);
 }
@@ -1121,8 +1082,7 @@ function mountScrollWorld(container, config) {
       scrollPer: config.scrollPerMobile || 1.15,
       maxParallel: config.maxParallelMobile || 24,
       lookAhead: config.lookAheadMobile || 26,
-      chase: config.chaseMobile || 0.12,
-      fit: config.fitMobile || 'cover'   // mobile stays fill-and-crop (looks right on the 9:16 frames)
+      chase: config.chaseMobile || 0.12
     });
     if (mountDesktopFlight(container, mcfg)) return;
     container.classList.remove('df-root--m');
@@ -1561,14 +1521,16 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
 
   </script>
   <script>
+    /* ✏️ EDIT: this whole object is the flight. brand + cta + the 6 scenes.
+       frameCount / frameCountMobile MUST equal the number of files in
+       assets/frames/ and assets/frames-m/. Keep them equal to each other. */
     mountScrollWorld(document.getElementById('world'), {
       brand: { name: 'OPM Ventures', href: '#top', logo: 'assets/img/logo.png' },
       cta: { label: 'Claim your system', href: '#tiers' },
       mobileVideo: 'assets/vid/flight-m.mp4',
-      assetVersion: '6',
-      frameCount: 360,
+      frameCount: 386,
       frameDir: 'assets/frames/',
-      frameCountMobile: 360,
+      frameCountMobile: 386,
       frameDirMobile: 'assets/frames-m/',
       frameExtMobile: 'webp',
       scrollPerMobile: 1.15,
@@ -1582,8 +1544,8 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           accent: '#5b6b85',
           scroll: 1.7, linger: 0.4,
           eyebrow: 'Where most businesses stall',
-          title: "You're invisible.",
-          body: 'No site that converts, no traffic engine, no financial story — so buyers and lenders both look past you.',
+          title: "Right now, you're invisible.",
+          body: 'No site built to convert. No traffic bringing in buyers. No financial story a lender wants to hear. The right people never see you. The wrong ones forget you.',
           tags: ['Websites', 'Paid ads', 'Fundability'],
         },
         {
@@ -1592,8 +1554,8 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           clip: 'assets/vid/s2.mp4', clipMobile: 'assets/vid/s2-m.mp4',
           accent: '#5b6b85',
           eyebrow: 'Step one',
-          title: 'We build the system.',
-          body: 'A conversion-built website engineered as the core everything else plugs into.',
+          title: 'First, we build the system.',
+          body: 'A conversion-built website. The foundation everything else plugs into.',
           tags: ['Design + build', 'Copy', 'Analytics'],
         },
         {
@@ -1603,7 +1565,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           accent: '#8aa0b8',
           eyebrow: 'Step two',
           title: 'Then we drive traffic.',
-          body: 'Paid campaigns tuned to push qualified buyers straight into the system.',
+          body: 'Paid campaigns built for one job: putting qualified buyers straight into the system.',
           tags: ['Google', 'Meta', 'Tracking'],
         },
         {
@@ -1612,8 +1574,8 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           clip: 'assets/vid/s4.mp4', clipMobile: 'assets/vid/s4-m.mp4',
           accent: '#d9b26a',
           eyebrow: 'Step three',
-          title: 'We make you lender-ready.',
-          body: 'Your credit profile and financials organized until the paperwork says yes.',
+          title: 'Then we make you lender-ready.',
+          body: 'Your credit profile built. Your financials organized. Ready before the bank ever asks.',
           tags: ['Credit profile', 'Documents', 'Structure'],
         },
         {
@@ -1623,7 +1585,7 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           accent: '#d9b26a',
           eyebrow: 'The result',
           title: 'Capital shows up.',
-          body: 'Approvals land because the system and the numbers finally back each other.',
+          body: "Approvals land when the system and the numbers finally agree. That's not luck. That's engineering.",
           tags: ['Approved', 'Funded'],
         },
         {
@@ -1633,8 +1595,8 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
           accent: '#d9b26a',
           scroll: 1.7, linger: 0.45,
           eyebrow: 'What it is for',
-          title: 'A business that scales.',
-          body: 'One system — presence, traffic and capital compounding together.',
+          title: 'A business built to scale.',
+          body: 'One system. Presence, traffic, and capital, compounding together.',
           tags: [],
           cta: {
             primary:   { label: 'Book a call', href: 'https://calendly.com/shakur-opmventuresllc/30min' },
