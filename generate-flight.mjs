@@ -1,10 +1,30 @@
 /**
- * generate-flight.mjs — chained-continuity flight generation.
+ * generate-flight.mjs — converging-city flythrough (Option A).
+ *
+ * A pure camera flythrough, no filmed "vehicle" subject at all - lesson from
+ * two prior failed attempts (jet crashing into a spire, jet crammed onto a
+ * balcony): image-to-video chaining is unreliable whenever a rigid foreground
+ * object needs to keep consistent physics while interacting with something
+ * (landing, entering a building). A camera moving through open space has no
+ * such constraint, so the whole thing is designed to be ONE continuous chain,
+ * start to finish, matching the site's own six-beat copy narrative:
+ *
+ *   Invisible -> hazy, scattered, low city, hard to see
+ *   The System -> haze clears, one light trail appears
+ *   Paid Traffic -> trails multiply, start converging
+ *   Lender-Ready -> all trails funnel toward one glowing tower
+ *   Funded -> camera arcs up the tower's facade
+ *   Scale -> glides through a lit window into an office, full skyline view
  *
  * Scene 1: Flux Schnell still -> Kling image-to-video.
  * Scenes 2-6: motion-only continuation, each seeded from the literal last
- * frame of the previous scene's clip (extracted via ffmpeg, uploaded via
- * fal.storage.upload). Same jet/environment persists, no jump cuts.
+ * frame of the previous scene's clip (ffmpeg extract -> fal.storage.upload).
+ *
+ * The ext->int move in scene 6 (flying through a window into an office) is
+ * the one point with any resemblance to the prior failure category, so it's
+ * verified extra carefully (see the caller's frame-by-frame check) - if it
+ * breaks, the fallback is a fresh independent still + crossfade, same fix
+ * used for the penthouse shot before.
  *
  * Run: node generate-flight.mjs
  */
@@ -19,46 +39,33 @@ if (!process.env.FAL_KEY) {
 fal.config({ credentials: process.env.FAL_KEY });
 mkdirSync('./src', { recursive: true });
 
-const DURATION = '5'; // Kling v1.6 standard image-to-video only accepts '5' or '10', not '8'
+const DURATION = '5';
 
 const SCENES = [
   {
     id: 'scene1',
-    image: `Photorealistic cinematic aerial shot of a sleek luxury private jet, long elegant white fuselage with subtle brushed-gold trim along the window line, cruising smoothly above a thick layer of golden-lit clouds at sunset. Warm dramatic light, shallow depth of field, 35mm lens look. No text, no visible logos, no people.`,
-    motion: `Slow, smooth cinematic forward glide following the jet through soft cloud wisps, camera trailing slightly behind and to the side, gentle bank, no sudden moves, warm golden light.`,
+    image: `Photorealistic cinematic aerial drone shot low over a dim, hazy city at night, scattered building lights, quiet streets, muted low-contrast lighting, a slight fog suggesting obscurity and stillness, camera close to rooftop height. No text, no logos, no people, no vehicles in close view.`,
+    motion: `Slow but building forward glide low over the hazy rooftops, thin atmospheric haze drifting past the camera, gradually gaining speed and altitude as it goes, continuous smooth forward momentum throughout, cinematic, no static moments.`,
   },
   {
     id: 'scene2',
-    motion: `The jet continues its smooth forward descent, breaking through the last wisps of cloud. Below, the Manhattan skyline emerges through the haze at dusk, skyscraper lights beginning to twinkle, the river catching the last golden light. Camera continues gliding forward and downward with the jet, no sudden moves, cinematic.`,
+    motion: `The camera continues accelerating forward and rising slightly higher, the haze clearing as the city comes into sharper focus below, a single glowing light trail appears tracing along a road and begins to flow and pulse with motion. Continuous forward momentum, speed steadily increasing, cinematic, no pause.`,
   },
   {
     id: 'scene3',
-    motion: `The jet glides low and smooth alongside the Manhattan skyline at dusk, banking gently toward one tall glass skyscraper rising above the others. City lights twinkle below, the river reflects the darkening sky. Camera continues following the jet in a smooth continuous bank, cinematic, no cuts.`,
+    motion: `The camera flies fast and low across the city as several more glowing light trails appear on different roads and begin curving toward each other, converging like a network, strong forward speed with heavy parallax as buildings pass below. Continuous unbroken momentum, cinematic, no pause.`,
   },
   {
     id: 'scene4',
-    motion: `The jet continues its smooth forward flight, banking gently and descending toward the rooftop of the glass skyscraper ahead, approaching a private landing area on the tower's upper terrace. Smooth, continuous, physically realistic forward and downward glide - no spinning, no flipping, no erratic movement. Cinematic, warm dusk light.`,
+    motion: `The camera continues its fast forward flight as all the converging light trails funnel directly toward one tall glowing skyscraper rising ahead of every other building, the tower growing rapidly larger and brighter in frame as the camera closes in. Continuous forward speed the entire time, cinematic, no pause.`,
   },
   {
     id: 'scene5',
-    // Deliberately NOT chained from scene4 - a fresh still, cut to via crossfade in the
-    // build step. Two failed attempts proved "jet lands on a residential terrace" is a
-    // physically implausible continuous shot for the model (crash-into-spire, then a
-    // giant jet crammed onto a tiny balcony). A clean transition here is correct, not a
-    // fallback - real films/ads cut here too.
-    image: `Photorealistic cinematic shot of an elegant rooftop penthouse terrace at dusk atop a glass skyscraper in Manhattan, marble tiles, soft warm ambient lighting, floor-to-ceiling glass doors open leading into a luxurious interior, the glittering city skyline and river visible beyond the terrace railing. No people, no text, no logos, no vehicles.`,
-    motion: `Slow, smooth cinematic forward glide across the terrace toward the open glass doors, warm light spilling out, gentle camera movement, no sudden moves, cinematic.`,
+    motion: `The camera arcs smoothly upward alongside the glowing skyscraper's glass facade, the city and its converging light trails falling away below, continuous unbroken forward-and-upward motion, rising fast toward a large lit window near the top of the tower. No sudden stops, cinematic.`,
   },
   {
     id: 'scene6',
-    // Deliberately a fresh still too (not chained from scene5), cut to via crossfade.
-    // The figure goes IN THE STILL this time - Kling motion-only prompts proved
-    // unreliable at introducing a new person who wasn't in the seed image (two prior
-    // attempts rendered an empty room despite the prompt asking for a figure). Flux
-    // renders people into a still directly and far more reliably; Kling then only has
-    // to animate camera + ambient motion around an already-composed scene.
-    image: `Photorealistic cinematic interior shot of a luxurious penthouse living room at night: marble floors, a warm red patterned rug, a cream sofa and dark wood coffee table, floor-to-ceiling windows framing a glittering Manhattan skyline at dusk. A well-dressed man in a tailored dark suit stands facing the window, back partly to camera, backlit in silhouette against the city lights, calm and composed posture. Photorealistic, cinematic, warm ambient interior lighting, shallow depth of field, 35mm lens. No text, no logos.`,
-    motion: `Slow, smooth cinematic forward push toward the window and the standing figure, the figure remains still and calm with only minimal natural motion, warm ambient light glimmers gently, no sudden moves, cinematic.`,
+    motion: `The camera glides smoothly through the large lit window into a modern glass-walled office interior, warm ambient lighting, floor-to-ceiling windows revealing the full glittering city skyline and the converging light trails far below. Continuous forward glide the entire time, no sudden stops, cinematic.`,
   },
 ];
 
@@ -123,7 +130,7 @@ async function run() {
     seedUrl = await uploadFrame(lastFramePath);
     console.log(`  last frame uploaded: ${seedUrl}`);
   }
-  console.log('\nDone. 6 chained clips written to src/scene1.mp4..scene6.mp4');
+  console.log('\nDone. Chained clips written to src/scene1.mp4..scene6.mp4');
 }
 
 run().catch(err => { console.error('\nGeneration failed:', err.message || err); process.exit(1); });
