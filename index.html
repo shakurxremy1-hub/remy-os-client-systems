@@ -881,6 +881,11 @@ function mountDesktopFlight(container, config) {
     cw = window.innerWidth; chh = window.innerHeight;
     canvas.width = Math.round(cw * dpr); canvas.height = Math.round(chh * dpr);
     canvas.style.width = cw + 'px'; canvas.style.height = chh + 'px';
+    // setting canvas.width/height above resets 2D context state in every
+    // browser, including smoothing -- re-set it every time or it silently
+    // reverts to the spec's low-quality default and frames look pixelated.
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     drawIdx(lastIdx, true);
   }
   let lastIdx = -1;
