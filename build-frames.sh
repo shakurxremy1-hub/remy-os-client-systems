@@ -7,17 +7,22 @@
 #                        landscape concat (works, but softer).
 #
 # Output:
-#   assets/frames/fNNNN.jpg    1440w, JPEG q4     (desktop)
-#   assets/frames-m/fNNNN.webp 640x1138, WebP q72 (mobile portrait)
+#   assets/frames/fNNNN.webp   1920x1080, WebP q85 (desktop, matches source clip resolution)
+#   assets/frames-m/fNNNN.webp 640x1138, WebP q72   (mobile portrait)
+#
+# DESKTOP_W defaults to 1920 because that's the native resolution of the
+# generate-flight.mjs source clips (fal.ai/Kling output) -- going higher is
+# fake upscaling, not real detail. If the source clips are ever regenerated
+# at a higher resolution, raise DESKTOP_W to match.
 #
 # Requires: ffmpeg, cwebp
 set -euo pipefail
 
 FPS="${FPS:-8}"                 # frames per second of source -> flight frames
-DESKTOP_W="${DESKTOP_W:-1440}"
+DESKTOP_W="${DESKTOP_W:-1920}"
 MOBILE_W="${MOBILE_W:-640}"
 MOBILE_H="${MOBILE_H:-1138}"    # 640 * 16/9 rounded to even
-JPEG_Q="${JPEG_Q:-4}"           # ffmpeg -q:v, lower = better
+DESKTOP_WEBP_Q="${DESKTOP_WEBP_Q:-85}"
 WEBP_Q="${WEBP_Q:-72}"
 
 command -v ffmpeg >/dev/null || { echo "need ffmpeg"; exit 1; }
@@ -44,9 +49,12 @@ for f in "${LAND[@]}"; do
 done
 ffmpeg -v error -y -f concat -safe 0 -i "$WORK/land.txt" -an -c copy "$WORK/land.mp4"
 
-rm -rf assets/frames && mkdir -p assets/frames
+rm -rf assets/frames "$WORK/d" && mkdir -p assets/frames "$WORK/d"
 ffmpeg -v error -i "$WORK/land.mp4" -vf "scale=${DESKTOP_W}:-2:flags=lanczos" \
-  -q:v "$JPEG_Q" "assets/frames/f%04d.jpg"
+  -q:v 2 "$WORK/d/f%04d.jpg"
+for f in "$WORK"/d/f*.jpg; do
+  cwebp -quiet -q "$DESKTOP_WEBP_Q" -m 4 "$f" -o "assets/frames/$(basename "$f" .jpg).webp"
+done
 N=$(ls assets/frames | wc -l | tr -d ' ')
 echo "desktop frames: $N  ($(du -sh assets/frames | cut -f1))"
 
