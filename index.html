@@ -335,6 +335,20 @@
       }
       .fx-rise.fx-in { opacity: 1; transform: none; }
     }
+
+    /* ============ LIQUID GLASS (2026-11-01) ============
+       .df-bar (brand + section nav + CTA) is the site's only persistent
+       nav — a direct child of #world/.df-root, built by mountDesktopFlight
+       — and it never gets hidden by body.past-flight, so it's visible for
+       the whole page. That makes it eligible to become a real WebGL
+       LiquidGlass element (see the init script near the bottom of the
+       page): the shader refracts the flight canvas (.df-bg, also a
+       direct child of #world) behind it, instead of relying on CSS
+       backdrop-filter. Its direct children just need to stack above the
+       injected <canvas>, and its own gradient background becomes
+       redundant with the canvas once the shader is live. */
+    .df-bar > * { position: relative; z-index: 1; }
+    .df-bar.lg-active { background: transparent !important; }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1813,6 +1827,52 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
         scrollTo(top, Math.min(1100, 380 + Math.abs(top - window.scrollY) * 0.35));
         if (history.replaceState) history.replaceState(null, '', id ? '#' + id : location.pathname);
       }, { passive: false });
+    })();
+  </script>
+
+  <script type="module">
+    // ── LIQUID GLASS — real WebGL glass refraction for the flight bar ──
+    // Library: https://github.com/ybouane/liquidglass (MIT), vendored
+    // locally at assets/vendor/liquidglass.min.js. .df-bar (brand +
+    // section nav + CTA) is already a direct child of #world/.df-root —
+    // mountDesktopFlight builds it there — so it can refract the flight
+    // canvas (.df-bg, also a direct child of #world) behind it with the
+    // real shader instead of a CSS backdrop-filter approximation.
+    // Skipped on touch/narrow viewports: mountScrollWorld swaps to a
+    // different mobile layout there.
+    (async () => {
+      const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+      const barEl = document.querySelector('.df-bar');
+      const worldEl = document.getElementById('world');
+      if (isPhone || !barEl || !worldEl || !window.WebGLRenderingContext) return;
+
+      barEl.dataset.config = JSON.stringify({
+        cornerRadius: 0,
+        zRadius: 12,
+        blurAmount: 0.16,
+        refraction: 0.50,
+        chromAberration: 0.035,
+        edgeHighlight: 0.08,
+        specular: 0.15,
+        fresnel: 1.0,
+        opacity: 0.90,
+        saturation: 0.10,
+        brightness: 0.02,
+        shadowOpacity: 0.30,
+        shadowSpread: 14,
+        shadowOffsetY: 2,
+      });
+
+      try {
+        const { LiquidGlass } = await import('./assets/vendor/liquidglass.min.js');
+        const instance = await LiquidGlass.init({ root: worldEl, glassElements: [barEl] });
+        barEl.classList.add('lg-active');
+        const markDirty = () => instance.markChanged();
+        window.addEventListener('scroll', markDirty, { passive: true });
+        window.addEventListener('resize', markDirty, { passive: true });
+      } catch (err) {
+        console.warn('[liquid-glass] init failed — .df-bar keeps its CSS fallback.', err);
+      }
     })();
   </script>
 </body>
