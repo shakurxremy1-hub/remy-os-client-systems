@@ -1990,5 +1990,29 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
       });
     })();
   </script>
+
+  <script src="assets/vendor/liquid-glass-pills.js"></script>
+  <script>
+    // ── LIQUID GLASS PILLS — the individual nav-link pills ──
+    // A separate, CSS-native glass technique (canvas-rendered squircle
+    // displacement maps + an SVG filter, applied via backdrop-filter,
+    // with spring-physics press/hover/drag) rather than the WebGL
+    // capture library used above — it doesn't need a shared "root" or
+    // direct-child placement, so it layers cleanly onto individual pills
+    // that already sit inside the WebGL-glass .df-bar. Chromium only;
+    // frosts (plain blur, no refraction) everywhere else automatically.
+    (function () {
+      var isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+      if (isPhone || !window.LiquidGlassPill) return;
+      document.querySelectorAll('.df-nav__item').forEach(function (el) {
+        LiquidGlassPill.mount(el, {
+          material: 'clear',
+          appearance: 'dark',
+          interactive: true,
+          refraction: 14,
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
