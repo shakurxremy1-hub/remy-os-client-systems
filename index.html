@@ -349,6 +349,54 @@
        redundant with the canvas once the shader is live. */
     .df-bar > * { position: relative; z-index: 1; }
     .df-bar.lg-active { background: transparent !important; }
+
+    /* ============ LIQUID GLASS, round 2 (2026-11-01) ============
+       Extends real WebGL glass from just the nav to the ghost/secondary
+       buttons and the .tiers__grid cards, each with its own small
+       LiquidGlass root (see the init script near the bottom of the
+       page) — one WebGL context per natural container (founder__cta,
+       contact__actions, .tiers__grid) instead of one per element.
+       button:true gives the library's physical press feedback (bevel
+       flattens, shadow deepens on :active).
+
+       Solid brand-blue buttons (--primary, .tier__btn) stay plain CSS
+       on purpose: the library's canvas fully replaces whatever it's
+       drawn over, so a tinted button turns neutral gray once glass. A
+       .tier__btn sitting INSIDE a now-glass .tier card is unaffected
+       though — it's a normal sibling of the card's injected canvas, not
+       the glass element itself, so its own color stays intact. */
+    .founder__cta, .contact__actions, .tiers__grid { position: relative; }
+    /* a shared backdrop so grouped glass elements (ghost buttons, tier
+       cards) have something to refract — sized to the union of the
+       group's glass elements by the init script. */
+    .glass-grid-bg {
+      position: absolute; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(60% 55% at 22% 0%, color-mix(in srgb, var(--indigo, #3b82f6) 16%, transparent), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
+    }
+    .founder__btn--ghost.lg-active, .contact__btn.lg-active:not(.contact__btn--primary),
+    .tier__btn--ghost.lg-active {
+      background: transparent !important; border-color: transparent !important;
+    }
+    .tier.lg-active { background: transparent !important; }
+    .founder__btn > span, .contact__btn > span { position: relative; z-index: 1; }
+
+    /* Tactile press feedback for buttons that stay solid CSS. This page
+       already has a "magnetic pull" pointermove handler that sets an
+       inline transform on these same buttons (hover-follow), which
+       would silently win over a plain CSS :active rule — so the press
+       state is a CLASS the init script toggles on pointerdown/up
+       (.btn-pressing), forced with !important to beat the inline style
+       for just that moment. */
+    .founder__btn--primary, .contact__btn--primary, .tier__btn, .topnav__cta, .df-bar__cta {
+      transition: filter .18s ease, box-shadow .18s ease;
+    }
+    .btn-pressing {
+      transform: scale(.94) !important;
+      filter: brightness(.9);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,.3);
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -437,7 +485,7 @@
         <p>Every engagement starts the same way: a call, then a blueprint. The offer, the customer, the tier, the dates. Then I build.</p>
         <div class="founder__cta">
           <a class="founder__btn founder__btn--primary" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
-          <a class="founder__btn founder__btn--ghost" href="#tiers">See the tiers</a>
+          <a class="founder__btn founder__btn--ghost" href="#tiers"><span>See the tiers</span></a>
         </div>
       </div>
     </div>
@@ -538,8 +586,8 @@
       <p class="contact__lead">One call to lock the offer, the customer and the scope. Then I build.</p>
       <div class="contact__actions">
         <a class="contact__btn contact__btn--primary" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
-        <a class="contact__btn" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Ventures%20%E2%80%94%20enquiry">Email</a>
-        <a class="contact__btn" href="#tiers">See plans</a>
+        <a class="contact__btn" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Ventures%20%E2%80%94%20enquiry"><span>Email</span></a>
+        <a class="contact__btn" href="#tiers"><span>See plans</span></a>
       </div>
       <p class="contact__fine">OPM&nbsp;Ventures&nbsp;LLC &nbsp;·&nbsp; opmventuresllc.com &nbsp;·&nbsp; <a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a></p>
     </div>
@@ -1831,48 +1879,115 @@ if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
   </script>
 
   <script type="module">
-    // ── LIQUID GLASS — real WebGL glass refraction for the flight bar ──
+    // ── LIQUID GLASS — real WebGL glass refraction site-wide ──
     // Library: https://github.com/ybouane/liquidglass (MIT), vendored
-    // locally at assets/vendor/liquidglass.min.js. .df-bar (brand +
-    // section nav + CTA) is already a direct child of #world/.df-root —
-    // mountDesktopFlight builds it there — so it can refract the flight
-    // canvas (.df-bg, also a direct child of #world) behind it with the
-    // real shader instead of a CSS backdrop-filter approximation.
-    // Skipped on touch/narrow viewports: mountScrollWorld swaps to a
-    // different mobile layout there.
+    // locally at assets/vendor/liquidglass.min.js. Skipped entirely on
+    // touch/narrow viewports: mountScrollWorld swaps to a different
+    // mobile layout there, and WebGL glass isn't worth the GPU cost.
     (async () => {
       const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+      if (isPhone || !window.WebGLRenderingContext) return;
+
+      let LiquidGlass;
+      try {
+        ({ LiquidGlass } = await import('./assets/vendor/liquidglass.min.js'));
+      } catch (err) {
+        console.warn('[liquid-glass] library failed to load — CSS fallbacks stay in place.', err);
+        return;
+      }
+
+      // .df-bar (brand + section nav + CTA) is a direct child of
+      // #world/.df-root — mountDesktopFlight builds it there — so it
+      // can refract the flight canvas (.df-bg, also a direct child of
+      // #world) behind it.
       const barEl = document.querySelector('.df-bar');
       const worldEl = document.getElementById('world');
-      if (isPhone || !barEl || !worldEl || !window.WebGLRenderingContext) return;
-
-      barEl.dataset.config = JSON.stringify({
-        cornerRadius: 0,
-        zRadius: 12,
-        blurAmount: 0.16,
-        refraction: 0.50,
-        chromAberration: 0.035,
-        edgeHighlight: 0.08,
-        specular: 0.15,
-        fresnel: 1.0,
-        opacity: 0.90,
-        saturation: 0.10,
-        brightness: 0.02,
-        shadowOpacity: 0.30,
-        shadowSpread: 14,
-        shadowOffsetY: 2,
-      });
-
-      try {
-        const { LiquidGlass } = await import('./assets/vendor/liquidglass.min.js');
-        const instance = await LiquidGlass.init({ root: worldEl, glassElements: [barEl] });
-        barEl.classList.add('lg-active');
-        const markDirty = () => instance.markChanged();
-        window.addEventListener('scroll', markDirty, { passive: true });
-        window.addEventListener('resize', markDirty, { passive: true });
-      } catch (err) {
-        console.warn('[liquid-glass] init failed — .df-bar keeps its CSS fallback.', err);
+      if (barEl && worldEl) {
+        barEl.dataset.config = JSON.stringify({
+          cornerRadius: 0, zRadius: 12, blurAmount: 0.16, refraction: 0.50,
+          chromAberration: 0.035, edgeHighlight: 0.08, specular: 0.15, fresnel: 1.0,
+          opacity: 0.90, saturation: 0.10, brightness: 0.02,
+          shadowOpacity: 0.30, shadowSpread: 14, shadowOffsetY: 2,
+        });
+        try {
+          const instance = await LiquidGlass.init({ root: worldEl, glassElements: [barEl] });
+          barEl.classList.add('lg-active');
+          const markDirty = () => instance.markChanged();
+          window.addEventListener('scroll', markDirty, { passive: true });
+          window.addEventListener('resize', markDirty, { passive: true });
+        } catch (err) {
+          console.warn('[liquid-glass] .df-bar init failed — CSS fallback stays.', err);
+        }
       }
+
+      // ── Ghost buttons + the tiers card grid: one LiquidGlass root per
+      // natural container, so this stays at a handful of small WebGL
+      // contexts total rather than one per element. button:true turns on
+      // the library's physical press feedback.
+      const PILL = {
+        cornerRadius: 26, zRadius: 18, blurAmount: 0.14, refraction: 0.50,
+        chromAberration: 0.03, edgeHighlight: 0.09, specular: 0.16, fresnel: 1.0,
+        opacity: 0.92, saturation: 0.10, shadowOpacity: 0.30, shadowSpread: 12, shadowOffsetY: 2,
+      };
+      const CARD = {
+        cornerRadius: 18, zRadius: 14, blurAmount: 0.12, refraction: 0.42,
+        chromAberration: 0.025, edgeHighlight: 0.07, specular: 0.10, fresnel: 1.0,
+        opacity: 0.88, saturation: 0.08, shadowOpacity: 0.32, shadowSpread: 16, shadowOffsetY: 4,
+      };
+
+      async function glassGroup(root, childSelector, config, { addBg = false, button = false } = {}) {
+        if (!root) return;
+        const els = Array.from(root.children).filter(el => el.matches(childSelector));
+        if (!els.length) return;
+        if (addBg && !root.querySelector(':scope > .glass-grid-bg')) {
+          // One shared backdrop sized to the union of this group's glass
+          // elements (not the full root) — tight around a single button,
+          // spans the whole grid for a row of cards. Multiple separate
+          // backdrop divs in one root corrupts the capture for every
+          // element past the first (confirmed empirically on the sibling
+          // site), so this group gets exactly one.
+          const l = Math.min(...els.map(el => el.offsetLeft));
+          const t = Math.min(...els.map(el => el.offsetTop));
+          const r = Math.max(...els.map(el => el.offsetLeft + el.offsetWidth));
+          const b = Math.max(...els.map(el => el.offsetTop + el.offsetHeight));
+          const fill = document.createElement('div');
+          fill.className = 'glass-grid-bg';
+          fill.style.left = l + 'px';
+          fill.style.top = t + 'px';
+          fill.style.width = (r - l) + 'px';
+          fill.style.height = (b - t) + 'px';
+          fill.style.borderRadius = getComputedStyle(els[0]).borderRadius;
+          root.insertBefore(fill, els[0]);
+        }
+        const cfg = Object.assign({ button }, config);
+        els.forEach(el => { el.dataset.config = JSON.stringify(cfg); });
+        try {
+          await LiquidGlass.init({ root, glassElements: els });
+          els.forEach(el => el.classList.add('lg-active'));
+        } catch (err) {
+          console.warn('[liquid-glass] group failed, CSS fallback stays:', root.className, err);
+        }
+      }
+
+      await glassGroup(document.querySelector('.founder__cta'), '.founder__btn--ghost', PILL, { addBg: true, button: true });
+      await glassGroup(document.querySelector('.contact__actions'), '.contact__btn:not(.contact__btn--primary)', PILL, { addBg: true, button: true });
+      await glassGroup(document.querySelector('.tiers__grid'), '.tier', CARD, { addBg: true, button: true });
+
+      // ── Press feedback for the solid buttons that stay plain CSS.
+      // This page already has a "magnetic pull" pointermove handler
+      // (further up this file) that sets an inline transform on these
+      // same buttons, which would silently beat a plain CSS :active
+      // rule — so press state is a class toggled on pointerdown/up,
+      // forced with !important to win over the inline style for just
+      // that moment.
+      document.querySelectorAll('.founder__btn--primary, .contact__btn--primary, .tier__btn:not(.tier__btn--ghost), .topnav__cta, .df-bar__cta').forEach(btn => {
+        const press = () => btn.classList.add('btn-pressing');
+        const release = () => btn.classList.remove('btn-pressing');
+        btn.addEventListener('pointerdown', press);
+        btn.addEventListener('pointerup', release);
+        btn.addEventListener('pointerleave', release);
+        btn.addEventListener('pointercancel', release);
+      });
     })();
   </script>
 </body>
