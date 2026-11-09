@@ -1,514 +1,708 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <!-- ✏️ EDIT everything from <title> down to the favicon links: title, description,
-       og:/twitter: tags, og:url + og:image (your domain), theme-color. -->
-  <title>OPM Ventures: Websites, Paid Ads &amp; Fundability</title>
-  <meta name="description" content="One operator. One system. A website engineered to convert, ad campaigns built to produce leads, and a business made fundable enough to borrow and scale." />
-  <meta property="og:title" content="OPM Ventures: One System for Websites, Ads &amp; Fundability" />
-  <meta property="og:description" content="A website that converts. Paid traffic engineered to feed it. A business made lender-ready. One system." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://opmventuresllc.com/" />
-  <meta property="og:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="OPM Ventures: One System, Built to Convert" />
-  <meta name="twitter:description" content="Websites, paid ads, and fundability. Built as one system." />
-  <meta name="twitter:image" content="https://opmventuresllc.com/assets/img/og.jpg" />
-  <meta name="theme-color" content="#05070c" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png" />
-  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
-  <style>
-    :root, .sw-root {
-      --sw-bg: #05070c;          /* == generated scene background */
-      --sw-ink: #f2f6fc;
-      --sw-ink-soft: #93a2b8;
-      --sw-accent: #5b6b85;      /* per-section accents override at runtime */
-      --sw-font-display: "Fraunces", Georgia, serif;
-      --sw-font-body: "Inter", system-ui, sans-serif;
-    }
-    html, body { background: #05070c; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPM Ventures: Remy OS, Websites, Paid Ads &amp; Fundability</title>
+<meta name="description" content="Be found. Be chosen. Be ready. One operator, one system: a website that converts, ads that bring buyers, and a business ready for lenders. Remy OS is the business automation platform from OPM Ventures LLC.">
+<meta name="theme-color" content="#111111">
+<link rel="canonical" href="https://opmventuresllc.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OPM Ventures: Remy OS, Websites, Paid Ads & Fundability">
+<meta property="og:description" content="Be found. Be chosen. Be ready. A website that converts, ads that bring buyers, and a business ready for lenders.">
+<meta property="og:url" content="https://opmventuresllc.com/">
+<meta property="og:image" content="https://opmventuresllc.com/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OPM Ventures LLC","url":"https://opmventuresllc.com","email":"shakur@opmventuresllc.com","address":{"@type":"PostalAddress","addressLocality":"San Antonio","addressRegion":"TX"}}</script>
+<style>
+:root{
+  --bg:#111; --bg2:#161616; --paper:#ececec; --ink:#111; --line:rgba(255,255,255,.12); --line-d:rgba(0,0,0,.12);
+  --mute:rgba(255,255,255,.55); --mute-d:rgba(0,0,0,.6);
+  --display:'Bricolage Grotesque','Anton','Impact',sans-serif; --serif:'Instrument Serif','Times New Roman',serif; --mono:'JetBrains Mono','IBM Plex Mono',ui-monospace,monospace; --body:'Inter',system-ui,sans-serif;
+  --pad:clamp(20px,4vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:#fff;font-family:var(--body);font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid #80ACFF;outline-offset:3px}
 
-    /* --- dark-theme fixes for engine chrome that bakes in #fff / --sw-ink-as-dark --- */
-    .sw-nav {
-      background: color-mix(in srgb, #0c1220 78%, transparent);
-      border-color: color-mix(in srgb, var(--sw-accent) 30%, transparent);
-    }
-    .sw-nav__item { color: #aab6c8; }
-    .sw-nav__item:hover { color: #fff; }
-    .sw-nav__item.is-active { color: #05070c; background: var(--sw-accent); }
+/* ---------- header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);mix-blend-mode:difference;color:#fff}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-size:26px;letter-spacing:.01em;text-transform:none}
+.brand img{width:32px;height:32px;filter:invert(1)}
+.brand sup{font-size:.45em;vertical-align:top}
+.nav{display:flex;gap:28px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.nav a{text-decoration:none;opacity:.85}
+.nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.burger{display:none;background:none;border:0;color:inherit;cursor:pointer;width:40px;height:32px;position:relative}
+.burger span,.burger::before,.burger::after{content:"";position:absolute;left:6px;right:6px;height:3px;background:currentColor;transition:.25s}
+.burger::before{top:6px}.burger span{top:14px}.burger::after{top:22px}
+.menu-open .burger::before{top:14px;transform:rotate(45deg)}
+.menu-open .burger span{opacity:0}
+.menu-open .burger::after{top:14px;transform:rotate(-45deg)}
 
-    .sw-topcta {
-      color: #05070c;
-      background: var(--sw-accent);
-      box-shadow: 0 8px 24px -10px color-mix(in srgb, var(--sw-accent) 70%, transparent);
-    }
+/* ---------- screw buttons ---------- */
+.btn{position:relative;display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:20px 38px;background:#222;color:#fff;border-radius:3px;box-shadow:0 7px 0 #000,0 14px 22px rgba(0,0,0,.25);transform:translate(var(--mx,0px),var(--my,0px));transition:transform .18s ease-out,box-shadow .15s;text-align:center;border:0;cursor:pointer}
+.btn::before,.btn::after{content:"";position:absolute;width:9px;height:9px;border:1px solid rgba(255,255,255,.45);border-radius:50%;top:7px}
+.btn::before{left:7px}.btn::after{right:7px}
+.btn:hover{transform:translate(var(--mx,0px),calc(var(--my,0px) + 3px));box-shadow:0 4px 0 #000,0 8px 14px rgba(0,0,0,.25)}
+.btn--light{background:#f2f2f2;color:#111;box-shadow:0 7px 0 #8a8a8a,0 14px 22px rgba(0,0,0,.4)}
+.btn--light::before,.btn--light::after{border-color:rgba(0,0,0,.4)}
+.btn--light:hover{box-shadow:0 4px 0 #8a8a8a,0 8px 14px rgba(0,0,0,.4)}
+.btn--ghost{background:transparent;color:#fff;box-shadow:none;border:1px solid rgba(255,255,255,.45)}
+.btn--ghost::before,.btn--ghost::after{display:none}
+.btn--ghost:hover{background:#fff;color:#111;box-shadow:none}
+.btns{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
 
-    .sw-copy__tags li {
-      color: color-mix(in srgb, var(--sw-accent) 78%, #fff);
-      background: color-mix(in srgb, var(--sw-accent) 16%, transparent);
-      border-color: color-mix(in srgb, var(--sw-accent) 34%, transparent);
-    }
+/* ---------- section scaffolding ---------- */
+section{position:relative}
+.wrap{padding:clamp(90px,12vw,170px) var(--pad)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--mute);margin-bottom:28px}
+h2.big{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(44px,7.4vw,118px);line-height:.95;letter-spacing:.005em}
+.lead{max-width:560px;color:var(--mute);font-size:clamp(15px,1.25vw,18px)}
+.mono{font-family:var(--mono)}
+.grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:25% 33.33%;opacity:.55;mask-image:linear-gradient(#000,transparent 92%)}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
 
-    .sw-btn--primary { color: #05070c; background: var(--sw-accent); }
-    .sw-btn--ghost   { color: var(--sw-ink); border-color: color-mix(in srgb, var(--sw-ink) 34%, transparent); }
+/* ---------- hero (light) ---------- */
+.hero{min-height:100svh;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 0}
+.hero__bg{position:absolute;inset:0;background:url(assets/daemon/mountain.png) center bottom/cover no-repeat;opacity:.95;-webkit-mask-image:linear-gradient(transparent 18%,#000 62%);mask-image:linear-gradient(transparent 18%,#000 62%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line-d) 1px,transparent 1px),linear-gradient(90deg,var(--line-d) 1px,transparent 1px);background-size:25% 33.33%;pointer-events:none;opacity:.7;z-index:1}
+.hero__in{position:relative;z-index:2;padding-top:110px;padding-bottom:clamp(30px,5vw,60px)}
+.hero h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(54px,11.4vw,210px);line-height:.9;letter-spacing:-.005em;color:#121212}
+.hero h1>span{display:block}
+.hero h1>span:nth-child(1){padding-left:16%}
+.hero__side{position:absolute;right:var(--pad);top:22%;z-index:3;font-family:var(--mono);font-size:clamp(11px,1.05vw,15px);letter-spacing:.04em;text-transform:uppercase;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.hero__side .btn{margin-top:14px;padding:18px 30px}
+.hero__sub{max-width:480px;margin:clamp(20px,3vw,40px) 0 0 40%;color:#1c1c1c;background:rgba(236,236,236,.86);padding:14px 16px;font-size:clamp(14px,1.3vw,19px);font-weight:300;position:relative;z-index:2}
+.hero__foot{position:relative;z-index:2;display:flex;justify-content:center;padding:0 0 22px}
+.hero__foot a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#fff;padding:8px 14px;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.35)}
 
-    .sw-route__label {
-      color: var(--sw-ink);
-      background: color-mix(in srgb, #0c1220 88%, transparent);
-      border-color: color-mix(in srgb, var(--sw-accent) 24%, transparent);
-    }
+/* ---------- services ---------- */
+.services{background:var(--bg);overflow:hidden}
+.services .head{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(30px,6vw,100px);align-items:end;margin-bottom:clamp(60px,8vw,120px)}
+.svc{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.svc article{position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(24px,3vw,44px);min-height:clamp(240px,26vw,380px);display:flex;flex-direction:column;justify-content:space-between;transition:background .3s}
+.svc article:hover{background:var(--bg2)}
+.svc .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--mute)}
+.svc h3{font-family:var(--mono);font-weight:500;font-size:clamp(17px,1.7vw,24px);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+.svc p{color:var(--mute);max-width:380px;font-size:15px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.chips span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);padding:5px 10px;color:rgba(255,255,255,.75)}
+.svc .cta{display:flex;align-items:flex-end;background:#0c0c0c}
 
-    .sw-sky__glow { opacity: .5; }
+/* ---------- Remy OS (cave + cube) ---------- */
+.remy{background:#0b0b0b;overflow:hidden}
+.remy__stage{position:relative;min-height:min(100svh,860px);display:flex;align-items:center;justify-content:center;padding:130px var(--pad) 60px}
+.remy__stage::before{content:"";position:absolute;inset:0;background:url(assets/daemon/cave.png) center/cover no-repeat;opacity:.95}
+.remy__stage::after{content:"";position:absolute;inset:0;background:linear-gradient(#0b0b0b,transparent 22%,transparent 70%,#0b0b0b)}
+.remy__txt{position:absolute;z-index:3;left:var(--pad);top:clamp(100px,14vw,150px);max-width:min(560px,60%)}
+.remy__txt h2{font-size:clamp(40px,6vw,92px)}
+.cube-wrap{position:relative;z-index:2;perspective:1100px;margin-top:6%;margin-left:clamp(0px,18vw,300px)}
+.cube{--s:clamp(150px,17vw,250px);--k:calc(var(--s)*.011);width:calc(var(--s)*2.05);height:calc(var(--s)*.62);position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
+.cube i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-style:normal;font-size:calc(var(--s)*.5);line-height:1;letter-spacing:.05em;word-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:hsl(36 62% calc(14% + var(--n)*2.6%));transform:translateZ(calc((var(--n) - 6)*var(--k)))}
+.cube i.fr{background:linear-gradient(100deg,#8a5d12 0%,#f6e3a1 28%,#c9972f 48%,#fff3c4 60%,#a8741b 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(224,186,100,.45));animation:shine 5s linear infinite}
+.cube i.fr,.cube i.bk{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cube i.bk{transform:rotateY(180deg) translateZ(calc(var(--k)*6))}
+@keyframes shine{to{background-position:-220% 0}}
+.cube b{position:absolute;left:50%;top:50%;width:calc(var(--s)*2.3);height:calc(var(--s)*2.3);margin:calc(var(--s)*-1.15) 0 0 calc(var(--s)*-1.15);border:2px solid rgba(214,174,86,.75);border-radius:50%;box-shadow:0 0 22px rgba(214,174,86,.35);transform:rotateX(78deg) rotateY(-14deg);pointer-events:none}
+.cube b+b{width:calc(var(--s)*2.7);height:calc(var(--s)*2.7);margin:calc(var(--s)*-1.35) 0 0 calc(var(--s)*-1.35);border-width:1px;border-color:rgba(214,174,86,.35);box-shadow:none;transform:rotateX(78deg) rotateY(16deg)}
+.remy__fx{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+@keyframes spin{from{transform:rotateX(-8deg) rotateY(0)}to{transform:rotateX(-8deg) rotateY(360deg)}}
+.cube-label{position:absolute;left:50%;bottom:-54px;transform:translateX(-50%);font-family:var(--display);font-size:28px;letter-spacing:.02em;white-space:nowrap}
+.caps{padding:0 var(--pad) clamp(70px,9vw,130px);background:#0b0b0b}
+.caps ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.caps li{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 20px 26px;min-height:150px}
+.caps li b{display:block;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;position:relative;padding-left:16px}
+.caps li b::before{content:"";position:absolute;left:0;top:3px;width:7px;height:7px;border:1px solid #fff;border-radius:50%}
+.caps li span{color:var(--mute);font-size:14px}
+.remy__intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);padding:clamp(70px,9vw,130px) var(--pad) 50px;background:#0b0b0b}
+.remy__intro p{color:var(--mute);margin-bottom:18px;max-width:560px}
+.pillars{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.pillars span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);padding:7px 12px}
+.familiar{padding:0 var(--pad) clamp(70px,9vw,130px);background:#0b0b0b;display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px)}
+.familiar ul{list-style:none;border-top:1px solid var(--line)}
+.familiar li{padding:18px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:14px;letter-spacing:.02em}
 
-    /* ============ FOUNDER SECTION ============ */
-    .founder {
-      position: relative; z-index: 45;  /* above route(40)/hint(30)/stage(10)/sky(0); below topbar(50) so the brand bar stays */
-      /* top ~34vh is see-through so the flight's last frame dissolves straight into
-         this section — no seam, one continuous space into the face and beyond */
-      background:
-        linear-gradient(180deg, transparent 0, rgba(5,7,12,.55) 16vh, #05070c 40vh),
-        radial-gradient(62% 58% at 82% 24%, color-mix(in srgb, #5b6b85 16%, transparent), transparent 64%);
-      color: #f2f6fc;
-      padding: clamp(120px, 24vh, 260px) clamp(20px, 6vw, 80px) clamp(72px, 12vh, 150px);
-    }
-    .founder__inner {
-      max-width: 1000px; margin: 0 auto;
-      display: grid; grid-template-columns: minmax(240px, 360px) minmax(0, 560px);
-      gap: clamp(32px, 6vw, 96px); align-items: center; justify-content: center;
-    }
-    .founder__portrait {
-      position: relative; align-self: center;
-      padding: 4% 6% 0;
-    }
-    .founder__portrait::before {   /* soft glow behind the head — no frame */
-      content: ""; position: absolute; inset: -6% -4% -2%;
-      background: radial-gradient(56% 52% at 50% 40%, color-mix(in srgb, #5b6b85 24%, transparent), transparent 72%);
-      pointer-events: none;
-    }
-    .founder__portrait::after {    /* warm pedestal so the face is grounded, not floating */
-      content: ""; position: absolute; left: 50%; bottom: 1%; width: 76%; height: 22%;
-      transform: translateX(-50%);
-      background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, #d9b26a 28%, transparent), transparent 70%);
-      filter: blur(6px); pointer-events: none;
-    }
-    .founder__portrait img {
-      position: relative; z-index: 1;
-      display: block; width: 100%; height: auto;
-      filter: drop-shadow(0 30px 55px rgba(0,0,0,.6));
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .founder__portrait img { animation: founder-float 7s ease-in-out infinite; }
-      @keyframes founder-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-    }
-    .founder__eyebrow {
-      display: block; font-family: var(--sw-font-display);
-      font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase;
-      color: #8aa0b8;
-    }
-    .founder__title {
-      font-family: var(--sw-font-display); font-weight: 700;
-      font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.05;
-      margin: 14px 0 20px; letter-spacing: -.01em;
-    }
-    .founder__body p {
-      margin: 0 0 16px; max-width: 46ch;
-      font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.6;
-      color: color-mix(in srgb, #f2f6fc 82%, #8898ac);
-    }
-    .founder__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
-    .founder__btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 13px 24px; border-radius: 999px; text-decoration: none;
-      font-weight: 600; font-size: .95rem; transition: transform .2s ease;
-    }
-    .founder__btn:hover { transform: translateY(-2px); }
-    .founder__btn--primary { background: #d9b26a; color: #05070c; }
-    .founder__btn--ghost { color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.28); }
-    @media (max-width: 820px) {
-      .founder__inner { grid-template-columns: 1fr; text-align: left; }
-      .founder__portrait { max-width: 320px; margin: 0 0 8px; }
-    }
-    /* when the outro (founder + tiers) is on screen, get the flight's fixed chrome out of the way */
-    body.past-flight .sw-route,
-    body.past-flight .sw-hint { opacity: 0 !important; pointer-events: none; }
-    body.past-flight .mv-bg { opacity: 0 !important; transition: opacity .4s ease; }
+/* ---------- marquee + process ---------- */
+.marq{background:var(--bg);border-top:1px solid var(--line);overflow:hidden;padding:clamp(30px,5vw,70px) 0}
+.marq div{display:flex;width:max-content;animation:mq 26s linear infinite}
+.marq span{font-family:var(--display);font-size:clamp(70px,13vw,200px);line-height:1;text-transform:uppercase;padding-right:.5em;white-space:nowrap}
+@keyframes mq{to{transform:translateX(-50%)}}
+.proc{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin:0 var(--pad)}
+.proc article{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(24px,3vw,44px);min-height:clamp(240px,24vw,340px);display:flex;flex-direction:column;justify-content:space-between}
+.proc .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--mute)}
+.proc h3{font-family:var(--mono);font-weight:500;font-size:clamp(18px,1.8vw,26px);letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+.proc p{color:var(--mute);font-size:15px}
+.names{display:grid;grid-template-columns:1fr 1fr;margin:clamp(70px,9vw,130px) var(--pad) 0;border:1px solid var(--line)}
+.names div{padding:clamp(26px,3.4vw,52px)}
+.names div+div{border-left:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.names small{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.names h3{font-family:var(--display);font-weight:400;font-size:clamp(34px,4.6vw,70px);text-transform:uppercase;line-height:1;margin:14px 0 16px}
+.names p{max-width:420px;opacity:.75}
 
-    /* ============ TIERS ============ */
-    .tiers {
-      position: relative; z-index: 45;
-      background: #05070c; color: #f2f6fc;
-      padding: clamp(64px, 10vh, 130px) clamp(20px, 6vw, 80px) clamp(80px, 12vh, 150px);
+/* ---------- founder ---------- */
+.founder{background:var(--paper);color:var(--ink);overflow:hidden}
+.founder .fin{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,6vw,100px);align-items:end;padding:clamp(80px,10vw,140px) var(--pad) 0}
+.founder img{width:100%;max-width:520px;margin:0 auto;filter:grayscale(1) contrast(1.05)}
+.founder .body{padding-bottom:clamp(60px,8vw,120px)}
+.founder h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,6vw,94px);line-height:.95;margin-bottom:26px}
+.founder p{max-width:540px;color:var(--mute-d);margin-bottom:16px}
+.founder .tag{border-color:var(--line-d);color:var(--mute-d);background:transparent}
 
-    }
-    .tiers__head { max-width: 1140px; margin: 0 auto 44px; }
-    .tiers__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: #8aa0b8; }
-    .tiers__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.06; margin: 12px 0 0; letter-spacing: -.01em; }
-    .tiers__grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .tier {
-      display: flex; flex-direction: column;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)) , #0b1220;
-      border: 1px solid rgba(255,255,255,.10); border-radius: 18px;
-      padding: 26px 22px;
-    }
-    .tier--feature {
-      border-color: color-mix(in srgb, #5b6b85 55%, transparent);
-      background: linear-gradient(180deg, color-mix(in srgb, #5b6b85 12%, transparent), rgba(255,255,255,.02)), #0b1424;
-      box-shadow: 0 0 0 1px color-mix(in srgb, #5b6b85 35%, transparent), 0 30px 70px -40px color-mix(in srgb, #5b6b85 60%, transparent);
-      position: relative;
-    }
-    .tier__badge {
-      align-self: flex-start; margin: -2px 0 12px;
-      font-family: var(--sw-font-display); font-size: 10px; font-weight: 700;
-      letter-spacing: .16em; text-transform: uppercase; color: #05070c;
-      background: linear-gradient(100deg, #5b6b85, #8aa0b8);
-      padding: 5px 12px; border-radius: 999px;
-      box-shadow: 0 6px 18px -8px color-mix(in srgb, #5b6b85 80%, transparent);
-    }
-    .tier:not(.tier--feature) .tier__badge { display: none; }
-    @media (min-width: 1001px) {
-      .tier--feature { margin-top: -14px; }
-    }
-    .tier h3 { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; }
-    .tier__blurb { font-size: 13px; color: #8898ac; min-height: 50px; margin-bottom: 4px; }
-    .tier__price { font-family: var(--sw-font-display); font-weight: 700; font-size: 1.6rem; margin: 14px 0 2px; }
-    .tier__price small { font-family: var(--sw-font-body); font-size: 11px; color: #8898ac; font-weight: 400; }
-    .tier__sub { font-size: 11px; color: #d9b26a; min-height: 15px; margin-bottom: 16px; }
-    .tier ul { list-style: none; margin: 2px 0 20px; padding: 0; flex: 1; }
-    .tier li { font-size: 13px; color: #aab6c8; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; gap: 9px; }
-    .tier li::before { content: "▪"; color: #8aa0b8; flex: 0 0 auto; }
-    .tier li em { color: #f2f6fc; font-style: normal; }
-    .tier__btn {
-      display: block; text-align: center; text-decoration: none;
-      padding: 12px 10px; border-radius: 999px; font-weight: 600; font-size: .9rem;
-      background: var(--sw-accent, #3da9fc); color: #05070c; transition: transform .2s ease;
-    }
-    .tier__btn:hover { transform: translateY(-2px); }
-    .tier__btn--ghost { background: transparent; color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.26); }
-    .tier__mini { font-size: 10px; color: #8898ac; margin-top: 10px; text-align: center; }
-    .tier__mini a { color: #d9b26a; }
-    .tiers__note { max-width: 1140px; margin: 30px auto 0; font-size: 12px; color: #8898ac; }
+/* ---------- tiers ---------- */
+.tiers{background:var(--bg)}
+.tiers__grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:clamp(50px,7vw,100px)}
+.tier{position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(22px,2.4vw,36px);display:flex;flex-direction:column}
+.tier--feature{background:#1b1b1b}
+.badge{position:absolute;top:-1px;right:-1px;background:#fff;color:#111;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px}
+.tier h3{font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.tier .bl{color:var(--mute);font-size:14px;min-height:44px}
+.price{font-family:var(--display);font-size:clamp(34px,3.4vw,52px);line-height:1;margin:26px 0 4px;white-space:nowrap}
+.price small{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-left:4px}
+.sub{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--mute);min-height:18px;margin-bottom:22px}
+.tier ul{list-style:none;margin-bottom:28px;flex:1}
+.tier li{font-size:14px;padding:9px 0;border-top:1px solid var(--line);color:rgba(255,255,255,.82)}
+.tier .btn{width:100%;padding:18px 16px}
+.mini{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:18px;letter-spacing:.02em}
+.mini a{color:#fff}
 
-    /* ============ CONTACT ============ */
-    .contact {
-      position: relative; z-index: 45; overflow: hidden;
-      background:
-        radial-gradient(70% 60% at 50% 0%, color-mix(in srgb, #5b6b85 10%, transparent), transparent 70%),
-        #05070c;
-      color: #f2f6fc;
-      padding: clamp(72px, 12vh, 150px) clamp(20px, 6vw, 80px);
-      text-align: center;
-    }
-    .contact::before {   /* slow aurora drift behind the headline */
-      content: ""; position: absolute; left: 50%; top: -10%;
-      width: min(760px, 92vw); height: 340px; transform: translateX(-50%);
-      background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, #5b6b85 16%, transparent), transparent 70%);
-      pointer-events: none; filter: blur(20px);
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .contact::before { animation: contact-aurora 12s ease-in-out infinite; }
-      @keyframes contact-aurora {
-        0%,100% { transform: translateX(-50%) translateY(0) scale(1); opacity: .9; }
-        50%     { transform: translateX(-50%) translateY(22px) scale(1.12); opacity: 1; }
-      }
-    }
-    .contact__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
-    .contact__eyebrow { font-family: var(--sw-font-display); font-weight: 700; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: #8aa0b8; }
-    .contact__title { font-family: var(--sw-font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; margin: 14px 0 0; letter-spacing: -.015em; }
-    .contact__lead { margin: 18px auto 0; max-width: 40ch; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.55; color: color-mix(in srgb, #f2f6fc 80%, #8898ac); }
-    .contact__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
-    .contact__btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .98rem;
-      color: #f2f6fc; border: 1.5px solid rgba(255,255,255,.24); transition: transform .2s ease, border-color .2s ease, background .2s ease;
-    }
-    .contact__btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.5); }
-    .contact__btn--primary { background: #d9b26a; color: #05070c; border-color: transparent; }
-    .contact__btn--primary:hover { background: #e6c485; }
-    .contact__fine { margin-top: 40px; font-size: 12px; letter-spacing: .04em; color: #7c899f; }
-    .contact__fine a { color: #9fb0c6; }
-    .contact__top {
-      position: absolute; right: clamp(16px, 4vw, 40px); bottom: clamp(20px, 5vh, 44px);
-      width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
-      color: #f2f6fc; text-decoration: none; font-size: 1.1rem;
-      border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.04);
-    }
+/* ---------- contact ---------- */
+.contact{background:#0b0b0b;overflow:hidden;text-align:center}
+.contact .kgrid{position:absolute;inset:0;z-index:0}
+.contact .wrap{position:relative;z-index:1}
+.contact h2{margin:0 auto 24px;max-width:1100px}
+.contact .lead{margin:0 auto 40px}
+.contact .btns{justify-content:center}
+.fine{margin-top:50px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--mute)}
+.fine a{color:#fff}
+footer{background:#0b0b0b;border-top:1px solid var(--line);padding:26px var(--pad);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mute);text-transform:uppercase}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
 
-    /* ============ PREMIUM DETAILS ============ */
-    /* fine film grain over everything — static, no blend mode (cheap) */
-    #fx-grain {
-      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .05;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 140px 140px;
-    }
-    /* cursor-follow glow on the dark ground (desktop, fine pointer) */
-    #fx-glow {
-      position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .5s ease;
-      background: radial-gradient(360px circle at var(--fx-x, 50%) var(--fx-y, 40%),
-        color-mix(in srgb, var(--df-accent, #3da9fc) 12%, transparent), transparent 62%);
-    }
-    @media (hover: hover) and (pointer: fine) { #fx-glow { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { #fx-grain, #fx-glow { display: none; } }
+/* ---------- effects (assets/fx.js) ---------- */
+.fx .tw{display:inline-block;overflow:hidden;vertical-align:top;padding:.08em 0 .02em;margin:-.08em 0 -.02em}
+.fx .twi{display:inline-block;transform:translateY(112%);transition:transform .9s cubic-bezier(.19,1,.22,1);transition-delay:calc(var(--i,0)*55ms)}
+.fx .tw-in .twi{transform:none}
+.spot{background-image:radial-gradient(380px circle at var(--sx,-999px) var(--sy,-999px),rgba(255,255,255,.075),transparent 62%)}
 
-    /* tier cards: top sheen + cursor specular */
-    .tier { position: relative; overflow: hidden; }
-    .tier::before {
-      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 42%; pointer-events: none;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
-    }
-    .tier::after {
-      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s ease;
-      background: radial-gradient(200px circle at var(--gx, 50%) var(--gy, 0%),
-        rgba(255,255,255,.14), transparent 60%);
-    }
-    .tier:hover::after { opacity: 1; }
-    .tier { transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease; }
-    .tier:hover { transform: translateY(-4px); }
+/* scroll progress */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,#80ACFF,#fff,#ff5a4f);z-index:60}
+/* services ticker */
+.ticker{background:#0b0b0b;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0}
+.ticker div{display:flex;width:max-content;animation:mq 30s linear infinite}
+.ticker span{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:0 26px;white-space:nowrap;color:rgba(255,255,255,.8)}
+.ticker span::after{content:"✦";margin-left:52px;color:rgba(255,255,255,.35)}
+/* animated border beam on the recommended tier */
+@property --beam{syntax:'<angle>';initial-value:0deg;inherits:false}
+.tier--feature::before{content:"";position:absolute;inset:-1px;padding:1px;pointer-events:none;background:conic-gradient(from var(--beam),transparent 0 70%,#80ACFF 85%,#fff 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:beam 5s linear infinite}
+@keyframes beam{to{--beam:360deg}}
+/* floating call button */
+.fab{position:fixed;right:18px;bottom:18px;z-index:55;opacity:0;transform:translateY(20px);pointer-events:none;transition:.35s;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:#f2f2f2;color:#111;padding:14px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.fab.show{opacity:1;transform:none;pointer-events:auto}
+.fab:hover{background:#fff}
+/* portrait tilt */
+.founder img{transition:transform .25s ease-out;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
 
-    /* magnetic buttons return smoothly */
-    .df-bar__cta, .tier__btn, .contact__btn, .founder__btn { transition: transform .3s cubic-bezier(.22,1,.36,1), background .2s ease, border-color .2s ease; will-change: transform; }
-    /* tactile press */
-    .df-bar__cta:active, .tier__btn:active, .contact__btn:active, .founder__btn:active,
-    .mv2-btn:active, .contact__top:active { transform: translateY(0) scale(.96); }
-    /* brand-tinted text selection + a clean keyboard focus ring */
-    ::selection { background: color-mix(in srgb, #5b6b85 42%, transparent); color: #fff; }
-    :focus-visible { outline: 2px solid #d9b26a; outline-offset: 3px; border-radius: 4px; }
-    :focus:not(:focus-visible) { outline: none; }
-    @media (max-width: 1000px) { .tiers__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px)  { .tiers__grid { grid-template-columns: 1fr; } .tier__blurb, .tier__sub { min-height: 0; } }
+/* cursor ring */
+.ring{position:fixed;left:0;top:0;width:38px;height:38px;margin:-19px 0 0 -19px;border:1px solid #fff;border-radius:50%;pointer-events:none;z-index:90;mix-blend-mode:difference;opacity:0;transition:width .25s,height .25s,margin .25s,background .25s,opacity .3s}
+.ring.on{opacity:1}
+.ring.big{width:70px;height:70px;margin:-35px 0 0 -35px;background:#fff}
+/* hero parallax */
+.hero__bg{transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.1);will-change:transform}
+/* draggable cube */
+.cube-wrap{cursor:grab;touch-action:pan-y;pointer-events:auto}
+.cube-wrap:active{cursor:grabbing}
+.js-cube .cube{animation:none}
+/* section dots */
+.dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:14px;mix-blend-mode:difference}
+.dots a{position:relative;display:block;width:10px;height:10px;border:1px solid #fff;border-radius:50%;transition:.25s}
+.dots a.on{background:#fff;transform:scale(1.35)}
+.dots a span{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;white-space:nowrap;opacity:0;transition:.2s;pointer-events:none}
+.dots a:hover span{opacity:1}
+/* copy email + toast */
+.copy{font:inherit;color:#fff;background:none;border:1px solid var(--line);padding:3px 9px;margin-left:8px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+.copy:hover{background:#fff;color:#111}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);background:#fff;color:#111;font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:12px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.3s;z-index:95}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 
-    /* --- living grain: a slow shimmer instead of a frozen tile --- */
-    @media (prefers-reduced-motion: no-preference) {
-      #fx-grain { animation: fx-grain-shift .9s steps(1) infinite; }
-      @keyframes fx-grain-shift {
-        0%{background-position:0 0} 20%{background-position:-38px 22px} 40%{background-position:24px -34px}
-        60%{background-position:-18px -20px} 80%{background-position:32px 18px} 100%{background-position:0 0}
-      }
-    }
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .tiers__grid{grid-template-columns:repeat(2,1fr)}
+  .caps ul{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:860px){
+  .nav{position:fixed;inset:0;background:#111;flex-direction:column;justify-content:center;align-items:center;gap:26px;font-size:18px;opacity:0;pointer-events:none;transition:.3s}
+  .menu-open .nav{opacity:1;pointer-events:auto}
+  .burger{display:block;z-index:2}
+  .hdr{mix-blend-mode:normal;background:rgba(17,17,17,.92)}
+  .hero h1{font-size:clamp(48px,17vw,120px)}
+  .hero__in{padding-top:96px}
+  .hero__sub{color:#222;font-weight:400}
+  .brand{position:relative;z-index:2}
+  .hero{min-height:94svh}
+  .hero h1>span:nth-child(1){padding-left:0}
+  .hero__side{position:relative;top:auto;right:auto;margin-top:26px;z-index:3;flex-direction:row;flex-wrap:wrap;gap:8px 18px}
+  .hero__side .btn{margin-top:0;width:100%}
+  .hero__side span{display:none}
+  .hero__sub{margin-left:0}
+  .services .head,.remy__intro,.familiar,.founder .fin,.names{grid-template-columns:1fr}
+  .names div+div{border-left:0;border-top:1px solid var(--line)}
+  .svc,.proc,.tiers__grid{grid-template-columns:1fr}
+  .caps ul{grid-template-columns:repeat(2,1fr)}
+  .remy__txt{position:relative;left:auto;top:auto;max-width:none;z-index:3;margin-bottom:40px}
+  .remy__stage{flex-direction:column;align-items:flex-start;justify-content:flex-start;padding-top:110px}
+  .cube-wrap{margin:30px auto 70px}
+  .founder img{max-width:340px}
+  .hero__foot{display:none}
+  .dots{display:none}
+  .ring{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html:not(.fxon) .cube,html:not(.fxon) .marq div,html:not(.fxon) .ticker div,html:not(.fxon) .tier--feature::before{animation:none}
+  html:not(.fxon) .prog{display:none}
+  html:not(.fxon) .reveal{opacity:1;transform:none;transition:none}
+  html:not(.fxon){scroll-behavior:auto}
+}
 
-    /* --- metal shine sweep on the logo + primary buttons --- */
-    .fx-shine { position: relative; overflow: hidden; isolation: isolate; }
-    .fx-shine::after {
-      content: ""; position: absolute; top: -60%; bottom: -60%; left: -30%; width: 40%;
-      background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
-      transform: translateX(-260%) skewX(-18deg); pointer-events: none; z-index: 2;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .fx-shine::after { animation: fx-sweep 7s ease-in-out infinite; }
-      .fx-shine:hover::after { animation-duration: 1.1s; }
-      @keyframes fx-sweep { 0%,72%{transform:translateX(-260%) skewX(-18deg)} 88%,100%{transform:translateX(520%) skewX(-18deg)} }
-    }
-    .df-brand__logo.fx-shine::after, .sw-brand__logo.fx-shine::after, .mv2-brand__logo.fx-shine::after { border-radius: 50%; }
+.tier{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;will-change:transform}
+.tier.tilting{transition:transform .06s linear;z-index:2}
+.tier .glare{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.14),transparent 60%)}
+.tier.tilting .glare{opacity:1}
+.rip{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+.rip i{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:currentColor;opacity:.35;transform:scale(0);animation:rip .6s ease-out forwards}
+@keyframes rip{to{transform:scale(22);opacity:0}}
+.step-line{height:2px;background:rgba(255,255,255,.12);margin:0 0 18px;position:relative;overflow:hidden}
+.step-line i{position:absolute;inset:0;background:#fff;transform:scaleX(var(--sl,0));transform-origin:left}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .tier{transform:none!important}html:not(.fxon) .rip{display:none}}
 
-    /* --- rotating gradient ring on the Recommended (Growth) tier --- */
-    @property --fx-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-    .tier__ring {
-      position: absolute; inset: -2px; border-radius: calc(18px + 2px); z-index: -1; pointer-events: none;
-      background: conic-gradient(from var(--fx-ang),
-        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 0deg,
-        transparent 70deg, transparent 180deg,
-        color-mix(in srgb, #68d0ff 96%, #fff) 250deg, transparent 320deg,
-        color-mix(in srgb, var(--sw-accent, #3da9fc) 96%, #fff) 360deg);
-    }
-    .tier--feature { box-shadow: 0 0 0 1px color-mix(in srgb, var(--sw-accent, #3da9fc) 30%, transparent), 0 24px 60px -34px color-mix(in srgb, var(--sw-accent, #3da9fc) 65%, transparent); }
-    @media (prefers-reduced-motion: no-preference) {
-      .tier__ring { animation: fx-ring 5.5s linear infinite; }
-      @keyframes fx-ring { to { --fx-ang: 360deg; } }
-    }
+html.fx .founder img{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1),transform .25s ease-out}
+html.fx .founder img.wipe-in{clip-path:inset(0)}
 
-    /* --- founder portrait: 3D tilt toward cursor --- */
-    .founder__portrait { transition: transform .35s cubic-bezier(.22,1,.36,1); transform-style: preserve-3d; will-change: transform; }
+/* round 6: outline marquee, film grain, command palette */
+.marq--out{border-top:0;background:#0b0b0b}
+.marq--out div{animation-direction:reverse;animation-duration:34s}
+.marq--out span{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55)}
+.marq--out span:nth-child(even){color:#fff;-webkit-text-stroke:0}
+body::after{content:"";position:fixed;inset:-50%;z-index:85;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) body::after{animation:none}}
+.kbtn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.4);border-radius:3px;padding:6px 9px;cursor:pointer;margin-left:14px}
+.kbtn:hover{background:#fff;color:#111}
+.cmd{position:fixed;inset:0;z-index:120;display:none;align-items:flex-start;justify-content:center;padding:14vh 16px 0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
+.cmd.open{display:flex}
+.cmd__box{width:min(560px,100%);background:#161616;border:1px solid rgba(255,255,255,.18);border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;color:#fff}
+.cmd input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.12);color:#fff;font:16px var(--mono);padding:18px 20px;outline:0}
+.cmd ul{list-style:none;max-height:340px;overflow:auto;padding:8px;margin:0}
+.cmd li{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:5px;font:14px var(--mono);cursor:pointer;color:rgba(255,255,255,.85)}
+.cmd li small{color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;font-size:10px;align-self:center}
+.cmd li[aria-selected=true]{background:#fff;color:#111}.cmd li[aria-selected=true] small{color:#555}
+.cmd p{padding:18px 20px;color:rgba(255,255,255,.5);font:13px var(--mono)}
+@media (max-width:860px){.kbtn{display:none}}
 
-    /* --- dust motes (per-section canvas, injected by JS) --- */
-    @media (prefers-reduced-motion: reduce) { .fx-motes-layer { display: none; } }
+/* round 7: liquid glass */
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));-webkit-backdrop-filter:blur(16px) saturate(190%) brightness(1.08);backdrop-filter:blur(16px) saturate(190%) brightness(1.08);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(255,255,255,.12),inset 0 0 22px rgba(255,255,255,.08),0 12px 36px rgba(0,0,0,.28);position:relative;overflow:hidden}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(220px circle at var(--gx,30%) var(--gy,0%),rgba(255,255,255,.38),transparent 62%);opacity:.7;transition:opacity .3s}
+.glass:hover::before{opacity:1}
+.hero__sub.glass{background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.58));color:#111;border-color:rgba(255,255,255,.7);box-shadow:inset 0 1px 0 #fff,0 14px 40px rgba(0,0,0,.18);border-radius:14px}
+.fab.glass,.toast.glass{position:fixed}
+.fab.glass{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07));color:#fff;overflow:hidden}
+.fab.glass:hover{background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.12))}
+.toast.glass{background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.1));color:#fff}
+.cmd__box.glass{background:linear-gradient(135deg,rgba(40,40,40,.7),rgba(20,20,20,.55));border-radius:16px;overflow:hidden}
+.cmd__box.glass::before{opacity:.35}
+.hdr.glass-on{mix-blend-mode:normal;left:var(--pad);right:var(--pad);top:12px;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,rgba(40,40,40,.62),rgba(15,15,15,.5));-webkit-backdrop-filter:blur(18px) saturate(190%);backdrop-filter:blur(18px) saturate(190%);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 12px 36px rgba(0,0,0,.3)}
+.hdr{transition:left .35s,right .35s,top .35s,padding .35s,border-radius .35s,background .35s}
+.gpills{position:absolute;inset:0;z-index:3;pointer-events:none}
+.gpills span{position:absolute;padding:12px 20px;border-radius:999px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;white-space:nowrap;animation:gfloat 7s ease-in-out infinite}
+.gpills span:nth-child(1){right:7%;top:26%}
+.gpills span:nth-child(2){right:15%;top:42%;animation-delay:-2s}
+.gpills span:nth-child(3){right:5%;top:58%;animation-delay:-4s}
+.gpills span:nth-child(4){right:17%;top:72%;animation-delay:-1s}
+@keyframes gfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@media (max-width:860px){.gpills{display:none}.hdr.glass-on{left:0;right:0;top:0;border-radius:0}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .gpills span{animation:none}}
 
-    /* --- desktop: gentle reveal for the outro content as it enters view --- */
-    @media (min-width: 861px) and (prefers-reduced-motion: no-preference) {
-      .fx-rise {
-        opacity: 0; transform: translateY(26px);
-        transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
-        transition-delay: calc(var(--i, 0) * 70ms);
-      }
-      .fx-rise.fx-in { opacity: 1; transform: none; }
-    }
+/* round 8: intro curtain, text roll, scroll-lit list */
+.intro{position:fixed;inset:0;z-index:200;background:#0b0b0b;color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;pointer-events:none;animation:introOut 1.5s cubic-bezier(.77,0,.18,1) forwards}
+.intro img{width:44px;height:44px;filter:invert(1);opacity:0;animation:introIn .6s .1s ease-out forwards}
+.intro span{font-family:var(--display);font-size:clamp(28px,4vw,44px);letter-spacing:.02em;opacity:0;animation:introIn .6s .25s ease-out forwards}
+@keyframes introIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes introOut{0%,62%{transform:none;visibility:visible}99%{transform:translateY(-100%);visibility:visible}100%{transform:translateY(-100%);visibility:hidden}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .intro{display:none}}
+.roll{display:inline-block;overflow:hidden;vertical-align:bottom;line-height:1.3;height:1.3em}
+.roll span{display:block;transition:transform .35s cubic-bezier(.7,0,.2,1)}
+.btn:hover .roll span,.btn:focus-visible .roll span{transform:translateY(-100%)}
+.familiar li{transition:opacity .3s,transform .3s,padding-left .3s}
+.familiar li.lit{padding-left:14px}
+.confetti{position:fixed;inset:0;width:100%;height:100%;z-index:130;pointer-events:none}
 
-    /* ============ LIQUID GLASS (2026-11-01) ============
-       .df-bar (brand + section nav + CTA) is the site's only persistent
-       nav — a direct child of #world/.df-root, built by mountDesktopFlight
-       — and it never gets hidden by body.past-flight, so it's visible for
-       the whole page. That makes it eligible to become a real WebGL
-       LiquidGlass element (see the init script near the bottom of the
-       page): the shader refracts the flight canvas (.df-bg, also a
-       direct child of #world) behind it, instead of relying on CSS
-       backdrop-filter. Its direct children just need to stack above the
-       injected <canvas>, and its own gradient background becomes
-       redundant with the canvas once the shader is live. */
-    .df-bar > * { position: relative; z-index: 1; }
-    .df-bar.lg-active { background: transparent !important; }
+/* round 9: smooth scroll */
+html.smooth{scroll-behavior:auto}
+html.smooth .big,html.smooth .founder h2{transform:skewY(calc(var(--vel,0)*1deg));transform-origin:left center;will-change:transform}
 
-    /* ============ LIQUID GLASS, round 2 (2026-11-01) ============
-       Extends real WebGL glass from just the nav to the ghost/secondary
-       buttons and the .tiers__grid cards, each with its own small
-       LiquidGlass root (see the init script near the bottom of the
-       page) — one WebGL context per natural container (founder__cta,
-       contact__actions, .tiers__grid) instead of one per element.
-       button:true gives the library's physical press feedback (bevel
-       flattens, shadow deepens on :active).
+/* round 10: scroll cue, aurora, cursor glow, section chip */
+.hero{position:relative}
+.cue{position:absolute;left:var(--pad);bottom:16px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-decoration:none;mix-blend-mode:normal}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(#fff,transparent);transform-origin:top;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.tiers{position:relative;overflow:hidden}
+.tiers>*{position:relative;z-index:1}
+.tiers::before,.tiers::after{content:"";position:absolute;z-index:0;width:60vmax;height:60vmax;border-radius:50%;filter:blur(90px);opacity:.16;pointer-events:none;animation:aur 22s ease-in-out infinite alternate}
+.tiers::before{left:-20vmax;top:-10vmax;background:radial-gradient(circle,#e0ba64,transparent 65%)}
+.tiers::after{right:-24vmax;bottom:-18vmax;background:radial-gradient(circle,#7a8cff,transparent 65%);animation-delay:-9s}
+@keyframes aur{from{transform:translate(0,0) scale(1)}to{transform:translate(8vmax,6vmax) scale(1.25)}}
+.glow{position:fixed;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;z-index:84;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 62%);mix-blend-mode:soft-light;opacity:0;transition:opacity .4s}
+.glow.on{opacity:.55}
+.chip{position:fixed;left:18px;bottom:18px;z-index:55;display:flex;gap:10px;align-items:center;padding:10px 16px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;pointer-events:none}
+.chip.show{opacity:1;transform:none}
+.chip b{font-weight:500;opacity:.55}
+@media (max-width:860px){.chip,.glow,.cue{display:none}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .tiers::before,html:not(.fxon) .tiers::after,html:not(.fxon) .cue i{animation:none}html:not(.fxon) .glow{display:none}}
 
-       Solid brand-blue buttons (--primary, .tier__btn) stay plain CSS
-       on purpose: the library's canvas fully replaces whatever it's
-       drawn over, so a tinted button turns neutral gray once glass. A
-       .tier__btn sitting INSIDE a now-glass .tier card is unaffected
-       though — it's a normal sibling of the card's injected canvas, not
-       the glass element itself, so its own color stays intact. */
-    .founder__cta, .contact__actions, .tiers__grid { position: relative; }
-    /* a shared backdrop so grouped glass elements (ghost buttons, tier
-       cards) have something to refract — sized to the union of the
-       group's glass elements by the init script. */
-    .glass-grid-bg {
-      position: absolute; z-index: -1; pointer-events: none;
-      background:
-        radial-gradient(60% 55% at 22% 0%, color-mix(in srgb, var(--indigo, #3b82f6) 16%, transparent), transparent 70%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), #0b1220;
-    }
-    .founder__btn--ghost.lg-active, .contact__btn.lg-active:not(.contact__btn--primary),
-    .tier__btn--ghost.lg-active {
-      background: transparent !important; border-color: transparent !important;
-    }
-    .tier.lg-active { background: transparent !important; }
-    .founder__btn > span, .contact__btn > span { position: relative; z-index: 1; }
+/* round 11: focus dim, cursor label, caps hover, polish */
+.tiers__grid:hover .tier{opacity:.55;transition:opacity .3s,transform .25s ease-out}
+.tiers__grid:hover .tier:hover{opacity:1}
+.ring::after{content:attr(data-l);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#000}
+.ring.lab{width:84px;height:84px;margin:-42px 0 0 -42px;background:#fff}
+.caps li{transition:background .3s}
+.caps li:hover{background:rgba(255,255,255,.04)}
+.caps li b::before{transition:background .25s,transform .25s}
+.caps li:hover b::before{background:#fff;transform:scale(1.4)}
+::selection{background:#e0ba64;color:#000}
+html{scrollbar-width:thin;scrollbar-color:#555 #0b0b0b}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#0b0b0b}::-webkit-scrollbar-thumb{background:#444;border-radius:6px;border:2px solid #0b0b0b}::-webkit-scrollbar-thumb:hover{background:#777}
+@media (hover:none){.tiers__grid:hover .tier{opacity:1}}
 
-    /* Tactile press feedback for buttons that stay solid CSS. This page
-       already has a "magnetic pull" pointermove handler that sets an
-       inline transform on these same buttons (hover-follow), which
-       would silently win over a plain CSS :active rule — so the press
-       state is a CLASS the init script toggles on pointerdown/up
-       (.btn-pressing), forced with !important to beat the inline style
-       for just that moment. */
-    .founder__btn--primary, .contact__btn--primary, .tier__btn, .topnav__cta, .df-bar__cta {
-      transition: filter .18s ease, box-shadow .18s ease;
-    }
-    .btn-pressing {
-      transform: scale(.94) !important;
-      filter: brightness(.9);
-      box-shadow: inset 0 2px 10px rgba(0,0,0,.3);
-    }
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- fonts load non-render-blocking so the first scene paints immediately -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
-        onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"></noscript>
-  <!-- paint the first scene's poster instantly while the engine boots -->
-  <link rel="preload" as="image" href="assets/frames/f0001.webp" media="(min-width: 861px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames/f0002.webp" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0003.webp" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0004.webp" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0005.webp" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames/f0006.webp" media="(min-width: 861px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0001.webp" media="(max-width: 860px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="assets/frames-m/f0002.webp" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0003.webp" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0004.webp" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0005.webp" media="(max-width: 860px)" />
-  <link rel="preload" as="image" href="assets/frames-m/f0006.webp" media="(max-width: 860px)" />
+/* round 12: scroll-lit paragraphs */
+.lw{opacity:.22;transition:opacity .25s}
+.lw.on{opacity:1}
+
+/* round 13: footer wordmark, softer chips, spring release */
+.bigmark{background:#0b0b0b;padding:clamp(30px,6vw,80px) var(--pad) 0;font-family:var(--display);text-transform:uppercase;font-size:clamp(56px,15.5vw,270px);line-height:.9;white-space:nowrap;overflow:hidden;text-align:center}
+.bigmark span{background-image:linear-gradient(90deg,#fff calc(var(--p,0%) - 15%),rgba(255,255,255,.12) var(--p,0%));-webkit-background-clip:text;background-clip:text;color:transparent}
+.chips span{transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s,color .25s,border-color .25s}
+.chips span:hover{transform:translateY(-3px);background:#fff;color:#111;border-color:#fff}
+.btn{transition:transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .15s}
+.btn:hover{transition:transform .18s ease-out,box-shadow .15s}
+
+/* round 14: dock dots, fab pulse */
+.dots a{transition:transform .18s ease-out,background .25s}
+.fab.show::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid rgba(255,255,255,.55);animation:pulse 2.6s ease-out infinite;pointer-events:none}
+.fab{overflow:visible}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(1.35,1.7);opacity:0}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .fab.show::after{animation:none;opacity:0}}
+
+/* round 15: outline words on hover */
+@media (hover:hover) and (pointer:fine){
+  .fx .hero h1 .twi,.fx h2.big .twi{transition:transform .9s cubic-bezier(.19,1,.22,1),color .3s,-webkit-text-stroke-color .3s;-webkit-text-stroke:0 transparent}
+  .fx .hero h1 .twi:hover{color:transparent;-webkit-text-stroke:2px #111}
+  .fx h2.big .twi:hover{color:transparent;-webkit-text-stroke:2px #fff}
+}
+
+/* round 16: sliding nav pill, live clock */
+@media (min-width:861px){
+  .nav{position:relative}
+  .nind{position:absolute;top:50%;left:0;height:calc(100% + 18px);width:0;border-radius:999px;border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.18);pointer-events:none;opacity:0;transition:transform .45s cubic-bezier(.34,1.3,.5,1),width .45s cubic-bezier(.34,1.3,.5,1),opacity .25s}
+  .nind.on{opacity:1}
+}
+@media (max-width:860px){.nind{display:none}}
+.clock{font-variant-numeric:tabular-nums}
+
+/* round 17: mist, badge shimmer, founder colour on hover */
+.hero::before,.hero::after{content:"";position:absolute;left:-30%;width:160%;pointer-events:none;z-index:1;filter:blur(40px);opacity:.55;animation:mist 40s linear infinite alternate}
+.hero::before{bottom:8%;height:34%;background:radial-gradient(ellipse at 30% 60%,rgba(255,255,255,.75),transparent 60%),radial-gradient(ellipse at 75% 40%,rgba(255,255,255,.55),transparent 55%)}
+.hero::after{bottom:22%;height:26%;opacity:.4;animation-duration:58s;animation-direction:alternate-reverse;background:radial-gradient(ellipse at 55% 50%,rgba(255,255,255,.7),transparent 60%)}
+@keyframes mist{from{transform:translateX(-9%)}to{transform:translateX(9%)}}
+.badge{background:linear-gradient(100deg,#fff 0%,#fff 38%,#f6e3a1 50%,#fff 62%,#fff 100%);background-size:250% 100%;animation:bshine 3.6s linear infinite}
+@keyframes bshine{from{background-position:120% 0}to{background-position:-120% 0}}
+.founder img{transition:transform .25s ease-out,filter .6s}
+.founder img:hover{filter:grayscale(0) contrast(1.05)}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .hero::before,html:not(.fxon) .hero::after,html:not(.fxon) .badge{animation:none}}
+
+/* round 18: expanding names panel, cave parallax */
+.names{transition:grid-template-columns .6s cubic-bezier(.19,1,.22,1)}
+@media (min-width:861px){
+  .names:has(> div:first-child:hover){grid-template-columns:1.5fr 1fr}
+  .names:has(> div:last-child:hover){grid-template-columns:1fr 1.5fr}
+}
+.remy__stage::before{transform:translate(calc(var(--mx2,0)*14px),calc(var(--my2,0)*9px)) scale(1.08);transition:transform .5s ease-out}
+.gpills{transform:translate(calc(var(--mx2,0)*-18px),calc(var(--my2,0)*-11px));transition:transform .5s ease-out}
+.cube-wrap{translate:calc(var(--mx2,0)*-8px) calc(var(--my2,0)*-5px);transition:translate .5s ease-out}
+
+/* round 19: border trace on hover */
+.svc article:not(.cta)::after,.caps li::after{content:"";position:absolute;inset:-1px;padding:1px;pointer-events:none;opacity:0;transition:opacity .35s;background:conic-gradient(from var(--beam),transparent 0 72%,#e0ba64 88%,#fff 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:beam 3.2s linear infinite}
+.svc article:not(.cta):hover::after,.caps li:hover::after{opacity:1}
+.caps li{position:relative}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .svc article::after,html:not(.fxon) .caps li::after{animation:none}}
+
+/* round 20: FAQ accordion */
+.faq{background:#0b0b0b;border-top:1px solid var(--line);padding:clamp(70px,9vw,130px) var(--pad)}
+.faq__in{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(30px,6vw,100px);align-items:start}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-family:var(--mono);font-size:15px;letter-spacing:.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:#fff}
+.faq summary i{position:relative;flex:none;width:18px;height:18px}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:0;top:8px;width:18px;height:2px;background:#fff;transition:transform .35s cubic-bezier(.7,0,.2,1)}
+.faq summary i::after{transform:rotate(90deg)}
+.faq details[open] summary i::after{transform:rotate(0)}
+.faq .ans{overflow:hidden}
+.faq .ans p{color:var(--mute);max-width:560px;padding:0 0 24px}
+@media (max-width:860px){.faq__in{grid-template-columns:1fr}}
+
+/* round 21: tier picker */
+.pick{margin:clamp(26px,3vw,40px) 0 clamp(26px,3vw,40px);display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.pick__q{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.pick__opts{display:flex;flex-wrap:wrap;gap:10px}
+.pick button{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:12px 20px;cursor:pointer;transition:background .25s,color .25s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.pick button:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+.pick button[aria-pressed=true]{background:#fff;color:#111;border-color:#fff}
+.pick__out{font-family:var(--mono);font-size:14px;color:rgba(255,255,255,.85);min-height:22px;max-width:620px}
+.pick__out b{font-weight:500;color:#fff}
+.tiers__grid.has-match .tier:not(.match){opacity:.45}
+.tier.match{box-shadow:inset 0 0 0 1px #fff,0 0 50px rgba(255,255,255,.1);background:#1d1d1d}
+
+/* round 22: new type system - Bricolage Grotesque (condensed, heavy) + Instrument Serif italic accents + JetBrains Mono */
+.brand,h2.big,.hero h1,.cube i,.cube-label,.marq span,.names h3,.founder h2,.price,.intro span,.bigmark{font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96}
+.hero h1,h2.big,.founder h2{letter-spacing:-.015em}
+.marq span,.bigmark{letter-spacing:-.02em}
+h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:100%;font-variation-settings:normal;text-transform:none;letter-spacing:-.025em;font-size:1.08em;line-height:.8;padding-right:.04em}
+.tiers h2 em,.remy h2 em,.faq h2 em,.contact h2 em{color:#f0d68a}
+.hero h1 em{color:#6b4a0f}
+.price{letter-spacing:-.01em}
+
+/* round 23: pinned statement */
+.statement{background:#0b0b0b;border-bottom:1px solid var(--line)}
+.statement__pin{padding:clamp(70px,10vw,140px) var(--pad)}
+.statement p{font-family:var(--display);font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96;text-transform:uppercase;font-size:clamp(40px,8.4vw,150px);line-height:.98;letter-spacing:-.015em}
+.statement span{display:block}
+.statement em{font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:100%;font-variation-settings:normal;text-transform:none;color:#f0d68a;letter-spacing:-.025em;font-size:1.08em}
+html.fx .statement{height:320vh}
+html.fx .statement__pin{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+html.fx .statement span{opacity:.14;transform:translateY(24px);filter:blur(6px);transition:opacity .6s,transform .7s cubic-bezier(.19,1,.22,1),filter .6s}
+html.fx .statement span.past{opacity:.32;transform:none;filter:none}
+html.fx .statement span.cur{opacity:1;transform:none;filter:none}
+
+/* round 24: facts, hero scroll fade */
+.facts{background:#0b0b0b;border-bottom:1px solid var(--line)}
+.facts__in{display:grid;grid-template-columns:repeat(3,1fr);padding:clamp(60px,8vw,120px) var(--pad);gap:clamp(24px,4vw,60px)}
+.facts b{display:block;font-family:var(--display);font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96;font-size:clamp(90px,15vw,250px);line-height:.85;letter-spacing:-.03em;background:linear-gradient(180deg,#fff 30%,#8a8a8a);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.facts p{margin-top:16px;max-width:260px;font-size:clamp(15px,1.3vw,19px);color:rgba(255,255,255,.7);font-weight:300}
+.nowrap{white-space:nowrap}
+@media (max-width:860px){.facts__in{grid-template-columns:1fr}.facts b{font-size:clamp(90px,28vw,150px)}}
+.hero h1,.hero__sub{transform:translateY(calc(var(--hs,0)*-40px)) scale(calc(1 - var(--hs,0)*.04));opacity:calc(1 - var(--hs,0)*.9);transform-origin:left bottom;will-change:transform,opacity}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .hero h1,html:not(.fxon) .hero__sub{transform:none;opacity:1}}
+
+/* round 25: speed dial */
+.fab2{position:fixed;right:18px;z-index:54;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#fff;padding:12px 18px;border-radius:999px;opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;transition:opacity .3s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+.fab2.open{opacity:1;transform:none;pointer-events:auto}
+.fab2.d2{transition-delay:.05s}
+@media (max-width:860px){.fab2{display:none}}
+
+.spark{position:fixed;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#e0ba64;pointer-events:none;z-index:131}
+</style>
+<script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
 <body>
-  <!-- ========================================================================
-       CINEMATIC SCROLL TEMPLATE  ·  how to make a new site from this file
-       ========================================================================
-       Everything below is proven, working code. To rebrand, you only touch
-       CONTENT and ASSETS — never the engine (the big script block after the
-       CONTACT section) or the effects CSS.
+<div class="intro" aria-hidden="true"><img src="assets/daemon/logo.png" alt=""><span>OPM Ventures</span></div>
+<div class="prog" id="prog" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-       1. HEAD  (top of file)
-          - <title>, <meta name="description">, all og:/twitter: tags
-          - og:image:  URL of assets/img/og.jpg  (1200x630 share card)
-          - <meta name="theme-color">  (your dark bg, must match --sw-bg)
-          - favicon links -> assets/img/favicon-32|180|192.png
-          - (optional) swap the Google Fonts + --sw-font-display / --sw-font-body
+<header class="hdr" id="top">
+  <a class="brand" href="#top" aria-label="OPM Ventures home"><img src="assets/daemon/logo.png" alt="" width="32" height="32">OPM Ventures<sup>®</sup></a>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <a href="#remy">Remy OS</a>
+    <a href="#services">Services</a>
+    <a href="#start">How we start</a>
+    <a href="#operator">Operator</a>
+    <a href="#tiers">Tiers</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span></button>
+</header>
 
-       2. ASSETS  (see README.md -> "Frame pipeline" and build-frames.sh)
-          assets/frames/     f0001.webp ... desktop landscape frames (1920x1080)
-          assets/frames-m/   f0001.webp ... mobile portrait frames  (640x1138)
-          assets/img/logo.png        circular brand mark, ~256px, transparent
-          assets/img/founder.png     cutout portrait, background removed
-          assets/img/og.jpg          1200x630 social card
-          assets/img/favicon-32|180|192.png
-          Keep the frame COUNT identical for desktop + mobile (config below).
+<main id="main">
 
-       3. SECTION CONTENT  (markup lives right here in <body>)
-          #founder  - portrait img + eyebrow + <h2> + 2 <p> + 2 buttons
-          #tiers    - eyebrow + <h2> + N <div class="tier"> cards
-                      (mark the recommended one class="tier tier--feature"
-                       and give it <span class="tier__badge">Recommended</span>)
-          #contact  - eyebrow + <h2> + lead + 3 buttons + fine print
+<!-- HERO -->
+<section class="hero" aria-label="OPM Ventures">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__in">
+    <h1><span>Be found.</span><span>Be chosen.</span><span>Be <em>ready.</em></span></h1>
+    <p class="hero__sub glass">One operator. One system. A website that converts, ads that bring buyers, and a business ready for lenders. With Remy OS underneath.</p>
+  </div>
+  <div class="hero__side">
+    <span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span>
+    <a class="btn" href="#tiers">See the tiers</a>
+  </div>
+</section>
 
-       4. BOOKING LINK
-          One place: the Calendly IIFE just after the CONTACT section.
-          Set CAL = your scheduling URL. Every <a data-calendly> inherits it.
+<div class="ticker" aria-hidden="true"><div>
+  <span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span><span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span><span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span><span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span>
+</div></div>
 
-       5. FLIGHT CONFIG
-          The mountScrollWorld({...}) call at the very bottom of the file:
-          brand.name/logo, cta, frameCount(+Mobile), frameDir(+Mobile),
-          and the 6 `sections` entries (id, label, accent hex, eyebrow,
-          title, body, tags[], and cta on the LAST one only).
-          - accent: hex that tints that scene's UI; it eases scene->scene.
-          - scroll / linger: optional per-scene pacing (see comments there).
+<!-- STATEMENT (pinned, one line at a time) -->
+<section class="statement" id="statement" aria-label="What we do">
+  <div class="statement__pin">
+    <p><span>A website that <em>converts.</em></span><span>Ads that bring <em>buyers.</em></span><span>A business ready for <em>lenders.</em></span></p>
+  </div>
+</section>
 
-       6. DEPLOY  -> DEPLOY.md   |   OPERATE / RECOVER -> RUNBOOK.template.md
-       ======================================================================== -->
+<!-- FACTS -->
+<section class="facts" aria-label="At a glance">
+  <div class="facts__in">
+    <div class="reveal"><b><span data-count="14">14</span></b><p>days to a live site, on Foundation.</p></div>
+    <div class="reveal"><b><span data-count="1">1</span></b><p>person accountable for every step.</p></div>
+    <div class="reveal"><b><span data-count="4">4</span></b><p>plans, starting at <span class="nowrap">$2,000.</span></p></div>
+  </div>
+</section>
 
-  <div id="top"></div>
-  <div id="fx-glow" aria-hidden="true"></div>
-  <div id="fx-grain" aria-hidden="true"></div>
-  <div id="world"></div>
-
-  <!-- ============ FOUNDER (below the flight) ============ -->
-  <!-- ✏️ EDIT: portrait img src/alt, eyebrow, <h2>, the two <p>, both buttons.
-       The section top is deliberately see-through so the last flight frame
-       dissolves into the face — don't add a background or border here. -->
-  <section id="founder" class="founder" aria-label="The operator">
-    <div class="founder__inner">
-      <div class="founder__portrait">
-        <img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" decoding="async" loading="lazy" />
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="tag">Where most businesses stall</span>
+        <h2 class="big">Right now, you're <em>invisible.</em></h2>
       </div>
-      <div class="founder__body">
-        <span class="founder__eyebrow">The operator</span>
-        <h2 class="founder__title">One person runs your whole system.</h2>
-        <p>I'm Shakur, founder of OPM&nbsp;Ventures&nbsp;LLC. I build the website. I run the paid traffic. I get your business lender-ready. One person, accountable for the entire chain. Not three vendors pointing at each other.</p>
-        <p>Every engagement starts the same way: a call, then a blueprint. The offer, the customer, the tier, the dates. Then I build.</p>
-        <div class="founder__cta">
-          <a class="founder__btn founder__btn--primary" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
-          <a class="founder__btn founder__btn--ghost" href="#tiers"><span>See the tiers</span></a>
-        </div>
-      </div>
+      <p class="lead">No site that converts. No traffic that buys. No financial story a lender wants to read. The right people never find you. The wrong ones forget you.</p>
     </div>
-  </section>
+    <div class="svc">
+      <article class="reveal">
+        <span class="n">STEP ONE</span>
+        <div><h3>First, a site that converts.</h3><p>The foundation everything else plugs into. So we build it first.</p>
+        <div class="chips"><span>Design + build</span><span>Copy</span><span>Analytics</span></div></div>
+      </article>
+      <article class="reveal">
+        <span class="n">STEP TWO</span>
+        <div><h3>Then, buyers.</h3><p>Paid campaigns with one job: put qualified buyers straight into the system.</p>
+        <div class="chips"><span>Google</span><span>Meta</span><span>Tracking</span></div></div>
+      </article>
+      <article class="reveal">
+        <span class="n">STEP THREE</span>
+        <div><h3>Then, lender-ready.</h3><p>Your credit profile built. Your financials organized. Ready before anyone asks.</p>
+        <div class="chips"><span>Credit profile</span><span>Documents</span><span>Structure</span></div></div>
+      </article>
+      <article class="reveal">
+        <span class="n">THE RESULT</span>
+        <div><h3>Capital follows.</h3><p>Approvals land when the system and the numbers agree. Not luck. Engineering.</p>
+        <div class="chips"><span>Approved</span><span>Funded</span></div></div>
+      </article>
+      <article class="reveal cta" style="grid-column:1/-1;min-height:auto;flex-direction:row;align-items:center;gap:30px;flex-wrap:wrap;justify-content:space-between">
+        <div><span class="n">WHAT IT IS FOR</span><h3 style="margin-top:10px">A business built to scale.</h3><p>Presence. Traffic. Capital. One system, compounding.</p></div>
+        <div class="btns"><a class="btn btn--light" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a><a class="btn btn--ghost" href="#tiers">See the tiers</a></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-  <!-- ============ TIERS ============ -->
-  <!-- ✏️ EDIT: eyebrow + <h2>, then one <div class="tier"> per plan.
-       Grid auto-fits 1 / 2 / 4 columns. The recommended plan gets
-       class="tier tier--feature" AND <span class="tier__badge">Recommended</span>
-       as its first child. Buttons: class="tier__btn" (filled) or
-       "tier__btn tier__btn--ghost" (outline). data-calendly for a booking link. -->
-  <section id="tiers" class="tiers" aria-label="Pick your tier">
-    <div class="tiers__head">
-      <span class="tiers__eyebrow">Pick your tier</span>
-      <h2 class="tiers__title">Priced so the math works for both of us.</h2>
+<!-- REMY OS -->
+<section class="remy" id="remy">
+  <div class="remy__stage">
+    <canvas class="remy__fx" aria-hidden="true"></canvas>
+    <div class="remy__txt">
+      <span class="tag">Remy OS by OPM Ventures</span>
+      <h2 class="big">Everything you need. <em>Connected.</em></h2>
     </div>
+    <div class="gpills" aria-hidden="true"><span class="glass">Artificial intelligence</span><span class="glass">Automation</span><span class="glass">Business intelligence</span><span class="glass">Operational systems</span></div>
+    <div class="cube-wrap" aria-hidden="true">
+      <div class="cube"><i style="--n:0">Remy OS</i><i style="--n:1">Remy OS</i><i style="--n:2">Remy OS</i><i style="--n:3">Remy OS</i><i style="--n:4">Remy OS</i><i style="--n:5">Remy OS</i><i style="--n:6">Remy OS</i><i style="--n:7">Remy OS</i><i style="--n:8">Remy OS</i><i style="--n:9">Remy OS</i><i style="--n:10">Remy OS</i><i class="fr" style="--n:11">Remy OS</i><i class="bk" style="--n:11">Remy OS</i><b></b><b></b></div>
+    </div>
+  </div>
+  <div class="remy__intro">
+    <div class="reveal">
+      <span class="tag">The platform</span>
+      <h2 class="big" style="font-size:clamp(36px,5vw,76px)">The <em>operating layer</em> for your business.</h2>
+    </div>
+    <div class="reveal">
+      <p>Your information. Your processes. Your opportunities. They're all there, spread across too many places. Leads in one app. Follow-ups in your head. Invoices somewhere else.</p>
+      <p>Remy OS is a technology and business automation platform. It combines artificial intelligence, automation, business intelligence and practical operational systems into one connected environment, so the repetitive work gets handled and you can see what is happening.</p>
+      <div class="pillars"><span>Artificial intelligence</span><span>Automation</span><span>Business intelligence</span><span>Operational systems</span></div>
+      <div class="pillars"><span>Not a chatbot</span><span>Not another tool to babysit</span><span>Business infrastructure</span></div>
+    </div>
+  </div>
+  <div class="caps">
+    <ul>
+      <li class="reveal"><b>AI-powered business assistance</b><span>Help with questions, drafts and everyday work.</span></li>
+      <li class="reveal"><b>Workflow and process automation</b><span>Repeatable steps run without someone starting them.</span></li>
+      <li class="reveal"><b>Lead and customer management</b><span>Know who reached out and what happens next.</span></li>
+      <li class="reveal"><b>Business information organization</b><span>What your business knows, kept in order.</span></li>
+      <li class="reveal"><b>Administrative task automation</b><span>Less paperwork and less copy and paste.</span></li>
+      <li class="reveal"><b>Customer communication workflows</b><span>Follow-up that is quick and consistent.</span></li>
+      <li class="reveal"><b>Business operations support</b><span>Help keeping daily operations moving.</span></li>
+      <li class="reveal"><b>Data and information management</b><span>Information that is easy to find and use.</span></li>
+      <li class="reveal"><b>Repetitive task reduction</b><span>Stop doing the same thing twice.</span></li>
+      <li class="reveal"><b>AI-assisted decision support</b><span>Clearer information when you have to decide.</span></li>
+      <li class="reveal"><b>Connecting processes and technology</b><span>Systems and steps that work together.</span></li>
+      <li class="reveal"><b>Scalable operational systems</b><span>Processes that hold up as you grow.</span></li>
+    </ul>
+  </div>
+  <div class="familiar">
+    <div class="reveal"><span class="tag">Sound familiar?</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">If you have asked any of these, <em>start here.</em></h2></div>
+    <ul class="reveal">
+      <li>How can I automate this?</li>
+      <li>Why am I still doing this manually?</li>
+      <li>How do I keep up with leads and customers?</li>
+      <li>How can AI actually help my business?</li>
+      <li>How do I make this run without everything depending on me?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOW WE START -->
+<section id="start">
+  <div class="marq" aria-hidden="true"><div><span>How we start</span><span>How we start</span><span>How we start</span><span>How we start</span></div></div>
+  <div class="proc">
+    <article class="reveal"><span class="n">STEP 01</span><div><h3>Find the drag.</h3><p>We look for where your time, money or opportunities slip away.</p></div></article>
+    <article class="reveal"><span class="n">STEP 02</span><div><h3>Build the system.</h3><p>We design and set up the automation and organization that fixes it.</p></div></article>
+    <article class="reveal"><span class="n">STEP 03</span><div><h3>Step out of the middle.</h3><p>The business keeps moving. Not every task waits on you.</p></div></article>
+  </div>
+  <div class="names reveal">
+    <div><small>The company</small><h3>OPM Ventures LLC</h3><p>Practical technology, business systems, automation and consulting. We look for where a business is losing time, money, opportunities or productivity, then build the system that fixes it.</p></div>
+    <div><small>The product</small><h3>Remy OS</h3><p>The platform OPM Ventures builds. An intelligent operating layer that connects AI, automation and business processes.</p></div>
+  </div>
+  <div style="height:clamp(70px,9vw,130px)"></div>
+</section>
+
+<!-- OPERATOR -->
+<section class="founder" id="operator" aria-label="The operator">
+  <div class="fin">
+    <img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async">
+    <div class="body reveal">
+      <span class="tag">The operator</span>
+      <h2>One person. Your whole <em>system.</em></h2>
+      <p>I'm Shakur, founder of OPM&nbsp;Ventures&nbsp;LLC. I build the website. I run the paid traffic. I get your business lender-ready. One person, accountable for every step. Not three vendors pointing at each other.</p>
+      <p>Every engagement starts the same way. A call. Then a blueprint: the offer, the customer, the tier, the dates. Then I build.</p>
+      <div class="btns" style="margin-top:34px"><a class="btn" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a><a class="btn" style="background:transparent;color:#111;box-shadow:none;border:1px solid #111" href="#tiers">See the tiers</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="tiers" id="tiers" aria-label="Pick your tier">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative">
+    <div class="reveal"><span class="tag">Pick your tier</span><h2 class="big">Priced so the math works for <em>both of us.</em></h2></div>
     <div class="tiers__grid">
-
       <div class="tier">
         <h3>Foundation</h3>
-        <div class="tier__blurb">Get seen. A conversion site, live in 14 days.</div>
-        <div class="tier__price">$2,000 <small>one-time</small></div>
-        <div class="tier__sub">&nbsp;</div>
+        <div class="bl">Get seen. A conversion site, live in 14 days.</div>
+        <div class="price">$2,000 <small>one-time</small></div>
+        <div class="sub">&nbsp;</div>
         <ul>
           <li>5-page conversion website</li>
           <li>Copywriting + mobile build</li>
@@ -517,16 +711,15 @@
           <li>Google Business Profile tune-up</li>
           <li>1 revision round · 14-day delivery</li>
         </ul>
-        <a class="tier__btn" href="https://whop.com/checkout/plan_2T2XreGKBAbHd">Start Foundation</a>
-        <div class="tier__mini">One payment. No retainer.</div>
+        <a class="btn btn--light" href="https://whop.com/checkout/plan_2T2XreGKBAbHd">Start Foundation</a>
+        <div class="mini">One payment. No retainer.</div>
       </div>
-
       <div class="tier tier--feature">
-        <span class="tier__badge">Recommended</span>
+        <span class="badge">Recommended</span>
         <h3>Growth</h3>
-        <div class="tier__blurb">Get leads. Site plus one ad platform, run weekly.</div>
-        <div class="tier__price">$2,500 <small>setup</small></div>
-        <div class="tier__sub">then $1,500 / month · 3-mo min</div>
+        <div class="bl">Get leads. Site plus one ad platform, run weekly.</div>
+        <div class="price">$2,500 <small>setup</small></div>
+        <div class="sub">then $1,500 / month · 3-mo min</div>
         <ul>
           <li>Everything in Foundation</li>
           <li>Meta <em>or</em> Google ads: full build</li>
@@ -535,15 +728,14 @@
           <li>Lead tracking dashboard</li>
           <li>Monthly report + strategy call</li>
         </ul>
-        <a class="tier__btn" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth: $2,500</a>
-        <div class="tier__mini">Monthly retainer (<a href="https://whop.com/checkout/plan_kUi4ob9FHMpuI">$1,500/mo</a>) begins after onboarding.</div>
+        <a class="btn btn--light" href="https://whop.com/checkout/plan_Je2JIYPJq7F01">Start Growth: $2,500</a>
+        <div class="mini">Monthly retainer (<a href="https://whop.com/checkout/plan_kUi4ob9FHMpuI">$1,500/mo</a>) begins after onboarding.</div>
       </div>
-
       <div class="tier">
         <h3>Scale &amp; Fund</h3>
-        <div class="tier__blurb">Get capital. Both platforms plus a fundability program.</div>
-        <div class="tier__price">$4,000 <small>setup</small></div>
-        <div class="tier__sub">then $3,000 / month · 6-mo min</div>
+        <div class="bl">Get capital. Both platforms plus a fundability program.</div>
+        <div class="price">$4,000 <small>setup</small></div>
+        <div class="sub">then $3,000 / month · 6-mo min</div>
         <ul>
           <li>Everything in Growth</li>
           <li>Both ad platforms + retargeting</li>
@@ -553,15 +745,14 @@
           <li>Fundability scorecard + lender shortlist</li>
           <li>Bi-weekly calls</li>
         </ul>
-        <a class="tier__btn tier__btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application">Request access</a>
-        <div class="tier__mini">Application only. Limited slots.</div>
+        <a class="btn btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=Scale%20%26%20Fund%20%E2%80%94%20application">Request access</a>
+        <div class="mini">Application only. Limited slots.</div>
       </div>
-
       <div class="tier">
         <h3>Partner</h3>
-        <div class="tier__blurb">Multi-location or higher budgets. Custom scope.</div>
-        <div class="tier__price">From $6,000 <small>/ mo</small></div>
-        <div class="tier__sub">custom engagement</div>
+        <div class="bl">Multi-location or higher budgets. Custom scope.</div>
+        <div class="price">From $6,000 <small>/ mo</small></div>
+        <div class="sub">custom engagement</div>
         <ul>
           <li>Everything in Scale &amp; Fund</li>
           <li>Deeper platform + budget coverage</li>
@@ -569,1450 +760,76 @@
           <li>Priority capacity</li>
           <li>Scope + price quoted per business</li>
         </ul>
-        <a class="tier__btn tier__btn--ghost" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
-        <div class="tier__mini">Pick a time that works.</div>
+        <a class="btn btn--ghost" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
+        <div class="mini">Pick a time that works.</div>
       </div>
-
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ============ CONTACT ============ -->
-  <!-- ✏️ EDIT: eyebrow, <h2>, lead line, the 3 buttons, and the fine-print
-       line (business name · domain · email). -->
-  <section id="contact" class="contact" aria-label="Get in touch">
-    <div class="contact__inner">
-      <span class="contact__eyebrow">Get started</span>
-      <h2 class="contact__title">Let&rsquo;s build your system.</h2>
-      <p class="contact__lead">One call to lock the offer, the customer and the scope. Then I build.</p>
-      <div class="contact__actions">
-        <a class="contact__btn contact__btn--primary" data-calendly href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
-        <a class="contact__btn" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Ventures%20%E2%80%94%20enquiry"><span>Email</span></a>
-        <a class="contact__btn" href="#tiers"><span>See plans</span></a>
-      </div>
-      <p class="contact__fine">OPM&nbsp;Ventures&nbsp;LLC &nbsp;·&nbsp; opmventuresllc.com &nbsp;·&nbsp; <a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a></p>
+<!-- CONTACT -->
+<!-- FAQ -->
+<section class="faq" id="faq" aria-label="Questions">
+  <div class="faq__in">
+    <div class="reveal"><span class="tag">Questions</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Straight <em>answers.</em></h2></div>
+    <div class="faq__list reveal">
+      <details><summary><span>What do I get with Foundation?</span><i aria-hidden="true"></i></summary><div class="ans"><p>A 5-page conversion website with copywriting and a mobile build, on-page SEO basics, a lead form that goes to your inbox or CRM, and a Google Business Profile tune-up. It includes one revision round and is delivered in 14 days. One payment, no retainer.</p></div></details>
+      <details><summary><span>What happens after I book a call?</span><i aria-hidden="true"></i></summary><div class="ans"><p>On the call we lock the offer, the customer and the scope. Then you get a blueprint covering the offer, the customer, the tier and the dates. Then I build.</p></div></details>
+      <details><summary><span>Do the monthly plans have a minimum?</span><i aria-hidden="true"></i></summary><div class="ans"><p>Growth has a 3-month minimum and Scale &amp; Fund has a 6-month minimum. On Growth, the monthly retainer begins after onboarding.</p></div></details>
+      <details><summary><span>What is the difference between OPM Ventures and Remy OS?</span><i aria-hidden="true"></i></summary><div class="ans"><p>OPM Ventures LLC is the company: practical technology, business systems, automation and consulting. Remy OS is the product: a technology and business automation platform.</p></div></details>
+      <details><summary><span>Who will I be working with?</span><i aria-hidden="true"></i></summary><div class="ans"><p>One person, accountable for the entire chain. I build the website, run the paid traffic and get your business lender-ready. That is Shakur, founder of OPM Ventures LLC.</p></div></details>
+      
     </div>
-    <a class="contact__top" href="#top" aria-label="Back to top">&uarr;</a>
-  </section>
-
-  <script>
-    /* ✏️ EDIT: your booking URL. Every <a data-calendly> on the page uses it. */
-    (function(){ var CAL='https://calendly.com/shakur-opmventuresllc/30min';
-      document.querySelectorAll('[data-calendly]').forEach(function(a){ a.href=CAL; }); })();
-  </script>
-
-  <script>
-/* ==== scrub-engine.js (inlined) ==== */
-/* ============================================================================
-   scroll-world — portable scroll-scrubbed camera-flight engine
-   ----------------------------------------------------------------------------
-   Framework-agnostic. Vanilla JS, zero dependencies. It builds its own DOM and
-   injects its own (namespaced) CSS into a container you give it, so it drops into
-   plain HTML, Next.js (call from a ref/useEffect), Vue (onMounted), a server-
-   rendered page, anything.
-
-   USAGE
-     mountScrollWorld(document.getElementById('world'), {
-       brand: { name: 'Pearl & Co.', href: '#top' },
-       diveScroll: 1.3,   // viewport-heights of scroll per dive clip
-       connScroll: 0.9,   // ...per connector clip
-       hint: 'scroll to fly in',
-       nav: true,         // show the top section nav
-       atmosphere: true,  // subtle gradient + drifting particles behind the clips
-       sections: [
-         { id, label, still, stillMobile, clip, clipMobile, accent,
-           scroll: 1.6,   // optional per-section override of diveScroll — more scroll
-                          // distance = a slower, longer dwell in this scene
-           linger: 0.5,   // optional 0..1 — remaps time so the camera settles mid-scene
-                          // (exactly where the copy peaks) and moves quicker at the
-                          // edges. 0 = linear (default). Keep ≤ 0.6; 1 = full pause.
-           eyebrow, title, body, tags:[…],
-           cta:{ primary:{label,href}, secondary:{label,href} } }, // last section only
-         …
-       ],
-       connectors: [clipUrl, …],          // length = sections.length - 1 (nulls allowed)
-       connectorsMobile: [clipUrl, …],    // optional lighter connectors for phones (same length)
-
-   MOBILE (the clipMobile/connectorsMobile variants are the opt-in mobile version;
-   the rest of the phone handling below is always on)
-     The engine is phone-aware out of the box: on a coarse-pointer / ≤860px viewport it
-       - loads `clipMobile` / `connectorsMobile` when provided (encode these smaller +
-         tighter-GOP — seek cost on a phone decoder is dominated by frames-from-keyframe,
-         so a 720p, -g 4 file scrubs far smoother than the 1080p desktop master; see
-         pipeline.md). Falls back to the desktop `clip` if no mobile variant is given.
-       - uses `stillMobile` as the scene poster when provided (pair it with native 9:16
-         clipMobile renders so the poster matches the portrait video's first frame instead
-         of flashing from a landscape crop). Chosen once at mount; a desktop resize into
-         phone width keeps the desktop poster (clips still switch via isMobile()).
-       - coalesces seeks (never issues a new currentTime while the decoder is still
-         `seeking`) so fast flicks can't pile up and freeze the video.
-       - keeps the still as a live poster until the clip actually paints its first frame,
-         and primes each video (muted play→pause) on first touch — this is what stops iOS
-         from showing a blank scene before the first seek.
-       - drops the drifting particles and ignores URL-bar-only resizes (no scroll jump).
-     Nothing here is required — a config with only `clip`/`connectors` still works on
-     phones; the mobile variants just make it lighter and smoother.
-
-   THEME (CSS custom properties; set on the container or :root to override)
-     --sw-bg         page background (match your scene bg for seamless posters)
-     --sw-ink        primary text
-     --sw-ink-soft   secondary text
-     --sw-accent     default accent (each section overrides via its `accent`)
-     --sw-font-display / --sw-font-body
-
-   REQUIREMENTS ON YOUR ASSETS
-     - clips encoded native-res, crf~20, -g 8, +faststart, no audio (see pipeline.md)
-     - connectors' endpoints are the neighbouring dives' ACTUAL frames (see SKILL Step 5)
-     - (optional) mobile variants at ~720p, -g 4 for smoother phone scrubbing
-   The engine loads each clip as a Blob (always seekable) and scrubs currentTime; it does
-   NOT depend on HTTP byte-range support.
-   ========================================================================== */
-
-/* ============================================================================
-   mountMobileStory — the phone experience: full-bleed cinematic panels.
-   One 100svh panel per scene: the scene image full-bleed with a slow Ken-Burns
-   push and scroll parallax, its short clip autoplaying once as you arrive (a
-   single <video> at a time — the pattern iOS actually allows), a kinetic
-   word-mask headline, chips and CTAs over a scrim. Scroll-snap between panels,
-   a dot rail down the side. Founder + tiers + contact flow after.
-   ========================================================================== */
-function mountMobileStory(container, config) {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const S = config.sections || [];
-  if (!S.length) return;
-  const N = S.length;
-  injectMobileCSS();
-  container.classList.add('mv2-root');
-  try { document.documentElement.style.scrollSnapType = 'y proximity'; } catch (e) {}
-
-  const ids = S.map((s, i) => s.id || ('s' + (i + 1)));
-  const kinetic = t => '<span class="mv2-kt">' + String(t).split(' ')
-    .map(w => '<span class="mv2-kt__w"><span class="mv2-kt__i">' + msesc(w) + '</span></span>').join(' ') + '</span>';
-
-  // top bar + menu
-  const bar = mel('div', 'mv2-bar');
-  const brand = mel('a', 'mv2-brand'); brand.href = '#top';
-  if (config.brand && config.brand.logo) { const lg = mel('img', 'mv2-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
-  const bn = mel('span', 'mv2-brand__name'); bn.textContent = (config.brand && config.brand.name) || ''; brand.appendChild(bn);
-  bar.appendChild(brand);
-  const menuBtn = mel('button', 'mv2-menu-btn'); menuBtn.setAttribute('aria-label', 'Menu'); menuBtn.innerHTML = '<i></i><i></i><i></i>';
-  bar.appendChild(menuBtn);
-  const menu = mel('nav', 'mv2-menu');
-  const links = S.map((s, i) => ({ href: '#' + ids[i], label: s.label || ('0' + (i + 1)) }))
-    .concat([{ href: '#founder', label: 'The operator' }, { href: '#tiers', label: 'Pricing' }, { href: '#contact', label: 'Contact' }]);
-  menu.innerHTML = links.map(l => '<a href="' + l.href + '">' + msesc(l.label) + '</a>').join('');
-  const closeMenu = () => document.body.classList.remove('mv2-menu-open');
-  menuBtn.addEventListener('click', () => document.body.classList.toggle('mv2-menu-open'));
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  container.appendChild(bar); container.appendChild(menu);
-
-  // dot rail
-  const rail = mel('div', 'mv2-rail');
-  const dots = S.map(() => { const d = mel('i'); rail.appendChild(d); return d; });
-  container.appendChild(rail);
-
-  // panels
-  const panels = S.map((s, i) => {
-    const sec = mel('section', 'mv2-panel' + (i === 0 ? ' mv2-panel--hero' : '') + (i === N - 1 ? ' mv2-panel--last' : ''));
-    sec.id = ids[i];
-    sec.style.setProperty('--mv2-accent', s.accent || '#3da9fc');
-    const bg = mel('div', 'mv2-panel__bg');
-    const img = mel('img', 'mv2-panel__img');
-    img.src = s.stillMobile && i === 0 ? s.stillMobile : (s.still || s.stillMobile || '');
-    img.alt = ''; img.decoding = 'async'; img.loading = i < 2 ? 'eager' : 'lazy';
-    bg.appendChild(img);
-    const scrim = mel('div', 'mv2-panel__scrim');
-    const copy = mel('div', 'mv2-panel__copy');
-    let html = '<div class="mv2-panel__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</div>';
-    if (s.eyebrow) html += '<span class="mv2-eyebrow">' + msesc(s.eyebrow) + '</span>';
-    if (s.title) html += (i === 0 ? '<h1 class="mv2-panel__title">' : '<h2 class="mv2-panel__title">') + kinetic(s.title) + (i === 0 ? '</h1>' : '</h2>');
-    if (s.body) html += '<p class="mv2-panel__body">' + msesc(s.body) + '</p>';
-    if (s.tags && s.tags.length) html += '<ul class="mv2-chips">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>';
-    if (s.cta) html += '<div class="mv2-panel__cta">' +
-      (s.cta.primary ? '<a class="mv2-btn mv2-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
-      (s.cta.secondary ? '<a class="mv2-btn mv2-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') + '</div>';
-    if (i === 0) html += '<a class="mv2-scrollcue" href="#' + ids[1] + '"><span>Scroll</span><i></i></a>';
-    copy.innerHTML = html;
-    sec.appendChild(bg); sec.appendChild(scrim); sec.appendChild(copy);
-    container.appendChild(sec);
-    return { sec, bg, img, video: null, clip: 'assets/vid/scene' + (i + 1) + '.mp4', vis: false };
-  });
-
-  // one video at a time, played on arrival
-  let playing = null;
-  function enter(o, i) {
-    o.sec.classList.add('mv2-live', 'mv2-vis'); o.vis = true;
-    dots.forEach((d, k) => d.classList.toggle('on', k === i));
-    if (reduce) return;
-    if (playing && playing !== o && playing.video) { try { playing.video.pause(); playing.video.currentTime = 0; } catch (e) {} }
-    playing = o;
-    if (!o.video) {
-      const v = mel('video', 'mv2-panel__video');
-      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = false; v.preload = 'auto';
-      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
-      v.src = o.clip;
-      v.addEventListener('loadeddata', () => o.sec.classList.add('mv2-hasvid'));
-      o.bg.appendChild(v); o.video = v;
-    }
-    try { o.video.currentTime = 0; } catch (e) {}
-    const pr = o.video.play(); if (pr && pr.catch) pr.catch(() => {});
-  }
-  function leave(o) { o.vis = false; o.sec.classList.remove('mv2-vis'); if (o.video) { try { o.video.pause(); o.video.currentTime = 0; } catch (e) {} } }
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      const i = panels.findIndex(x => x.sec === e.target); if (i < 0) return;
-      if (e.isIntersecting && e.intersectionRatio >= 0.55) enter(panels[i], i);
-      else if (!e.isIntersecting) leave(panels[i]);
-    }), { threshold: [0, 0.55, 0.9] });
-    panels.forEach(o => io.observe(o.sec));
-  } else {
-    panels.forEach((o, i) => enter(o, i));
-  }
-  enter(panels[0], 0);
-
-  // parallax on the live panel's background
-  let tick = false;
-  function onScroll() {
-    if (tick) return; tick = true;
-    requestAnimationFrame(() => {
-      const vh = window.innerHeight;
-      panels.forEach(o => {
-        if (!o.vis) return;
-        const r = o.sec.getBoundingClientRect();
-        const prog = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
-        o.bg.style.transform = 'translateY(' + (prog * 6).toFixed(2) + '%) scale(1.06)';
-      });
-      tick = false;
-    });
-  }
-  if (!reduce) window.addEventListener('scroll', onScroll, { passive: true });
-}
-
-
-function copyHTML(s, i, N, px) {
-  px = px || 'mv';
-  return '<span class="' + px + '-copy__num">' + String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0') + '</span>' +
-    (s.eyebrow ? '<span class="' + px + '-copy__eyebrow">' + msesc(s.eyebrow) + '</span>' : '') +
-    (s.title ? '<h2 class="' + px + '-copy__title">' + msesc(s.title) + '</h2>' : '') +
-    (s.body ? '<p class="' + px + '-copy__body">' + msesc(s.body) + '</p>' : '') +
-    (s.tags && s.tags.length ? '<ul class="' + px + '-copy__tags">' + s.tags.map(t => '<li>' + msesc(t) + '</li>').join('') + '</ul>' : '') +
-    (s.cta ? '<div class="' + px + '-copy__cta">' +
-      (s.cta.primary ? '<a class="' + px + '-btn ' + px + '-btn--primary" href="' + msesc(s.cta.primary.href || '#') + '">' + msesc(s.cta.primary.label) + '</a>' : '') +
-      (s.cta.secondary ? '<a class="' + px + '-btn ' + px + '-btn--ghost" href="' + msesc(s.cta.secondary.href || '#') + '">' + msesc(s.cta.secondary.label) + '</a>' : '') +
-      '</div>' : '');
-}
-
-function msesc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function mel(t, c) { const n = document.createElement(t); if (c) n.className = c; return n; }
-function injectMobileCSS() {
-  if (document.getElementById('mv-css')) return;
-  const st = document.createElement('style'); st.id = 'mv-css';
-  st.textContent = `
-  .mv2-root{position:relative;z-index:1;--mv2-accent:#3da9fc;}
-  .mv2-bar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;justify-content:space-between;
-    padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:linear-gradient(180deg,rgba(5,7,12,.66),transparent);}
-  .mv2-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f6fc;}
-  .mv2-brand__logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.16);}
-  .mv2-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.98rem;}
-  .mv2-menu-btn{width:42px;height:42px;border:0;background:rgba(255,255,255,.06);border-radius:12px;display:grid;place-items:center;gap:4px;cursor:pointer;}
-  .mv2-menu-btn i{display:block;width:18px;height:2px;background:#f2f6fc;border-radius:2px;transition:transform .3s,opacity .3s;}
-  body.mv2-menu-open .mv2-menu-btn i:nth-child(1){transform:translateY(6px) rotate(45deg);}
-  body.mv2-menu-open .mv2-menu-btn i:nth-child(2){opacity:0;}
-  body.mv2-menu-open .mv2-menu-btn i:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
-  .mv2-menu{position:fixed;inset:0;z-index:69;background:rgba(5,7,12,.97);backdrop-filter:blur(6px);
-    display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 30px;
-    opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .3s,transform .3s;}
-  body.mv2-menu-open .mv2-menu{opacity:1;pointer-events:auto;transform:none;}
-  .mv2-menu a{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.55rem;color:#f2f6fc;text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-  .mv2-menu a:last-child{border:0;color:var(--mv2-accent,#3da9fc);}
-  .mv2-rail{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:65;display:flex;flex-direction:column;gap:9px;pointer-events:none;}
-  .mv2-rail i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.24);transition:all .35s ease;}
-  .mv2-rail i.on{background:var(--mv2-accent);height:20px;border-radius:3px;box-shadow:0 0 12px color-mix(in srgb,var(--mv2-accent) 70%,transparent);}
-  .mv2-eyebrow{display:block;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mv2-accent);}
-  .mv2-chips{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
-  .mv2-chips li{font-size:.76rem;font-weight:600;padding:7px 13px;border-radius:999px;color:#eef3f9;
-    background:color-mix(in srgb,var(--mv2-accent) 16%,rgba(255,255,255,.03));border:1px solid color-mix(in srgb,var(--mv2-accent) 38%,transparent);
-    opacity:0;transform:translateY(10px);transition:opacity .5s ease .25s,transform .5s ease .25s;}
-  .mv2-live .mv2-chips li{opacity:1;transform:none;}
-
-  .mv2-panel{position:relative;min-height:100svh;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end;scroll-snap-align:start;}
-  .mv2-panel__bg{position:absolute;inset:-3% -3%;will-change:transform;transform:scale(1.06);}
-  .mv2-panel__img,.mv2-panel__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;}
-  .mv2-panel__video{opacity:0;transition:opacity .5s ease;}
-  .mv2-panel.mv2-hasvid .mv2-panel__video{opacity:1;}
-  @media (prefers-reduced-motion:no-preference){
-    .mv2-panel.mv2-live .mv2-panel__img{animation:mv2-kb 14s ease-out both;}
-    .mv2-panel:not(.mv2-vis) .mv2-panel__img{animation-play-state:paused;}
-  }
-  @keyframes mv2-kb{from{transform:scale(1.16)}to{transform:scale(1)}}
-  .mv2-panel__scrim{position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(5,7,12,.42) 0%,rgba(5,7,12,0) 24%,rgba(5,7,12,0) 46%,rgba(5,7,12,.66) 72%,rgba(5,7,12,.96) 100%);}
-  .mv2-panel__copy{position:relative;z-index:2;width:100%;padding:0 20px calc(40px + env(safe-area-inset-bottom));}
-  .mv2-panel--hero .mv2-panel__copy{padding-bottom:calc(56px + env(safe-area-inset-bottom));}
-  .mv2-panel__num{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;letter-spacing:.14em;color:#9aa7b8;margin-bottom:8px;
-    opacity:0;transition:opacity .5s ease;} .mv2-live .mv2-panel__num{opacity:1;}
-  .mv2-panel__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f8fbff;margin:10px 0 0;
-    font-size:clamp(2.3rem,10.5vw,3.4rem);line-height:1.02;letter-spacing:-.015em;text-shadow:0 3px 30px rgba(5,7,12,.85);}
-  .mv2-kt__w{display:inline-block;overflow:hidden;vertical-align:top;}
-  .mv2-kt__i{display:inline-block;transform:translateY(112%);transition:transform .7s cubic-bezier(.2,1,.3,1);}
-  .mv2-live .mv2-kt__i{transform:none;}
-  .mv2-kt__w:nth-child(2) .mv2-kt__i{transition-delay:.06s}
-  .mv2-kt__w:nth-child(3) .mv2-kt__i{transition-delay:.12s}
-  .mv2-kt__w:nth-child(4) .mv2-kt__i{transition-delay:.18s}
-  .mv2-kt__w:nth-child(n+5) .mv2-kt__i{transition-delay:.24s}
-  .mv2-panel__body{margin:16px 0 0;font-size:1.05rem;line-height:1.5;color:#d7deea;max-width:32ch;text-shadow:0 1px 12px rgba(5,7,12,.9);
-    opacity:0;transform:translateY(12px);transition:opacity .55s ease .18s,transform .55s ease .18s;}
-  .mv2-live .mv2-panel__body{opacity:1;transform:none;}
-  .mv2-panel__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .55s ease .3s,transform .55s ease .3s;}
-  .mv2-live .mv2-panel__cta{opacity:1;transform:none;}
-  .mv2-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;}
-  .mv2-btn--primary{background:var(--mv2-accent);color:#05070c;}
-  .mv2-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
-  .mv2-scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:24px;text-decoration:none;color:#9aa7b8;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
-  .mv2-scrollcue i{width:20px;height:32px;border-radius:11px;border:2px solid rgba(255,255,255,.3);position:relative;}
-  .mv2-scrollcue i::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:var(--mv2-accent);transform:translateX(-50%);animation:mv2-wheel 1.7s ease-in-out infinite;}
-  @keyframes mv2-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,9px)}}
-  @media (prefers-reduced-motion:reduce){ .mv2-kt__i{transform:none;} .mv2-panel__body,.mv2-panel__cta,.mv2-chips li,.mv2-panel__num{opacity:1;transform:none;} }
-  `;
-  document.head.appendChild(st);
-}
-
-/* ============================================================================
-   mountDesktopFlight — desktop: ONE continuous flight video, scroll-scrubbed.
-   Six separate clips meant the camera couldn't move until a whole ~2 MB clip
-   buffered (and stalled again at every scene boundary). One faststart video is
-   seekable from its first few hundred KB, so the flight is scrollable almost
-   immediately and there are no per-scene stalls — the rest streams by range as
-   you scrub. Keeps the desktop chrome: logo bar, nav, route rail, pinned copy,
-   blue→gold accent, scroll hint.
-   ========================================================================== */
-function mountDesktopFlight(container, config) {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const S = config.sections || [];
-  const FRAMES = config.frameCount | 0;
-  const FDIR = config.frameDir || 'assets/frames/';
-  const N = S.length;
-  if (!N || !FRAMES) return false;
-  injectDFCSS();
-  container.classList.add('df-root');
-  container.style.setProperty('--df-accent', S[0].accent || '#3da9fc');
-  const FEXT = config.frameExt || 'jpg';
-  const frameURL = i => FDIR + 'f' + String(i + 1).padStart(4, '0') + '.' + FEXT;
-
-  // fixed background — a <canvas> we blit pre-rendered JPEG frames onto (Apple-style).
-  // No <video>: setting video.currentTime triggers a slow decoder seek and needs the
-  // file to buffer first. drawImage() of an already-decoded frame is instant, so the
-  // flight is scrubbable the moment frame 1 (a ~40 KB jpg, preloaded in <head>) lands.
-  const bg = mel('div', 'df-bg');
-  const poster = mel('img', 'df-poster'); poster.src = frameURL(0); poster.alt = '';
-  const canvas = mel('canvas', 'df-canvas'); const ctx = canvas.getContext('2d', { alpha: false });
-  bg.appendChild(poster); bg.appendChild(canvas); bg.appendChild(mel('div', 'df-veil'));
-
-  // ---- progressive frame loader ----
-  const imgs = new Array(FRAMES), state = new Uint8Array(FRAMES);   // 0 idle · 1 loading · 2 done
-  let inflight = 0, seq = 0, firstDrawn = false;
-  const MAXP = config.maxParallel || 12;    // browsers cap HTTP/2 streams generously; keep the pipe full
-  const AHEAD = config.lookAhead || 14;     // frames to prefetch in the scroll direction
-  function want(i) {
-    i = Math.max(0, Math.min(FRAMES - 1, i));
-    if (state[i]) return;
-    state[i] = 1; inflight++;
-    const im = new Image(); im.decoding = 'async';
-    const done = () => { imgs[i] = im; state[i] = 2; inflight--; if (i === 0 && !firstDrawn) draw(0); pump(); };
-    im.onload = () => {
-      // Decode off the main thread first so the later ctx.drawImage can't stall a scroll frame.
-      if (im.decode) im.decode().then(done, done); else done();
-    };
-    im.onerror = () => { state[i] = 0; inflight--; if (i < seq) seq = i; pump(); };
-    im.src = frameURL(i);
-  }
-  function pump() {                        // keep the pipe full, in ascending order
-    while (inflight < MAXP && seq < FRAMES) { if (!state[seq]) want(seq); seq++; }
-  }
-  function nearestLoaded(i) {
-    if (state[i] === 2) return i;
-    for (let d = 1; d < FRAMES; d++) {
-      if (i - d >= 0 && state[i - d] === 2) return i - d;
-      if (i + d < FRAMES && state[i + d] === 2) return i + d;
-    }
-    return -1;
-  }
-  let cw = 0, chh = 0, dpr = 1;
-  function sizeCanvas() {
-    dpr = Math.min(2, window.devicePixelRatio || 1);
-    cw = window.innerWidth; chh = window.innerHeight;
-    canvas.width = Math.round(cw * dpr); canvas.height = Math.round(chh * dpr);
-    canvas.style.width = cw + 'px'; canvas.style.height = chh + 'px';
-    // setting canvas.width/height above resets 2D context state in every
-    // browser, including smoothing -- re-set it every time or it silently
-    // reverts to the spec's low-quality default and frames look pixelated.
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    drawIdx(lastIdx, true);
-  }
-  let lastIdx = -1;
-  function draw(i) { drawIdx(i, false); }
-  function drawIdx(i, force) {
-    if (i < 0) return;
-    const use = nearestLoaded(i);
-    if (use < 0) return;
-    if (!force && use === lastIdx) return;
-    lastIdx = use;
-    const im = imgs[use]; if (!im) return;
-    const cvW = canvas.width, cvH = canvas.height;
-    const ir = im.width / im.height, cr = cvW / cvH;
-    let w, h, x, y;
-    if (ir > cr) { h = cvH; w = h * ir; } else { w = cvW; h = w / ir; }
-    x = (cvW - w) / 2; y = (cvH - h) / 2 - h * 0.06;   // bias up a touch (matches object-position)
-    ctx.drawImage(im, x, y, w, h);
-    if (!firstDrawn) { firstDrawn = true; bg.classList.add('df-on'); }
-  }
-
-  // top bar
-  const bar = mel('div', 'df-bar');
-  const brand = mel('a', 'df-brand'); brand.href = (config.brand && config.brand.href) || '#top';
-  if (config.brand && config.brand.logo) { const lg = mel('img', 'df-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; brand.appendChild(lg); }
-  const bnm = mel('span', 'df-brand__name'); bnm.textContent = (config.brand && config.brand.name) || ''; brand.appendChild(bnm);
-  bar.appendChild(brand);
-  const nav = mel('nav', 'df-nav');
-  const navItems = S.map((s, i) => { const t = mel('button', 'df-nav__item'); t.textContent = s.label || ('0' + (i + 1)); t.addEventListener('click', () => jumpTo(i)); nav.appendChild(t); return t; });
-  bar.appendChild(nav);
-  if (config.cta && config.cta.label) { const c = mel('a', 'df-bar__cta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label; bar.appendChild(c); }
-
-  const prog = mel('div', 'df-progress'); const progFill = mel('i'); prog.appendChild(progFill);
-
-  // copy + route
-  const copylayer = mel('div', 'df-copylayer');
-  const copies = S.map((s, i) => { const c = mel('article', 'df-copy'); c.innerHTML = copyHTML(s, i, N, 'df'); copylayer.appendChild(c); return c; });
-  const route = mel('div', 'df-route');
-  const dots = S.map((s, i) => { const d = mel('button', 'df-route__dot'); d.innerHTML = '<span>' + msesc(s.label || '') + '</span><i></i>'; d.addEventListener('click', () => jumpTo(i)); route.appendChild(d); return d; });
-  const hint = mel('div', 'df-hint'); hint.innerHTML = '<span>' + msesc(config.hint || 'scroll') + '</span><i></i>';
-
-  const track = mel('div', 'df-track');
-  [bg, bar, prog, copylayer, route, hint, track].forEach(n => container.appendChild(n));
-
-  const PER = config.scrollPer || 1.5;     // viewport-heights of scroll per scene
-  track.style.height = (N * PER * 100) + 'vh';
-
-  let cur = 0, tgt = 0, ticking = false, active = -1, lastP = 0;
-  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
-  const lerpColor = (c1, c2, t) => {
-    const p = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
-    const a = p(c1), b = p(c2);
-    return 'rgb(' + a.map((v, k) => Math.round(v + (b[k] - v) * t)).join(',') + ')';
-  };
-
-  function jumpTo(i) { window.scrollTo({ top: track.offsetTop + (i + 0.5) / N * (track.offsetHeight - window.innerHeight), behavior: reduce ? 'auto' : 'smooth' }); }
-
-  // kick off loading: frame 1 first (also preloaded in <head> → warm cache), then stream the rest
-  want(0); pump();
-
-  function read() {
-    const vh = window.innerHeight;
-    const h = track.offsetHeight - vh;
-    const p = h > 0 ? clamp((window.scrollY - track.offsetTop) / h) : 0;
-    tgt = p;
-    // prioritise frames around where the reader actually is
-    const ti = Math.round(p * (FRAMES - 1));
-    // prioritise a run of frames in the direction of travel so scrubbing stays ahead of the loader
-    const dir = p >= lastP ? 1 : -1; lastP = p;
-    for (let k = -2; k <= AHEAD; k++) want(ti + k * dir);
-    const pn = p * N;
-    const near = Math.min(N - 1, Math.max(0, Math.round(pn - 0.5)));
-    for (let i = 0; i < N; i++) {
-      let op = 0, ty = 10;
-      if (i === near) { const d = Math.abs(pn - (i + 0.5)); op = 0.6 + 0.4 * smooth(1 - d / 0.5); ty = (0.5 - d) * 8; }
-      copies[i].style.opacity = op.toFixed(3);
-      copies[i].style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
-      copies[i].style.pointerEvents = op > 0.6 ? 'auto' : 'none';
-    }
-    if (near !== active) {
-      active = near;
-      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
-      navItems.forEach((d, k) => d.classList.toggle('is-active', k === near));
-      // accent eases between the outgoing and incoming scene colours
-    }
-    const a0 = S[near].accent || '#3da9fc';
-    const a1 = S[Math.min(N - 1, near + 1)].accent || a0;
-    const frac = clamp(pn - near - 0.5);
-    container.style.setProperty('--df-accent', lerpColor(a0, a1, smooth(frac)));
-    progFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
-    hint.style.opacity = clamp(1 - pn * 2);
-    bar.style.setProperty('--df-barbg', p > 0.01 ? '.66' : '.32');
-    ticking = false;
-  }
-  function raf() {
-    cur += (tgt - cur) * (config.chase || 0.16);
-    drawIdx(Math.round(clamp(cur) * (FRAMES - 1)), false);
-    requestAnimationFrame(raf);
-  }
-  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
-  window.addEventListener('resize', () => { sizeCanvas(); read(); });
-  sizeCanvas();
-  read();
-  requestAnimationFrame(raf);
-  return true;
-}
-
-function injectDFCSS() {
-  if (document.getElementById('df-css')) return;
-  const st = document.createElement('style'); st.id = 'df-css';
-  st.textContent = `
-  .df-root{position:relative;z-index:1;--df-accent:#3da9fc;}
-  .df-bg{position:fixed;inset:0;z-index:0;background:#05070c;overflow:hidden;}
-  .df-poster,.df-canvas{position:absolute;inset:0;width:100%;height:100%;}
-  .df-poster{object-fit:cover;object-position:center 44%;}
-  .df-canvas{opacity:0;transition:opacity .4s ease;}
-  .df-on .df-canvas{opacity:1;} .df-on .df-poster{opacity:0;transition:opacity .5s ease;}
-  .df-veil{position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(90deg,rgba(5,7,12,.82) 0%,rgba(5,7,12,.45) 32%,rgba(5,7,12,.08) 60%,transparent 100%),
-      linear-gradient(180deg,rgba(5,7,12,.5) 0%,transparent 22%,transparent 70%,rgba(5,7,12,.6) 100%);}
-  .df-bar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
-    gap:16px;padding:clamp(14px,2.2vw,24px) clamp(20px,4vw,56px);
-    background:linear-gradient(180deg,rgba(5,7,12,var(--df-barbg,.32)),transparent);transition:background .3s;}
-  .df-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#f2f6fc;}
-  .df-brand__logo{width:42px;height:42px;border-radius:50%;object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.16);}
-  .df-brand__name{font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:1.08rem;}
-  .df-nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:color-mix(in srgb,#0c1220 78%,transparent);
-    border:1px solid color-mix(in srgb,var(--df-accent) 30%,transparent);}
-  .df-nav__item{font:inherit;font-size:.8rem;color:#aab6c8;border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
-  .df-nav__item:hover{color:#fff;} .df-nav__item.is-active{color:#05070c;background:var(--df-accent);}
-  .df-bar__cta{text-decoration:none;font-weight:600;font-size:.9rem;color:#05070c;background:var(--df-accent);
-    padding:10px 20px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 26px -12px color-mix(in srgb,var(--df-accent) 70%,transparent);}
-  .df-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:61;background:color-mix(in srgb,var(--df-accent) 14%,transparent);}
-  .df-progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--df-accent);}
-  .df-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
-  .df-copy{position:absolute;left:0;bottom:0;width:min(56vw,620px);
-    padding:0 clamp(20px,4vw,56px) clamp(48px,8vh,110px);opacity:0;transition:opacity .4s ease,transform .4s ease;}
-  .df-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:#93a2b8;}
-  .df-copy__eyebrow{display:block;margin-top:16px;font-family:var(--sw-font-display,system-ui);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--df-accent);}
-  .df-copy__title{font-family:var(--sw-font-display,system-ui);font-weight:700;color:#f7fafe;
-    font-size:clamp(2.2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 3px 30px rgba(5,7,12,.9);}
-  .df-copy__body{margin-top:18px;font-size:clamp(1rem,1.2vw,1.14rem);line-height:1.55;color:#dbe2ec;max-width:42ch;text-shadow:0 2px 14px rgba(5,7,12,.92);}
-  .df-copy__tags{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
-  .df-copy__tags li{font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:999px;color:#eef3f9;
-    background:color-mix(in srgb,var(--df-accent) 20%,rgba(5,7,12,.4));border:1px solid color-mix(in srgb,var(--df-accent) 40%,transparent);}
-  .df-copy__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;}
-  .df-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.98rem;pointer-events:auto;}
-  .df-btn--primary{background:var(--df-accent);color:#05070c;}
-  .df-btn--ghost{color:#f2f6fc;border:1.5px solid rgba(255,255,255,.34);}
-  .df-route{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:20px;}
-  .df-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
-  .df-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--df-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
-  .df-route__dot.is-active i{background:var(--df-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--df-accent) 22%,transparent);}
-  .df-route__dot span{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.76rem;font-weight:600;color:#f2f6fc;
-    background:color-mix(in srgb,#0c1220 88%,transparent);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;}
-  .df-route__dot:hover span,.df-route__dot.is-active span{opacity:1;transform:translateY(-50%);}
-  .df-hint{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:9px;
-    font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#93a2b8;transition:opacity .3s;}
-  .df-hint i{width:22px;height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.28);position:relative;}
-  .df-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--df-accent);transform:translateX(-50%);animation:df-wheel 1.7s ease-in-out infinite;}
-  @keyframes df-wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
-  .df-track{position:relative;z-index:1;width:100%;pointer-events:none;}
-  body.past-flight .df-route,body.past-flight .df-hint,body.past-flight .df-copylayer{opacity:0!important;pointer-events:none;transition:opacity .5s ease;}
-  @media (prefers-reduced-motion:reduce){ .df-hint i::after{animation:none;} }
-
-  /* ---- phone: same flight, portrait chrome ---- */
-  .df-root--m .df-veil{
-    background:linear-gradient(180deg,rgba(5,7,12,.34) 0%,transparent 20%,transparent 42%,rgba(5,7,12,.62) 74%,rgba(5,7,12,.9) 100%);}
-  .df-root--m .df-bar{padding:11px 14px;gap:10px;}
-  .df-root--m .df-brand__logo{width:34px;height:34px;}
-  .df-root--m .df-brand__name{font-size:.98rem;}
-  .df-root--m .df-nav{display:none;}
-  .df-root--m .df-bar__cta{font-size:.8rem;padding:9px 15px;}
-  .df-root--m .df-copy{width:auto;right:0;padding:0 20px calc(env(safe-area-inset-bottom,0px) + clamp(84px,15vh,140px));}
-  .df-root--m .df-copy__title{font-size:clamp(2.35rem,8.6vw,3rem);line-height:1.02;}
-  .df-root--m .df-copy__body{font-size:1rem;max-width:34ch;}
-  .df-root--m .df-copy__cta{margin-top:20px;}
-  .df-root--m .df-btn{padding:13px 22px;font-size:.94rem;}
-  .df-root--m .df-route{right:9px;gap:13px;}
-  .df-root--m .df-route__dot span{display:none;}
-  .df-root--m .df-hint{bottom:calc(env(safe-area-inset-bottom,0px) + 14px);font-size:.68rem;}
-  `;
-  document.head.appendChild(st);
-}
-
-function mountScrollWorld(container, config) {
-  // Decide once at load from the pointer type / width — a device does not change mid-session.
-  const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
-
-  // Phones run the SAME canvas frame-sequence flight as desktop, just pointed at a
-  // portrait (720×1280) frame set. Canvas blitting has none of the iOS <video>
-  // autoplay / currentTime-seek limits that made the old per-scene clips freeze.
-  if (isPhone && config.frameCountMobile) {
-    container.classList.add('df-root--m');
-    const mcfg = Object.assign({}, config, {
-      frameDir: config.frameDirMobile || 'assets/frames-m/',
-      frameCount: config.frameCountMobile,
-      frameExt: config.frameExtMobile || 'jpg',
-      scrollPer: config.scrollPerMobile || 1.15,
-      maxParallel: config.maxParallelMobile || 24,
-      lookAhead: config.lookAheadMobile || 26,
-      chase: config.chaseMobile || 0.12
-    });
-    if (mountDesktopFlight(container, mcfg)) return;
-    container.classList.remove('df-root--m');
-  }
-  // Fallback build for phones if the frame set is unavailable (see mountMobileStory).
-  if (isPhone) {
-    return mountMobileStory(container, config);
-  }
-  // Desktop: single continuous flight, scrubbed (see mountDesktopFlight).
-  if (config.frameCount && mountDesktopFlight(container, config)) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Phone detection. `coarse` is captured once (input type doesn't change mid-session);
-  // the ≤860px query is read live via isMobile() so a desktop resize/DevTools toggle
-  // switches sources and seek behaviour without a reload.
-  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  const smallMQ = window.matchMedia('(max-width: 860px)');
-  const isMobile = () => coarse || smallMQ.matches;
-  const SECTIONS = config.sections || [];
-  const CONNECTORS = config.connectors || [];
-  const CONNECTORS_M = config.connectorsMobile || [];
-  const DIVE_W = config.diveScroll || 1.3;
-  const CONN_W = config.connScroll || 0.9;
-  const CROSSFADE = (config.crossfade != null) ? config.crossfade : 0.12;  // seam dissolve width (vh)
-  const N = SECTIONS.length;
-  if (!N) return;
-
-  injectCSS();
-  container.classList.add('sw-root');
-
-  // ---- build the interleaved segment chain: dive0, conn0, dive1, … diveN-1 ----
-  const SEGMENTS = [];
-  SECTIONS.forEach((s, i) => {
-    const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, still: s.still, stillM: s.stillMobile,
-                   accent: s.accent, w: s.scroll || DIVE_W, linger: s.linger || 0 };
-    SEGMENTS.push(dive);
-    s._seg = dive;
-    // A connector is optional: if connectors[i] is falsy, the two dives simply
-    // crossfade directly (no fly-over). Lets a page complete even when a
-    // connector can't be generated (e.g. a content-filter false-positive).
-    if (i < N - 1 && CONNECTORS[i]) {
-      SEGMENTS.push({ kind: 'conn', si: i, clip: CONNECTORS[i], clipM: CONNECTORS_M[i],
-                      still: SECTIONS[i + 1].still, stillM: SECTIONS[i + 1].stillMobile,
-                      accent: SECTIONS[i + 1].accent, w: CONN_W });
-    }
-  });
-  const NSEG = SEGMENTS.length;
-
-  // ---- DOM ----
-  const sky = el('div', 'sw-sky');
-  if (config.atmosphere !== false) {
-    sky.appendChild(el('div', 'sw-sky__grad'));
-    sky.appendChild(el('div', 'sw-sky__glow'));
-  }
-  const particles = el('div', 'sw-particles'); sky.appendChild(particles);
-
-  const scrollbar = el('div', 'sw-scrollbar');
-  const scrollbarFill = el('span'); scrollbar.appendChild(scrollbarFill);
-
-  const topbar = el('div', 'sw-topbar');
-  if (config.brand) {
-    const brand = el('a', 'sw-brand'); brand.href = (config.brand.href || '#');
-    if (config.brand.logo) {
-      const lg = el('img', 'sw-brand__logo'); lg.src = config.brand.logo; lg.alt = config.brand.name || ''; lg.decoding = 'async';
-      brand.appendChild(lg);
-    } else {
-      brand.appendChild(el('span', 'sw-brand__mark'));
-    }
-    const nm = el('span', 'sw-brand__name'); nm.textContent = config.brand.name || ''; brand.appendChild(nm);
-    topbar.appendChild(brand);
-  }
-  const nav = el('nav', 'sw-nav'); if (config.nav !== false) topbar.appendChild(nav);
-  if (config.cta && config.cta.label) {
-    const c = el('a', 'sw-topcta'); c.href = config.cta.href || '#'; c.textContent = config.cta.label;
-    topbar.appendChild(c);
-  }
-
-  const stage = el('div', 'sw-stage');
-  const copylayer = el('div', 'sw-copylayer');
-  const route = el('div', 'sw-route');
-  const hint = el('div', 'sw-hint');
-  const hintText = el('span'); hintText.textContent = config.hint || 'scroll'; hint.appendChild(hintText);
-  hint.appendChild(el('i'));
-  const track = el('div', 'sw-track');
-
-  [sky, scrollbar, topbar, stage, copylayer, route, hint, track].forEach(n => container.appendChild(n));
-
-  // segment scenes
-  SEGMENTS.forEach(s => {
-    const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
-    const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
-    const poster = (isMobile() && s.stillM) ? s.stillM : s.still;
-    if (poster) img.src = poster;
-    scene.appendChild(img); stage.appendChild(scene);
-    s.el = scene; s.img = img; s.video = null; s.hasClip = false;
-    s.loading = false; s.ready = false; s.cur = 0; s.target = 0; s.visible = false;
-  });
-
-  // per-section copy / route / nav
-  const copies = [], dots = [];
-  SECTIONS.forEach((s, i) => {
-    const c = el('article', 'sw-copy'); c.style.setProperty('--sw-accent', s.accent || '');
-    c.innerHTML =
-      `<span class="sw-copy__num">${pad(i + 1)} / ${pad(N)}</span>` +
-      (s.eyebrow ? `<span class="sw-copy__eyebrow">${esc(s.eyebrow)}</span>` : '') +
-      (s.title ? `<h2 class="sw-copy__title">${esc(s.title)}</h2>` : '') +
-      (s.body ? `<p class="sw-copy__body">${esc(s.body)}</p>` : '') +
-      (s.tags && s.tags.length ? `<ul class="sw-copy__tags">${s.tags.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : '') +
-      (s.cta ? `<div class="sw-copy__cta">${ctaBtns(s.cta)}</div>` : '');
-    copylayer.appendChild(c); copies.push(c);
-
-    const dot = el('button', 'sw-route__dot'); dot.style.setProperty('--sw-accent', s.accent || '');
-    dot.innerHTML = `<span class="sw-route__label">${esc(s.label || '')}</span><i></i>`;
-    dot.addEventListener('click', () => jumpTo(i)); route.appendChild(dot); dots.push(dot);
-
-    if (config.nav !== false) {
-      const b = el('button', 'sw-nav__item'); b.textContent = s.label || '';
-      b.addEventListener('click', () => jumpTo(i)); nav.appendChild(b);
-    }
-  });
-
-  // ---- math ----
-  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-  const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
-  // Per-section dwell: monotone remap of scroll→time so the camera settles mid-scene
-  // (where the copy peaks) and moves quicker near the seams. L=0 linear, L=1 full
-  // mid-scene pause. f(0)=0, f(1)=1 always, so seam frames are untouched.
-  const lingerEase = (x, L) => { L = clamp(L); const c = x - 0.5; return (1 - L) * x + L * (4 * c * c * c + 0.5); };
-  let vh = window.innerHeight, stageX = 0, totalW = 0, activeIndex = -1, ticking = false;
-  let laidOutW = window.innerWidth;   // width the current layout was computed at (see onResize)
-
-  function layout() {
-    vh = window.innerHeight;
-    laidOutW = window.innerWidth;
-    stageX = window.innerWidth > 860 ? 4 : 0;
-    let off = 0;
-    SEGMENTS.forEach(s => { s.start = off * vh; off += s.w; s.end = off * vh; });
-    totalW = off;
-    track.style.height = (totalW * vh + vh) + 'px';   // +1vh so the last flight completes
-    read();
-  }
-
-  function jumpTo(i) {
-    const seg = SECTIONS[i]._seg;
-    window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: reduce ? 'auto' : 'smooth' });
-  }
-
-  function loadClip(s) {
-    // Under prefers-reduced-motion we never load the clips at all — the stills stay up
-    // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
-    if (reduce || s.loading || !s.clip) return;
-    s.loading = true;
-    // Serve the lighter mobile encode on phones when one was provided.
-    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
-    const v = document.createElement('video');
-    v.className = 'sw-scene__video';
-    v.muted = true; v.defaultMuted = true; v.playsInline = true; v.preload = 'auto';
-    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
-
-    const reveal = () => s.el.classList.add('has-clip');
-    v.addEventListener('loadeddata', reveal);
-    v.addEventListener('canplay', reveal);
-    v.addEventListener('seeked', reveal, { once: true });
-
-    // Fast path: point straight at the URL. When the host serves HTTP byte-range
-    // requests (GitHub Pages does) and the file is +faststart, `seekable` covers the
-    // whole clip within a few KB — scrubbable on arrival, no full download.
-    // Safe fallback: if metadata arrives but `seekable` is pinned to ~0 (a host that
-    // ignores Range, e.g. `python -m http.server`), fetch the whole thing as a Blob
-    // and swap to an always-seekable object URL.
-    let blobTried = false;
-    const goBlob = () => {
-      if (blobTried) return; blobTried = true;
-      fetch(url).then(r => r.ok ? r.blob() : Promise.reject())
-        .then(b => { v.src = URL.createObjectURL(b); })
-        .catch(() => { s.loading = false; });
-    };
-    v.addEventListener('loadedmetadata', () => {
-      const end = (v.seekable && v.seekable.length) ? v.seekable.end(0) : 0;
-      if (end < (v.duration || 1) - 0.5 && !blobTried) { goBlob(); return; }
-      s.ready = true;
-      primeVideo(v);   // kick the decoder so frame 0 paints (esp. iOS) — harmless on desktop
-      read();
-    });
-    v.addEventListener('error', () => { if (!blobTried) goBlob(); else s.loading = false; });
-    v.src = url;
-    s.el.appendChild(v); s.video = v; s.hasClip = true;
-  }
-
-  function read() {
-    const y = window.scrollY || window.pageYOffset;
-    const fade = CROSSFADE * vh;
-    let ci = 0;
-    for (let i = 0; i < NSEG; i++) if (y >= SEGMENTS[i].start) ci = i;
-
-    for (let i = 0; i < NSEG; i++) {
-      const s = SEGMENTS[i];
-      if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
-      const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
-      s.target = s.linger ? lingerEase(local, s.linger) : local;
-      let outside = 0;
-      if (y < s.start) outside = s.start - y; else if (y > s.end) outside = y - s.end;
-      const op = smooth(1 - outside / fade);
-      s.el.style.opacity = op; s.visible = op > 0.001;
-      s.el.style.zIndex = (i === ci) ? '120' : String(100 + Math.round(op * 10));
-      if (!s.hasClip || !s.ready) {
-        // Only a whisper of scroll-driven zoom before the clip is ready (was 0.14) —
-        // enough that scrolling feels acknowledged, small enough that the still→video
-        // hand-off doesn't visibly jump.
-        const sc = reduce ? 1 : 1.03 + local * 0.05;
-        s.img.style.transform = `translateX(${stageX - 2}vw) scale(${sc.toFixed(3)})`;
-      }
-    }
-
-    for (let i = 0; i < N; i++) {
-      const seg = SECTIONS[i]._seg;
-      const pr = clamp((y - seg.start) / (seg.end - seg.start), 0, 1);
-      const before = y < seg.start, after = y > seg.end;
-      let cop;
-      if (i === 0) cop = after ? 0 : smooth(1 - pr / 0.62);            // greets on landing
-      else if (i === N - 1) cop = before ? 0 : smooth(pr / 0.4);       // holds CTA at the end
-      else cop = (before || after) ? 0 : smooth(1 - Math.abs(pr - 0.5) / 0.5);
-      const c = copies[i];
-      c.style.opacity = cop;
-      c.style.transform = reduce ? 'none' : `translateY(${(0.5 - pr) * 4}vh)`;
-      c.style.pointerEvents = cop > 0.5 ? 'auto' : 'none';
-    }
-
-    const cur = SEGMENTS[ci];
-    const near = clamp(cur.kind === 'dive' ? cur.si
-      : (((y - cur.start) / (cur.end - cur.start)) > 0.5 ? cur.si + 1 : cur.si), 0, N - 1);
-    if (near !== activeIndex) {
-      activeIndex = near;
-      dots.forEach((d, k) => d.classList.toggle('is-active', k === near));
-      nav.querySelectorAll('.sw-nav__item').forEach((n, k) => n.classList.toggle('is-active', k === near));
-      container.style.setProperty('--sw-accent', SECTIONS[near].accent || '');
-    }
-    scrollbarFill.style.transform = `scaleX(${clamp(y / (totalW * vh))})`;
-    hint.style.opacity = clamp(1 - y / (0.5 * vh));
-    if (particles) particles.style.transform = `translate3d(0, ${-y * 0.05}px, 0)`;
-    ticking = false;
-  }
-
-  function raf() {
-    const eps = isMobile() ? 0.013 : 0.008;   // seek step; phones a touch coarser (fewer decodes) but the light 540w encodes let it stay near-desktop-smooth
-    for (let i = 0; i < NSEG; i++) {
-      const s = SEGMENTS[i];
-      if (!s.hasClip || !s.ready || !s.video) continue;
-      // Never queue a seek while the decoder is still resolving the last one.
-      // On phones a fast flick would otherwise pile up seeks and freeze the clip;
-      // cur keeps lerping, so we snap to the latest target the moment it's free.
-      if (s.video.seeking) continue;
-      if (!s.visible && Math.abs(s.cur - s.target) < 0.002) continue;
-      s.cur += (s.target - s.cur) * (reduce ? 1 : 0.18);
-      const dur = s.video.duration || 1;
-      const t = clamp(s.cur, 0, 0.999) * dur;
-      if (Math.abs(s.video.currentTime - t) > eps) { try { s.video.currentTime = t; } catch (e) {} }
-    }
-    requestAnimationFrame(raf);
-  }
-
-  // iOS needs a user gesture before a muted video will decode/paint reliably. On the
-  // first touch we prime every loaded clip (muted play→pause) so the first seek is
-  // instant instead of showing a blank frame. `userReady` also makes freshly-loaded
-  // clips prime themselves (see loadClip).
-  let userReady = false;
-  function primeVideo(v) {
-    if (!v) return;
-    // Muted inline autoplay is allowed on modern iOS/Android; if the browser still
-    // blocks it, onFirstGesture re-primes on the first tap.
-    try {
-      const p = v.play();
-      if (p && p.then) p.then(() => { try { v.pause(); } catch (e) {} }).catch(() => {});
-      else { try { v.pause(); } catch (e) {} }
-    } catch (e) {}
-  }
-  function onFirstGesture() {
-    if (userReady) return;
-    userReady = true;
-    SEGMENTS.forEach(s => { if (s.video) { primeVideo(s.video); s.el.classList.add('has-clip'); } });
-  }
-  window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
-  window.addEventListener('touchstart', onFirstGesture, { once: true, passive: true });
-
-  // Particles are a per-frame cost we can't afford alongside video scrubbing on a phone.
-  seedParticles(particles, reduce || coarse);
-  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
-  // Mobile browsers fire `resize` every time the URL bar slides in/out. Re-running
-  // layout() there rebuilds the track height and yanks the scroll position, so on
-  // touch we ignore height-only changes and only relayout when the width actually
-  // changes (rotation still comes through orientationchange). layout() records the
-  // width it laid out at.
-  function onResize() {
-    if (coarse && window.innerWidth === laidOutW) return;
-    layout();
-  }
-  window.addEventListener('resize', onResize);
-  window.addEventListener('orientationchange', layout);
-  window.addEventListener('load', layout);
-  layout();
-  requestAnimationFrame(raf);
-
-  // Get scene 1 interactive as fast as possible: load ONLY it on arrival (giving it
-  // the whole pipe), then bring in clip 2 once clip 1 has its metadata or after a
-  // short beat — whichever first. The rest load on scroll approach as before.
-  if (!reduce) {
-    loadClip(SEGMENTS[0]);
-    const kick2 = () => { if (SEGMENTS[1]) loadClip(SEGMENTS[1]); };
-    if (SEGMENTS[0].video) SEGMENTS[0].video.addEventListener('loadedmetadata', kick2, { once: true });
-    setTimeout(kick2, 1400);
-  }
-
-  // ---- helpers ----
-  function el(tag, cls) { const n = document.createElement(tag); if (cls) n.className = cls; return n; }
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-  function ctaBtns(cta) {
-    let h = '';
-    if (cta.primary) h += `<a class="sw-btn sw-btn--primary" href="${esc(cta.primary.href || '#')}">${esc(cta.primary.label)}</a>`;
-    if (cta.secondary) h += `<a class="sw-btn sw-btn--ghost" href="${esc(cta.secondary.href || '#')}">${esc(cta.secondary.label)}</a>`;
-    return h;
-  }
-}
-
-function seedParticles(host, reduce) {
-  if (!host || reduce) return;
-  const kinds = ['dot', 'dot', 'ring'];
-  const seeds = [7, 23, 41, 58, 71, 88, 12, 34, 52, 66, 83, 95, 18, 29, 47, 63, 77, 91, 5, 38, 55, 69, 82, 97];
-  for (let k = 0; k < 20; k++) {
-    const s = document.createElement('span');
-    s.className = 'sw-pt sw-pt--' + kinds[k % kinds.length];
-    s.style.left = seeds[k % seeds.length] + 'vw';
-    s.style.top = ((seeds[(k * 3) % seeds.length] * 1.3) % 100) + 'vh';
-    s.style.setProperty('--sw-sc', (0.5 + ((seeds[(k * 5) % seeds.length] % 60) / 60) * 1.1).toFixed(2));
-    const dur = 14 + (seeds[(k * 7) % seeds.length] % 22);
-    s.style.animationDuration = dur + 's';
-    s.style.animationDelay = (-(seeds[(k * 2) % seeds.length] % dur)) + 's';
-    host.appendChild(s);
-  }
-}
-
-function injectCSS() {
-  if (document.getElementById('sw-css')) return;
-  const css = `
-  .sw-root{--sw-bg:#F5EDE0;--sw-ink:#241d2b;--sw-ink-soft:#6a6072;--sw-accent:#8a7bb5;
-    --sw-font-display:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;
-    --sw-font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-    color:var(--sw-ink);font-family:var(--sw-font-body);}
-  html,body{margin:0;background:var(--sw-bg,#F5EDE0);overflow-x:hidden;}
-  .sw-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--sw-bg);}
-  .sw-sky__grad{position:absolute;inset:-10%;background:linear-gradient(178deg,color-mix(in srgb,var(--sw-accent) 12%,var(--sw-bg)) 0%,var(--sw-bg) 55%,color-mix(in srgb,var(--sw-accent) 6%,var(--sw-bg)) 100%);}
-  .sw-sky__glow{position:absolute;inset:0;background:radial-gradient(60% 42% at 74% 16%,color-mix(in srgb,var(--sw-accent) 22%,transparent),transparent 70%),radial-gradient(46% 34% at 50% 50%,color-mix(in srgb,#fff 45%,transparent),transparent 70%);}
-  .sw-particles{position:absolute;inset:-6% -2%;will-change:transform;}
-  .sw-pt{position:absolute;width:13px;height:13px;transform:scale(var(--sw-sc,1));opacity:0;animation:sw-drift linear infinite;}
-  .sw-pt::before{content:"";position:absolute;inset:0;border-radius:50%;}
-  .sw-pt--dot::before{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--sw-accent) 60%,#000),#000 82%);}
-  .sw-pt--ring::before{background:transparent;border:2px solid color-mix(in srgb,var(--sw-accent) 55%,transparent);}
-  @keyframes sw-drift{0%{opacity:0;transform:scale(var(--sw-sc)) translate(0,12vh) rotate(0)}12%{opacity:.5}88%{opacity:.45}100%{opacity:0;transform:scale(var(--sw-sc)) translate(4vw,-22vh) rotate(210deg)}}
-  .sw-scrollbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:color-mix(in srgb,var(--sw-accent) 14%,transparent);}
-  .sw-scrollbar span{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sw-accent);}
-  .sw-topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14px,2.4vw,26px) clamp(18px,5vw,64px);}
-  .sw-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--sw-ink);}
-  .sw-brand__mark{width:24px;height:28px;border-radius:7px 7px 10px 10px;background:linear-gradient(160deg,var(--sw-accent),color-mix(in srgb,var(--sw-accent) 60%,#000));box-shadow:0 6px 14px color-mix(in srgb,var(--sw-accent) 40%,transparent);}
-  .sw-brand__logo{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 4px 16px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.16);}
-  .sw-brand__name{font-family:var(--sw-font-display);font-weight:700;font-size:1.1rem;}
-  @media(max-width:860px){ .sw-brand__logo{width:36px;height:36px;} .sw-brand__name{font-size:1rem;} }
-  .sw-nav{display:flex;gap:4px;padding:5px;background:color-mix(in srgb,#fff 55%,transparent);backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--sw-accent) 16%,transparent);border-radius:999px;}
-  .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
-  .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
-  .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
-  .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none;}
-  .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
-  .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
-  .sw-scene__still{will-change:transform;} .sw-scene.has-clip .sw-scene__still{opacity:0;} .sw-scene__video{z-index:1;}
-  .sw-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;}
-  .sw-copylayer::before{content:"";position:absolute;inset:0;width:min(58vw,780px);background:linear-gradient(90deg,var(--sw-bg) 0%,color-mix(in srgb,var(--sw-bg) 82%,transparent) 34%,color-mix(in srgb,var(--sw-bg) 40%,transparent) 62%,transparent 100%);}
-  .sw-copy{position:absolute;left:clamp(18px,5vw,64px);top:50%;transform:translateY(-50%);width:min(42vw,460px);opacity:0;will-change:opacity,transform;}
-  .sw-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;color:var(--sw-ink-soft);}
-  .sw-copy__eyebrow{display:block;margin-top:18px;font-family:var(--sw-font-display);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sw-accent);}
-  .sw-copy__title{font-family:var(--sw-font-display);font-weight:700;color:var(--sw-ink);font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.03;margin:12px 0 0;letter-spacing:-.01em;text-shadow:0 2px 20px color-mix(in srgb,var(--sw-bg) 70%,transparent);}
-  .sw-copy__body{margin-top:18px;font-size:clamp(1rem,1.25vw,1.14rem);line-height:1.55;color:color-mix(in srgb,var(--sw-ink) 78%,var(--sw-ink-soft));max-width:40ch;text-shadow:0 1px 12px color-mix(in srgb,var(--sw-bg) 90%,transparent);}
-  .sw-copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;padding:0;}
-  .sw-copy__tags li{font-size:.82rem;font-weight:600;color:color-mix(in srgb,var(--sw-accent) 70%,#000);padding:7px 14px;border-radius:999px;background:color-mix(in srgb,var(--sw-accent) 14%,#fff);border:1px solid color-mix(in srgb,var(--sw-accent) 30%,transparent);}
-  .sw-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;pointer-events:auto;}
-  .sw-btn{text-decoration:none;font-weight:600;font-size:.95rem;padding:13px 24px;border-radius:999px;transition:transform .2s;}
-  .sw-btn--primary{color:#fff;background:var(--sw-ink);} .sw-btn--primary:hover{transform:translateY(-2px);}
-  .sw-btn--ghost{color:var(--sw-ink);border:1.5px solid color-mix(in srgb,var(--sw-ink) 25%,transparent);} .sw-btn--ghost:hover{transform:translateY(-2px);}
-  .sw-route{position:fixed;right:clamp(14px,2.4vw,30px);top:50%;z-index:40;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;padding:18px 10px;}
-  .sw-route::before{content:"";position:absolute;left:50%;top:22px;bottom:22px;width:2px;transform:translateX(-50%);background:var(--sw-accent);opacity:.28;}
-  .sw-route__dot{position:relative;border:0;background:transparent;cursor:pointer;width:14px;height:14px;display:grid;place-items:center;}
-  .sw-route__dot i{width:9px;height:9px;border-radius:50%;background:color-mix(in srgb,var(--sw-accent) 40%,transparent);transition:transform .3s,background .3s,box-shadow .3s;}
-  .sw-route__dot:hover i{transform:scale(1.25);background:var(--sw-accent);}
-  .sw-route__dot.is-active i{background:var(--sw-accent);transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--sw-accent) 22%,transparent);}
-  .sw-route__label{position:absolute;right:24px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;font-size:.78rem;font-weight:600;color:var(--sw-ink);background:color-mix(in srgb,#fff 85%,transparent);backdrop-filter:blur(6px);padding:5px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;border:1px solid color-mix(in srgb,var(--sw-accent) 14%,transparent);}
-  .sw-route__dot:hover .sw-route__label,.sw-route__dot.is-active .sw-route__label{opacity:1;transform:translateY(-50%) translateX(0);}
-  .sw-hint{position:fixed;left:50%;bottom:26px;z-index:30;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sw-ink-soft);transition:opacity .3s;}
-  .sw-hint i{width:22px;height:34px;border-radius:12px;border:2px solid color-mix(in srgb,var(--sw-ink) 28%,transparent);position:relative;}
-  .sw-hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;background:var(--sw-accent);transform:translateX(-50%);animation:sw-wheel 1.7s ease-in-out infinite;}
-  @keyframes sw-wheel{0%{opacity:0;top:6px}40%{opacity:1}100%{opacity:0;top:17px}}
-  .sw-track{position:relative;z-index:1;width:100%;pointer-events:none;}
-  @media (max-width:860px){
-    .sw-nav{display:none;}
-    .sw-copylayer::before{width:100%;height:60%;top:auto;bottom:0;background:linear-gradient(0deg,var(--sw-bg) 8%,color-mix(in srgb,var(--sw-bg) 70%,transparent) 46%,transparent 100%);}
-    /* Anchor copy to the bottom, clear of the home indicator / collapsing URL bar.
-       dvh + env() are progressive: browsers that lack them keep the vh fallback line. */
-    .sw-copy{left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px);top:auto;bottom:clamp(64px,14vh,120px);transform:none;width:auto;max-width:560px;}
-    .sw-copy{bottom:calc(clamp(56px,12dvh,110px) + env(safe-area-inset-bottom));}
-    .sw-copy__title{font-size:clamp(1.9rem,7.5vw,2.7rem);}
-    .sw-copy__body{max-width:none;font-size:clamp(.98rem,3.6vw,1.1rem);} .sw-scene__video,.sw-scene__still{object-position:center 46%;}
-    .sw-hint{bottom:calc(20px + env(safe-area-inset-bottom));}
-    .sw-route{gap:16px;right:6px;} .sw-route__label{display:none;}
-  }
-  /* Portrait phones crop a 16:9 clip hard; keep the framing centred so the focal
-     subject (which the camera dives toward) stays in view. */
-  @media (max-width:860px) and (orientation:portrait){
-    .sw-scene__video,.sw-scene__still{object-position:center 44%;}
-  }
-  /* Touch: give the route dots a finger-sized hit area without growing the visible dot. */
-  @media (hover:none) and (pointer:coarse){
-    .sw-route{padding:14px 6px;}
-    .sw-route__dot{width:28px;height:28px;}
-    .sw-btn{padding:15px 26px;}
-  }
-  @media (prefers-reduced-motion:reduce){ .sw-hint i::after{animation:none;} .sw-pt{display:none;} }
-  `;
-  // Wrap in a cascade layer so the page's own theme tokens (unlayered
-  // :root / .sw-root { --sw-bg / --sw-ink / --sw-accent … }) always win over
-  // these defaults, regardless of injection order. Enables clean dark themes.
-  const style = document.createElement('style'); style.id = 'sw-css';
-  style.textContent = '@layer sw {\n' + css + '\n}';
-  document.head.appendChild(style);
-}
-
-// Expose for module + global use.
-if (typeof module !== 'undefined' && module.exports) module.exports = { mountScrollWorld };
-if (typeof window !== 'undefined') window.mountScrollWorld = mountScrollWorld;
-
-  </script>
-  <script>
-    /* ✏️ EDIT: this whole object is the flight. brand + cta + the 6 scenes.
-       frameCount / frameCountMobile MUST equal the number of files in
-       assets/frames/ and assets/frames-m/. Keep them equal to each other. */
-    mountScrollWorld(document.getElementById('world'), {
-      brand: { name: 'OPM Ventures', href: '#top', logo: 'assets/img/logo.png' },
-      cta: { label: 'Claim your system', href: '#tiers' },
-      mobileVideo: 'assets/vid/flight-m.mp4',
-      frameCount: 288,
-      frameDir: 'assets/frames/',
-      frameExt: 'webp',
-      frameCountMobile: 288,
-      frameDirMobile: 'assets/frames-m/',
-      frameExtMobile: 'webp',
-      scrollPerMobile: 1.15,
-      hint: 'scroll to fly in',
-      diveScroll: 1.3,
-      sections: [
-        {
-          id: 's1', label: 'Invisible',
-          still: 'assets/s1.jpg', stillMobile: 'assets/s1-m.jpg',
-          clip: 'assets/vid/s1.mp4', clipMobile: 'assets/vid/s1-m.mp4',
-          accent: '#5b6b85',
-          scroll: 1.7, linger: 0.4,
-          eyebrow: 'Where most businesses stall',
-          title: "Right now, you're invisible.",
-          body: 'No site built to convert. No traffic bringing in buyers. No financial story a lender wants to hear. The right people never see you. The wrong ones forget you.',
-          tags: ['Websites', 'Paid ads', 'Fundability'],
-        },
-        {
-          id: 's2', label: 'The System',
-          still: 'assets/s2.jpg', stillMobile: 'assets/s2-m.jpg',
-          clip: 'assets/vid/s2.mp4', clipMobile: 'assets/vid/s2-m.mp4',
-          accent: '#5b6b85',
-          eyebrow: 'Step one',
-          title: 'First, we build the system.',
-          body: 'A conversion-built website. The foundation everything else plugs into.',
-          tags: ['Design + build', 'Copy', 'Analytics'],
-        },
-        {
-          id: 's3', label: 'Paid Traffic',
-          still: 'assets/s3.jpg', stillMobile: 'assets/s3-m.jpg',
-          clip: 'assets/vid/s3.mp4', clipMobile: 'assets/vid/s3-m.mp4',
-          accent: '#8aa0b8',
-          eyebrow: 'Step two',
-          title: 'Then we drive traffic.',
-          body: 'Paid campaigns built for one job: putting qualified buyers straight into the system.',
-          tags: ['Google', 'Meta', 'Tracking'],
-        },
-        {
-          id: 's4', label: 'Lender-Ready',
-          still: 'assets/s4.jpg', stillMobile: 'assets/s4-m.jpg',
-          clip: 'assets/vid/s4.mp4', clipMobile: 'assets/vid/s4-m.mp4',
-          accent: '#d9b26a',
-          eyebrow: 'Step three',
-          title: 'Then we make you lender-ready.',
-          body: 'Your credit profile built. Your financials organized. Ready before the bank ever asks.',
-          tags: ['Credit profile', 'Documents', 'Structure'],
-        },
-        {
-          id: 's5', label: 'Funded',
-          still: 'assets/s5.jpg', stillMobile: 'assets/s5-m.jpg',
-          clip: 'assets/vid/s5.mp4', clipMobile: 'assets/vid/s5-m.mp4',
-          accent: '#d9b26a',
-          eyebrow: 'The result',
-          title: 'Capital shows up.',
-          body: "Approvals land when the system and the numbers finally agree. That's not luck. That's engineering.",
-          tags: ['Approved', 'Funded'],
-        },
-        {
-          id: 's6', label: 'Scale',
-          still: 'assets/s6.jpg', stillMobile: 'assets/s6-m.jpg',
-          clip: 'assets/vid/s6.mp4', clipMobile: 'assets/vid/s6-m.mp4',
-          accent: '#d9b26a',
-          scroll: 1.7, linger: 0.45,
-          eyebrow: 'What it is for',
-          title: 'A business built to scale.',
-          body: 'One system. Presence, traffic, and capital, compounding together.',
-          tags: [],
-          cta: {
-            primary:   { label: 'Book a call', href: 'https://calendly.com/shakur-opmventuresllc/30min' },
-            secondary: { label: 'See the tiers', href: '#tiers' },
-          },
-        },
-      ],
-      /* Architecture A — continuous forward walkthrough. The legs ARE the journey;
-         no fly-over connectors. Empty array = neighbouring scenes crossfade directly. */
-      connectors: [],
-    });
-
-    /* Fade the flight's fixed chrome (route rail, scroll hint) out once the outro
-       (founder + tiers) scrolls into view, and back when you scroll up into the flight. */
-    (function () {
-      if (!('IntersectionObserver' in window)) return;
-      var outro = ['founder', 'tiers'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
-      if (!outro.length) return;
-      var seen = new Set();
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { e.isIntersecting ? seen.add(e.target) : seen.delete(e.target); });
-        document.body.classList.toggle('past-flight', seen.size > 0);
-      }, { threshold: 0.1 });
-      outro.forEach(function (el) { io.observe(el); });
-    })();
-
-    /* ---- premium micro-details (desktop, fine pointer, motion-ok) ---- */
-    (function () {
-      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!fine || still) return;
-      var root = document.documentElement, glow = document.getElementById('fx-glow');
-      var gx = 0.5, gy = 0.4, tx = 0.5, ty = 0.4, raf = 0;
-      function loop() {
-        gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
-        if (glow) { root.style.setProperty('--fx-x', (gx * 100).toFixed(2) + '%'); root.style.setProperty('--fx-y', (gy * 100).toFixed(2) + '%'); }
-        raf = (Math.abs(tx - gx) > 0.001 || Math.abs(ty - gy) > 0.001) ? requestAnimationFrame(loop) : 0;
-      }
-      window.addEventListener('pointermove', function (e) {
-        tx = e.clientX / window.innerWidth; ty = e.clientY / window.innerHeight;
-        if (!raf) raf = requestAnimationFrame(loop);
-      }, { passive: true });
-
-      // cursor specular on tier cards
-      document.querySelectorAll('.tier').forEach(function (card) {
-        card.addEventListener('pointermove', function (e) {
-          var r = card.getBoundingClientRect();
-          card.style.setProperty('--gx', (e.clientX - r.left) + 'px');
-          card.style.setProperty('--gy', (e.clientY - r.top) + 'px');
-        }, { passive: true });
-      });
-
-      // magnetic pull on the key buttons
-      document.querySelectorAll('.df-bar__cta, .tier__btn, .contact__btn--primary, .founder__btn--primary').forEach(function (btn) {
-        btn.addEventListener('pointermove', function (e) {
-          var r = btn.getBoundingClientRect();
-          var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-          var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-          btn.style.transform = 'translate(' + (dx * 5).toFixed(1) + 'px,' + (dy * 5).toFixed(1) + 'px)';
-        }, { passive: true });
-        btn.addEventListener('pointerleave', function () { btn.style.transform = ''; }, { passive: true });
-      });
-
-      // founder portrait — subtle 3D tilt toward the cursor
-      var fp = document.querySelector('.founder__portrait');
-      if (fp) {
-        fp.addEventListener('pointermove', function (e) {
-          var r = fp.getBoundingClientRect();
-          var nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-          var ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-          fp.style.transform = 'perspective(900px) rotateY(' + (nx * 4).toFixed(2) + 'deg) rotateX(' + (-ny * 4).toFixed(2) + 'deg)';
-        }, { passive: true });
-        fp.addEventListener('pointerleave', function () { fp.style.transform = ''; }, { passive: true });
-      }
-    })();
-
-    /* ---- scramble reveal · price count-up · gradient ring · shine · motes ---- */
-    (function () {
-      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // rotating gradient ring on the Recommended tier
-      var feat = document.querySelector('.tier--feature');
-      if (feat) { var ring = document.createElement('i'); ring.className = 'tier__ring'; feat.prepend(ring); }
-
-      // metal shine on the logo + primary buttons
-      document.querySelectorAll('.df-brand__logo, .sw-brand__logo, .mv2-brand__logo, .df-bar__cta, .mv2-bar__cta, .tier__btn, .contact__btn--primary, .founder__btn--primary, .mv2-btn--primary')
-        .forEach(function (el) { el.classList.add('fx-shine'); });
-
-      if (still) return;
-
-      // scramble-in headlines
-      var GLY = '!<>-_\\/[]{}—=+*^?#01';
-      function scramble(el) {
-        var target = el.getAttribute('data-fx-text') || el.textContent;
-        el.setAttribute('data-fx-text', target);
-        var start = performance.now(), DUR = 620;
-        function frame(now) {
-          var p = Math.min(1, (now - start) / DUR);
-          var settled = Math.floor(p * target.length);
-          var out = '';
-          for (var i = 0; i < target.length; i++) {
-            var c = target[i];
-            out += (c === ' ' || i < settled) ? c : GLY[(Math.random() * GLY.length) | 0];
-          }
-          el.textContent = out;
-          if (p < 1) requestAnimationFrame(frame); else el.textContent = target;
-        }
-        requestAnimationFrame(frame);
-      }
-      var seenS = new WeakSet();
-      var sIO = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (e.isIntersecting && !seenS.has(e.target)) { seenS.add(e.target); scramble(e.target); sIO.unobserve(e.target); }
-        });
-      }, { threshold: 0.6 });
-      document.querySelectorAll('.df-copy__title, .founder__title, .tiers__title, .contact__title')
-        .forEach(function (el) { sIO.observe(el); });
-
-      // price count-up
-      function countUp(el) {
-        if (!el.firstChild || el.firstChild.nodeType !== 3) return;
-        var raw = el.firstChild.textContent.replace(/,/g, '');
-        var m = raw.match(/^(.*?)(\d[\d]*)(.*)$/);
-        if (!m) return;
-        var pre = m[1], end = +m[2], tail = m[3];
-        var start = performance.now(), DUR = 1100;
-        function frame(now) {
-          var p = Math.min(1, (now - start) / DUR), e = 1 - Math.pow(1 - p, 3);
-          el.firstChild.textContent = pre + Math.round(end * e).toLocaleString('en-US') + tail;
-          if (p < 1) requestAnimationFrame(frame);
-        }
-        requestAnimationFrame(frame);
-      }
-      var pIO = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); pIO.unobserve(e.target); } });
-      }, { threshold: 0.8 });
-      document.querySelectorAll('.tier__price').forEach(function (el) { pIO.observe(el); });
-
-      // dust motes — one small canvas per relevant section, drawn only while visible
-      function mountMotes(sec) {
-        if (!sec) return;
-        if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
-        var cv = document.createElement('canvas'); cv.className = 'fx-motes-layer';
-        cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s ease';
-        sec.prepend(cv);
-        var ctx = cv.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1), W = 0, Hh = 0, run = 0, vis = false;
-        var motes = [];
-        for (var i = 0; i < 30; i++) motes.push({ x: Math.random(), y: Math.random(), r: (Math.random() * 1.5 + 0.5) * dpr, s: Math.random() * 0.0009 + 0.0003, d: Math.random() * 6.28, a: Math.random() * 0.35 + 0.12 });
-        function size() { var r = sec.getBoundingClientRect(); W = cv.width = Math.max(1, r.width * dpr); Hh = cv.height = Math.max(1, r.height * dpr); }
-        function tick() {
-          if (!vis || document.hidden) { run = 0; return; }
-          ctx.clearRect(0, 0, W, Hh);
-          for (var k = 0; k < motes.length; k++) {
-            var m = motes[k];
-            m.y -= m.s; m.d += 0.012; m.x += Math.sin(m.d) * 0.0004;
-            if (m.y < -0.03) { m.y = 1.03; m.x = Math.random(); }
-            ctx.beginPath(); ctx.arc(m.x * W, m.y * Hh, m.r, 0, 6.283);
-            ctx.fillStyle = 'rgba(170,195,230,' + m.a + ')'; ctx.fill();
-          }
-          run = requestAnimationFrame(tick);
-        }
-        addEventListener('resize', size, { passive: true });
-        new IntersectionObserver(function (es) {
-          vis = es[0].isIntersecting; cv.style.opacity = vis ? '1' : '0';
-          if (vis) { size(); if (!run) run = requestAnimationFrame(tick); }
-        }, { threshold: 0.02 }).observe(sec);
-      }
-      mountMotes(document.getElementById('founder'));
-      mountMotes(document.getElementById('tiers'));
-      mountMotes(document.getElementById('contact'));
-
-      // desktop: rise-in the outro content as it enters view
-      if (window.innerWidth > 860) {
-        var risers = [];
-        var fi = document.querySelector('.founder__inner'); if (fi) risers.push(fi);
-        var th = document.querySelector('.tiers__head'); if (th) risers.push(th);
-        document.querySelectorAll('.tiers__grid > .tier').forEach(function (t, i) { t.style.setProperty('--i', i); risers.push(t); });
-        var ci = document.querySelector('.contact__inner'); if (ci) risers.push(ci);
-        risers.forEach(function (el) { el.classList.add('fx-rise'); });
-        var rIO = new IntersectionObserver(function (es) {
-          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('fx-in'); rIO.unobserve(e.target); } });
-        }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
-        risers.forEach(function (el) { rIO.observe(el); });
-      }
-    })();
-
-    /* ---- smooth anchor scrolling ---- */
-    (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var easing = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
-      function scrollTo(y, dur) {
-        var s0 = window.scrollY, d = y - s0, t0 = performance.now();
-        function step(now) {
-          var p = Math.min(1, (now - t0) / dur);
-          window.scrollTo(0, s0 + d * easing(p));
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-      document.addEventListener('click', function (e) {
-        var a = e.target.closest && e.target.closest('a[href^="#"]');
-        if (!a) return;
-        var id = a.getAttribute('href').slice(1);
-        var el = id === 'top' || id === '' ? document.body : document.getElementById(id);
-        if (!el) return;
-        e.preventDefault();
-        var top = id === 'top' || id === '' ? 0 : el.getBoundingClientRect().top + window.scrollY - 10;
-        scrollTo(top, Math.min(1100, 380 + Math.abs(top - window.scrollY) * 0.35));
-        if (history.replaceState) history.replaceState(null, '', id ? '#' + id : location.pathname);
-      }, { passive: false });
-    })();
-  </script>
-
-  <script type="module">
-    // ── LIQUID GLASS — real WebGL glass refraction site-wide ──
-    // Library: https://github.com/ybouane/liquidglass (MIT), vendored
-    // locally at assets/vendor/liquidglass.min.js. Skipped entirely on
-    // touch/narrow viewports: mountScrollWorld swaps to a different
-    // mobile layout there, and WebGL glass isn't worth the GPU cost.
-    (async () => {
-      const isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
-      if (isPhone || !window.WebGLRenderingContext) return;
-
-      let LiquidGlass;
-      try {
-        ({ LiquidGlass } = await import('./assets/vendor/liquidglass.min.js'));
-      } catch (err) {
-        console.warn('[liquid-glass] library failed to load — CSS fallbacks stay in place.', err);
-        return;
-      }
-
-      // .df-bar (brand + section nav + CTA) is a direct child of
-      // #world/.df-root — mountDesktopFlight builds it there — so it
-      // can refract the flight canvas (.df-bg, also a direct child of
-      // #world) behind it.
-      const barEl = document.querySelector('.df-bar');
-      const worldEl = document.getElementById('world');
-      if (barEl && worldEl) {
-        barEl.dataset.config = JSON.stringify({
-          cornerRadius: 0, zRadius: 12, blurAmount: 0.16, refraction: 0.50,
-          chromAberration: 0.035, edgeHighlight: 0.08, specular: 0.15, fresnel: 1.0,
-          opacity: 0.90, saturation: 0.10, brightness: 0.02,
-          shadowOpacity: 0.30, shadowSpread: 14, shadowOffsetY: 2,
-        });
-        try {
-          const instance = await LiquidGlass.init({ root: worldEl, glassElements: [barEl] });
-          barEl.classList.add('lg-active');
-          const markDirty = () => instance.markChanged();
-          window.addEventListener('scroll', markDirty, { passive: true });
-          window.addEventListener('resize', markDirty, { passive: true });
-        } catch (err) {
-          console.warn('[liquid-glass] .df-bar init failed — CSS fallback stays.', err);
-        }
-      }
-
-      // ── Ghost buttons + the tiers card grid: one LiquidGlass root per
-      // natural container, so this stays at a handful of small WebGL
-      // contexts total rather than one per element. button:true turns on
-      // the library's physical press feedback.
-      const PILL = {
-        cornerRadius: 26, zRadius: 18, blurAmount: 0.14, refraction: 0.50,
-        chromAberration: 0.03, edgeHighlight: 0.09, specular: 0.16, fresnel: 1.0,
-        opacity: 0.92, saturation: 0.10, shadowOpacity: 0.30, shadowSpread: 12, shadowOffsetY: 2,
-      };
-      const CARD = {
-        cornerRadius: 18, zRadius: 14, blurAmount: 0.12, refraction: 0.42,
-        chromAberration: 0.025, edgeHighlight: 0.07, specular: 0.10, fresnel: 1.0,
-        opacity: 0.88, saturation: 0.08, shadowOpacity: 0.32, shadowSpread: 16, shadowOffsetY: 4,
-      };
-
-      async function glassGroup(root, childSelector, config, { addBg = false, button = false } = {}) {
-        if (!root) return;
-        const els = Array.from(root.children).filter(el => el.matches(childSelector));
-        if (!els.length) return;
-        if (addBg && !root.querySelector(':scope > .glass-grid-bg')) {
-          // One shared backdrop sized to the union of this group's glass
-          // elements (not the full root) — tight around a single button,
-          // spans the whole grid for a row of cards. Multiple separate
-          // backdrop divs in one root corrupts the capture for every
-          // element past the first (confirmed empirically on the sibling
-          // site), so this group gets exactly one.
-          const l = Math.min(...els.map(el => el.offsetLeft));
-          const t = Math.min(...els.map(el => el.offsetTop));
-          const r = Math.max(...els.map(el => el.offsetLeft + el.offsetWidth));
-          const b = Math.max(...els.map(el => el.offsetTop + el.offsetHeight));
-          const fill = document.createElement('div');
-          fill.className = 'glass-grid-bg';
-          fill.style.left = l + 'px';
-          fill.style.top = t + 'px';
-          fill.style.width = (r - l) + 'px';
-          fill.style.height = (b - t) + 'px';
-          fill.style.borderRadius = getComputedStyle(els[0]).borderRadius;
-          root.insertBefore(fill, els[0]);
-        }
-        const cfg = Object.assign({ button }, config);
-        els.forEach(el => { el.dataset.config = JSON.stringify(cfg); });
-        try {
-          await LiquidGlass.init({ root, glassElements: els });
-          els.forEach(el => el.classList.add('lg-active'));
-        } catch (err) {
-          console.warn('[liquid-glass] group failed, CSS fallback stays:', root.className, err);
-        }
-      }
-
-      await glassGroup(document.querySelector('.founder__cta'), '.founder__btn--ghost', PILL, { addBg: true, button: true });
-      await glassGroup(document.querySelector('.contact__actions'), '.contact__btn:not(.contact__btn--primary)', PILL, { addBg: true, button: true });
-      await glassGroup(document.querySelector('.tiers__grid'), '.tier', CARD, { addBg: true, button: true });
-
-      // ── Press feedback for the solid buttons that stay plain CSS.
-      // This page already has a "magnetic pull" pointermove handler
-      // (further up this file) that sets an inline transform on these
-      // same buttons, which would silently beat a plain CSS :active
-      // rule — so press state is a class toggled on pointerdown/up,
-      // forced with !important to win over the inline style for just
-      // that moment.
-      document.querySelectorAll('.founder__btn--primary, .contact__btn--primary, .tier__btn:not(.tier__btn--ghost), .topnav__cta, .df-bar__cta').forEach(btn => {
-        const press = () => btn.classList.add('btn-pressing');
-        const release = () => btn.classList.remove('btn-pressing');
-        btn.addEventListener('pointerdown', press);
-        btn.addEventListener('pointerup', release);
-        btn.addEventListener('pointerleave', release);
-        btn.addEventListener('pointercancel', release);
-      });
-    })();
-  </script>
-
-  <script src="assets/vendor/liquid-glass-pills.js"></script>
-  <script>
-    // ── LIQUID GLASS PILLS — the individual nav-link pills ──
-    // A separate, CSS-native glass technique (canvas-rendered squircle
-    // displacement maps + an SVG filter, applied via backdrop-filter,
-    // with spring-physics press/hover/drag) rather than the WebGL
-    // capture library used above — it doesn't need a shared "root" or
-    // direct-child placement, so it layers cleanly onto individual pills
-    // that already sit inside the WebGL-glass .df-bar. Chromium only;
-    // frosts (plain blur, no refraction) everywhere else automatically.
-    (function () {
-      var isPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
-      if (isPhone || !window.LiquidGlassPill) return;
-      document.querySelectorAll('.df-nav__item').forEach(function (el) {
-        LiquidGlassPill.mount(el, {
-          material: 'clear',
-          appearance: 'dark',
-          interactive: true,
-          refraction: 14,
-        });
-      });
-    })();
-  </script>
+  </div>
+</section>
+
+<div class="marq marq--out" aria-hidden="true"><div><span>Website</span><span>Ads</span><span>Funding</span><span>Remy OS</span><span>Website</span><span>Ads</span><span>Funding</span><span>Remy OS</span></div></div>
+
+<section class="contact" id="contact">
+  <div class="kgrid" data-warp-grid data-theme="monochrome" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="tag">Get started</span>
+    <h2 class="big">Let's build your <em>system.</em></h2>
+    <p class="lead">One call. Offer, customer and scope, locked in. Then I build.</p>
+    <div class="btns">
+      <a class="btn btn--light" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
+      <a class="btn btn--ghost" href="mailto:shakur@opmventuresllc.com?subject=OPM%20Ventures%20%E2%80%94%20enquiry">Email ↗</a>
+      <a class="btn btn--ghost" href="#tiers">See plans</a>
+    </div>
+    <p class="fine">OPM&nbsp;Ventures&nbsp;LLC &nbsp;·&nbsp; opmventuresllc.com &nbsp;·&nbsp; <a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a><button class="copy" id="copy" type="button">Copy</button></p>
+  </div>
+</section>
+</main>
+
+<nav class="dots" id="dots" aria-label="Sections">
+  <a href="#services" aria-label="Services"><span>Services</span></a>
+  <a href="#remy" aria-label="Remy OS"><span>Remy OS</span></a>
+  <a href="#start" aria-label="How we start"><span>How we start</span></a>
+  <a href="#operator" aria-label="Operator"><span>Operator</span></a>
+  <a href="#tiers" aria-label="Tiers"><span>Tiers</span></a>
+  <a href="#contact" aria-label="Contact"><span>Contact</span></a>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite">Email copied</div>
+<a class="fab" id="fab" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
+
+<footer>
+  <span>© 2026 OPM Ventures LLC · San Antonio, TX</span>
+  <span><a href="#top">Back to top ↑</a></span>
+</footer>
+
+<script src="assets/kinetic-grid-warp.js" defer></script>
+<script src="assets/fx.js" defer></script>
+<script>
+(function(){
+  var b=document.getElementById('burger'),n=document.getElementById('nav');
+  function set(o){document.body.classList.toggle('menu-open',o);b.setAttribute('aria-expanded',o)}
+  b.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
+  n.addEventListener('click',function(e){if(e.target.tagName==='A')set(false)});
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>
