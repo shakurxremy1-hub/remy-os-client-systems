@@ -59,7 +59,7 @@
   });
 
   /* 3. spotlight cells */
-  Array.prototype.forEach.call(document.querySelectorAll('.svc article, .tier, .caps li, .proc article'), function (c) {
+  Array.prototype.forEach.call(document.querySelectorAll('.svc article, .tier, .caps li, .proc article, .bento article'), function (c) {
     c.classList.add('spot');
     c.addEventListener('mousemove', function (e) {
       var r = c.getBoundingClientRect();
@@ -550,7 +550,7 @@
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search);
   var foot = document.querySelector('footer');
   if (foot) {
-    var m = document.createElement('div'); m.className = 'bigmark'; m.setAttribute('aria-hidden', 'true'); m.innerHTML = '<span>OPM Ventures</span>';
+    var m = document.createElement('div'); m.className = 'bigmark'; m.setAttribute('aria-hidden', 'true'); m.innerHTML = '<span>OPM Ventures LLC</span>';
     foot.parentNode.insertBefore(m, foot);
     if (reduce) m.style.setProperty('--p', '100%');
     else {
@@ -768,3 +768,4 @@
     }
   });
 })();
+

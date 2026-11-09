@@ -337,7 +337,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:85;pointer-events:none;
 
 /* round 8: intro curtain, text roll, scroll-lit list */
 .intro{position:fixed;inset:0;z-index:200;background:#0b0b0b;color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;pointer-events:none;animation:introOut 1.5s cubic-bezier(.77,0,.18,1) forwards}
-.intro img{width:44px;height:44px;filter:invert(1);opacity:0;animation:introIn .6s .1s ease-out forwards}
+.intro img{width:64px;height:64px;border-radius:50%;opacity:0;animation:introIn .6s .1s ease-out forwards}
 .intro span{font-family:var(--display);font-size:clamp(28px,4vw,44px);letter-spacing:.02em;opacity:0;animation:introIn .6s .25s ease-out forwards}
 @keyframes introIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes introOut{0%,62%{transform:none;visibility:visible}99%{transform:translateY(-100%);visibility:visible}100%{transform:translateY(-100%);visibility:hidden}}
@@ -514,16 +514,105 @@ html.fx .statement span.cur{opacity:1;transform:none;filter:none}
 @media (max-width:860px){.fab2{display:none}}
 
 .spark{position:fixed;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#e0ba64;pointer-events:none;z-index:131}
+
+/* round 27: compare table, focus rings, anchor offset */
+.cmp{margin-top:clamp(26px,3vw,44px);border:1px solid var(--line)}
+.cmp summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-family:var(--mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.cmp summary::-webkit-details-marker{display:none}
+.cmp summary i{position:relative;width:16px;height:16px}
+.cmp summary i::before,.cmp summary i::after{content:"";position:absolute;left:0;top:7px;width:16px;height:2px;background:#fff;transition:transform .35s cubic-bezier(.7,0,.2,1)}
+.cmp summary i::after{transform:rotate(90deg)}
+.cmp[open] summary i::after{transform:rotate(0)}
+.cmp__wrap{overflow-x:auto;border-top:1px solid var(--line)}
+.cmp table{width:100%;min-width:640px;border-collapse:collapse;font-size:14px}
+.cmp th,.cmp td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:center;font-weight:400}
+.cmp thead th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);position:sticky;top:0}
+.cmp tbody th{text-align:left;color:rgba(255,255,255,.85);font-weight:300}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp tbody tr:hover{background:rgba(255,255,255,.03)}
+.cmp .ck{font-style:normal;color:#f0d68a}
+.cmp .no{color:rgba(255,255,255,.25)}
+:focus-visible{outline:2px solid #f0d68a;outline-offset:3px;border-radius:2px}
+section[id]{scroll-margin-top:70px}
+
+/* round 28: real logo + full business name, header is always a glass pill on desktop */
+.brand{gap:12px;font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96;text-transform:uppercase;font-size:22px;letter-spacing:.01em;white-space:nowrap}
+.brand img{width:44px;height:44px;filter:none;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+@media (min-width:861px){
+  .hdr{mix-blend-mode:normal;left:var(--pad);right:var(--pad);top:12px;padding:8px 22px 8px 10px;border-radius:999px;background:linear-gradient(135deg,rgba(40,40,40,.62),rgba(15,15,15,.5));-webkit-backdrop-filter:blur(18px) saturate(190%);backdrop-filter:blur(18px) saturate(190%);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 12px 36px rgba(0,0,0,.3)}
+  .hdr.glass-on{padding:8px 22px 8px 10px}
+}
+@media (max-width:860px){.brand{font-size:19px;gap:10px}.brand img{width:38px;height:38px}}
+.bigmark{font-size:clamp(44px,11.2vw,200px)}
+
+
+/* round 30: Remy OS bento (replaces the checklist) */
+.bento-wrap{background:#0b0b0b;border-top:1px solid var(--line);padding:clamp(60px,8vw,120px) var(--pad)}
+.bento__head{margin-bottom:clamp(26px,3.4vw,48px)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(270px,auto);gap:clamp(12px,1.4vw,20px)}
+.bento article{position:relative;overflow:hidden;border-radius:24px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));padding:clamp(22px,2.2vw,32px);display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.bento article:hover{border-color:rgba(255,255,255,.28)}
+.b-auto{grid-column:span 2}
+.b-ai{grid-column:span 2}
+.b-bi,.b-ops{grid-column:span 1}
+.b-hub{grid-column:span 2;flex-direction:row!important;align-items:center;justify-content:space-between!important}
+.bento small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#f0d68a;margin-bottom:10px}
+.bento p{font-size:clamp(16px,1.35vw,20px);line-height:1.35;color:rgba(255,255,255,.9);font-weight:400;max-width:420px}
+.b-hub .txt{max-width:300px}
+/* automation flow */
+.flow{width:100%;height:auto;flex:1;min-height:150px}
+.flow rect{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.35);stroke-width:1.2}
+.flow text{fill:#fff;font:500 15px var(--mono)}
+.flow .ln{stroke:#f0d68a;stroke-width:2;stroke-dasharray:5 6;fill:none;animation:march 1s linear infinite}
+@keyframes march{to{stroke-dashoffset:-22}}
+.flow .nd{animation:nodeGlow 3.6s ease-in-out infinite}
+.flow .n2{animation-delay:1.2s}.flow .n3{animation-delay:2.4s}
+@keyframes nodeGlow{0%,70%,100%{filter:none}30%{filter:drop-shadow(0 0 10px rgba(240,214,138,.7))}}
+/* ai chat */
+.chat{display:flex;flex-direction:column;gap:12px;flex:1;justify-content:center}
+.bub{display:flex;flex-direction:column;gap:7px;padding:14px 16px;border-radius:18px;max-width:78%}
+.bub--you{align-self:flex-end;background:rgba(255,255,255,.14);border-bottom-right-radius:5px}
+.bub--os{align-self:flex-start;background:rgba(240,214,138,.13);border:1px solid rgba(240,214,138,.3);border-bottom-left-radius:5px}
+.bub i{display:block;height:7px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.55),rgba(255,255,255,.25));background-size:200% 100%;animation:shim 2.4s linear infinite}
+.bub i:nth-child(1){width:150px}.bub i:nth-child(2){width:100px}.bub i:nth-child(3){width:170px}
+.bub u{display:block;width:8px;height:14px;background:#f0d68a;animation:blink 1s steps(1) infinite}
+@keyframes shim{to{background-position:-200% 0}}
+@keyframes blink{50%{opacity:0}}
+/* bi bars */
+.bars{display:flex;align-items:flex-end;gap:8px;height:100px;flex:1}
+.bars i{flex:1;height:var(--h);border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#f0d68a,rgba(240,214,138,.15));transform-origin:bottom;animation:bar 3.2s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}.bars i:nth-child(5){animation-delay:.6s}.bars i:nth-child(6){animation-delay:.75s}
+@keyframes bar{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1)}}
+/* ops stack */
+.stack{position:relative;flex:1;min-height:100px}
+.stack i{position:absolute;left:14%;right:14%;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.07);animation:lift 4s ease-in-out infinite}
+.stack i:nth-child(1){top:6px;background:rgba(240,214,138,.18);border-color:rgba(240,214,138,.5)}
+.stack i:nth-child(2){top:34px;animation-delay:.3s}.stack i:nth-child(3){top:62px;animation-delay:.6s}
+@keyframes lift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bento article:hover .stack i:nth-child(2){transform:translateY(8px)}.bento article:hover .stack i:nth-child(3){transform:translateY(16px)}
+/* hub */
+.hub{--r:calc(min(230px,20vw)*.44);position:relative;width:min(230px,20vw);min-width:170px;aspect-ratio:1;flex:none;display:grid;place-items:center}
+.hub img{position:relative;width:64px;height:64px;border-radius:16px;box-shadow:0 0 40px rgba(240,214,138,.3)}
+.hub .orbit{position:absolute;inset:6%;border-radius:50%;border:1px dashed rgba(240,214,138,.45);animation:orb 26s linear infinite}
+.hub .orbit span{position:absolute;left:50%;top:50%;padding:6px 12px;border-radius:999px;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;background:rgba(20,20,20,.85);border:1px solid rgba(255,255,255,.25)}
+.hub .orbit span:nth-child(1){transform:translate(-50%,-50%) translateY(calc(-1*var(--r,115px))) rotate(0deg)}
+.hub .orbit span:nth-child(2){transform:translate(-50%,-50%) rotate(90deg) translateY(calc(-1*var(--r,115px))) rotate(-90deg)}
+.hub .orbit span:nth-child(3){transform:translate(-50%,-50%) rotate(180deg) translateY(calc(-1*var(--r,115px))) rotate(-180deg)}
+.hub .orbit span:nth-child(4){transform:translate(-50%,-50%) rotate(270deg) translateY(calc(-1*var(--r,115px))) rotate(-270deg)}
+@keyframes orb{to{transform:rotate(360deg)}}
+@media (max-width:1000px){.bento{grid-template-columns:repeat(2,1fr)}.b-auto{grid-column:span 2}.b-ai{grid-column:span 2}.b-hub{grid-column:span 2}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.b-auto,.b-ai,.b-bi,.b-ops,.b-hub{grid-column:span 1}.b-hub{flex-direction:column!important;align-items:flex-start}.hub{width:100%;max-width:280px;margin:0 auto;--r:123px}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .bento *{animation:none!important}}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
 <body>
-<div class="intro" aria-hidden="true"><img src="assets/daemon/logo.png" alt=""><span>OPM Ventures</span></div>
+<div class="intro" aria-hidden="true"><img src="assets/img/logo.png" alt=""><span>OPM Ventures LLC</span></div>
 <div class="prog" id="prog" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="hdr" id="top">
-  <a class="brand" href="#top" aria-label="OPM Ventures home"><img src="assets/daemon/logo.png" alt="" width="32" height="32">OPM Ventures<sup>®</sup></a>
+  <a class="brand" href="#top" aria-label="OPM Ventures LLC home"><img src="assets/img/logo.png" alt="" width="44" height="44"><span>OPM Ventures LLC</span></a>
   <nav class="nav" id="nav" aria-label="Primary">
     <a href="#remy">Remy OS</a>
     <a href="#services">Services</a>
@@ -651,6 +740,45 @@ html.fx .statement span.cur{opacity:1;transform:none;filter:none}
       <li class="reveal"><b>Scalable operational systems</b><span>Processes that hold up as you grow.</span></li>
     </ul>
   </div>
+  <div class="bento-wrap">
+    <div class="bento__head reveal">
+      <span class="tag">Inside Remy OS</span>
+      <h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Four parts. One <em>system.</em></h2>
+    </div>
+    <div class="bento">
+      <article class="b-auto reveal">
+        <svg class="flow" viewBox="0 0 420 220" aria-hidden="true">
+          <path class="ln l1" d="M118 110 H152"/><path class="ln l2" d="M268 110 H302"/>
+          <g class="nd n1"><rect x="14" y="80" width="104" height="60" rx="14"/><text x="66" y="115" text-anchor="middle">Lead</text></g>
+          <g class="nd n2"><rect x="158" y="80" width="104" height="60" rx="14"/><text x="210" y="115" text-anchor="middle">Follow-up</text></g>
+          <g class="nd n3"><rect x="302" y="80" width="104" height="60" rx="14"/><text x="354" y="115" text-anchor="middle">Invoice</text></g>
+        </svg>
+        <div class="txt"><small>Automation</small><p>Repeatable steps run without someone starting them.</p></div>
+      </article>
+      <article class="b-ai reveal">
+        <div class="chat" aria-hidden="true">
+          <div class="bub bub--you"><i></i><i></i></div>
+          <div class="bub bub--os"><i></i><i></i><i></i><u></u></div>
+        </div>
+        <div class="txt"><small>Artificial intelligence</small><p>Help with questions, drafts and everyday work.</p></div>
+      </article>
+      <article class="b-bi reveal">
+        <div class="bars" aria-hidden="true"><i style="--h:38%"></i><i style="--h:62%"></i><i style="--h:48%"></i><i style="--h:80%"></i><i style="--h:66%"></i><i style="--h:94%"></i></div>
+        <div class="txt"><small>Business intelligence</small><p>Clearer information when you have to decide.</p></div>
+      </article>
+      <article class="b-ops reveal">
+        <div class="stack" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="txt"><small>Operational systems</small><p>Processes that hold up as you grow.</p></div>
+      </article>
+      <article class="b-hub reveal">
+        <div class="hub" aria-hidden="true">
+          <div class="orbit"><span>AI</span><span>Automation</span><span>Intelligence</span><span>Operations</span></div>
+          <img src="assets/img/remy-os-logo.png" alt="" width="84" height="84" loading="lazy">
+        </div>
+        <div class="txt"><small>One connected environment</small><p>Technology and business automation in one place, so the repetitive work gets handled and you can see what is happening.</p></div>
+      </article>
+    </div>
+  </div>
   <div class="familiar">
     <div class="reveal"><span class="tag">Sound familiar?</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">If you have asked any of these, <em>start here.</em></h2></div>
     <ul class="reveal">
@@ -764,6 +892,14 @@ html.fx .statement span.cur{opacity:1;transform:none;filter:none}
         <div class="mini">Pick a time that works.</div>
       </div>
     </div>
+
+    <details class="cmp">
+      <summary><span>Compare plans</span><i aria-hidden="true"></i></summary>
+      <div class="cmp__wrap"><table>
+        <thead><tr><th></th><th>Foundation</th><th>Growth</th><th>Scale &amp; Fund</th><th>Partner</th></tr></thead>
+        <tbody><tr><th scope="row">5-page conversion website</th><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">One ad platform, run weekly</th><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Lead tracking dashboard</th><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Both ad platforms + retargeting</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Business credit profile</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Lender-ready financial packet</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Fundability scorecard + lender shortlist</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Quarterly planning</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td></tr><tr><th scope="row">Priority capacity</th><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><span class="no" aria-label="Not included">–</span></td><td><i class="ck" aria-label="Included">✓</i></td></tr></tbody>
+      </table></div>
+    </details>
   </div>
 </section>
 
