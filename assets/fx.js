@@ -281,6 +281,7 @@ if (!window.ResizeObserver) {
         var m = node.nodeValue.match(/([\d,]+)/); if (!m) return;
         var end = parseInt(m[1].replace(/,/g, ''), 10), full = node.nodeValue, t0 = performance.now();
         (function tick(now) {
+          if (window.__printing) { node.nodeValue = full; return; }
           var k = Math.min(1, (now - t0) / 900), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
           node.nodeValue = full.replace(m[1], v.toLocaleString('en-US'));
           if (k < 1) requestAnimationFrame(tick); else node.nodeValue = full;
@@ -1033,9 +1034,9 @@ if (!window.ResizeObserver) {
     { id: 'discount', k: ['discount', 'coupon', 'promo', 'cheaper', 'free', 'lower price', 'price match', 'deal', 'waive', 'half off', 'special rate', 'negotiate', 'refund'],
       a: 'I can\'t offer discounts, change prices or make promises about refunds. The prices on this site are the prices I can quote. For a custom scope, book a call with Shakur.', link: 1 },
     { id: 'price', k: ['price', 'cost', 'how much', 'pricing', 'plans', 'tiers', 'tier', 'package', 'packages', 'fee', 'afford', 'budget'],
-      a: 'Four plans:\n\nFoundation: $2,500 one-time. A 5-page conversion website, delivered in 14 days.\nGrowth: $2,500 setup, then $1,500/month (3-month minimum). Site plus one ad platform, run weekly.\nScale & Fund: $4,000 setup, then $3,000/month (6-month minimum). Both ad platforms plus a fundability program. Application only.\nPartner: from $6,000/month, custom scope.', more: '#tiers' },
+      a: 'Four plans:\n\nFoundation: $2,000 one-time. A 5-page conversion website, delivered in 14 days.\nGrowth: $2,500 setup, then $1,500/month (3-month minimum). Site plus one ad platform, run weekly.\nScale & Fund: $4,000 setup, then $3,000/month (6-month minimum). Both ad platforms plus a fundability program. Application only.\nPartner: from $6,000/month, custom scope.', more: '#tiers' },
     { id: 'foundation', k: ['foundation', '14 day', 'five page', '5 page', 'website only', 'just a website'],
-      a: 'Foundation is $2,500, one payment, no retainer. You get a 5-page conversion website with copywriting and a mobile build, on-page SEO basics, a lead form that goes to your inbox or CRM, and a Google Business Profile tune-up. One revision round, delivered in 14 days.' },
+      a: 'Foundation is $2,000, one payment, no retainer. You get a 5-page conversion website with copywriting and a mobile build, on-page SEO basics, a lead form that goes to your inbox or CRM, and a Google Business Profile tune-up. One revision round, delivered in 14 days.' },
     { id: 'growth', k: ['growth', 'ads', 'ad platform', 'meta', 'google ads', 'leads', 'advertising'],
       a: 'Growth is $2,500 setup, then $1,500/month after onboarding, with a 3-month minimum. It includes your site, a full Meta or Google ads build, 5 ad creatives and a landing page, weekly optimization, a lead tracking dashboard and a monthly report with a strategy call.' },
     { id: 'scale', k: ['scale', 'fund', 'funding', 'capital', 'loan', 'lender', 'credit', 'fundability', 'd-u-n-s', 'duns'],
@@ -1104,7 +1105,7 @@ if (!window.ResizeObserver) {
 (function () {
   var root = document.querySelector('[data-cost]'); if (!root) return;
   var P = {
-    foundation: { setup: 2500, mo: 0, min: 0, label: 'Foundation' },
+    foundation: { setup: 2000, mo: 0, min: 0, label: 'Foundation' },
     growth: { setup: 2500, mo: 1500, min: 3, label: 'Growth' },
     scale: { setup: 4000, mo: 3000, min: 6, label: 'Scale & Fund' },
     partner: { setup: 0, mo: 6000, min: 1, label: 'Partner', from: true }
@@ -1131,4 +1132,14 @@ if (!window.ResizeObserver) {
   }); });
   rng.addEventListener('input', render);
   render();
+})();
+
+(function () {
+  var btn = document.querySelector('[data-print]'); if (!btn || !window.print) { if (btn) btn.parentNode.hidden = true; return; }
+  var cmp = document.querySelector('.cmp'), was = false;
+  // remember the real price text so a print can never catch a count-up mid-way
+  var prices = [].slice.call(document.querySelectorAll('.price')).map(function (p) { var n = p.firstChild; return n && n.nodeType === 3 ? [n, n.nodeValue] : null; }).filter(Boolean);
+  btn.addEventListener('click', function () { window.print(); });
+  addEventListener('beforeprint', function () { window.__printing = true; prices.forEach(function (p) { p[0].nodeValue = p[1]; }); if (cmp) { was = cmp.open; cmp.open = true; } });
+  addEventListener('afterprint', function () { window.__printing = false; if (cmp) cmp.open = was; });
 })();
