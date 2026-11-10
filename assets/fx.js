@@ -769,3 +769,84 @@
   });
 })();
 
+
+(function () {
+  var b = document.querySelector('[data-ba]'); if (!b) return;
+  var box = b.querySelector('.ba__box'), h = b.querySelector('.ba__h'), drag = false, v = 50;
+  function set(n) { v = Math.max(4, Math.min(96, n)); box.style.setProperty('--p', v + '%'); h.setAttribute('aria-valuenow', Math.round(v)); }
+  var mq = matchMedia('(max-width:640px)');
+  function at(x, y) { var r = box.getBoundingClientRect(); set(mq.matches ? (y - r.top) / r.height * 100 : (x - r.left) / r.width * 100); }
+  box.addEventListener('pointerdown', function (e) { if (mq.matches && !h.contains(e.target)) return; drag = true; box.setPointerCapture(e.pointerId); at(e.clientX, e.clientY); });
+  box.addEventListener('pointermove', function (e) { if (drag) at(e.clientX, e.clientY); });
+  box.addEventListener('pointerup', function () { drag = false; });
+  box.addEventListener('pointercancel', function () { drag = false; });
+  h.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { set(v - 5); e.preventDefault(); } if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { set(v + 5); e.preventDefault(); } });
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]fx=on/.test(location.search)) {
+    var io = new IntersectionObserver(function (es) { if (!es[0].isIntersecting) return; io.disconnect(); var t0 = performance.now(); (function f(t) { var k = Math.min(1, (t - t0) / 1400); if (drag) return; set(50 + Math.sin(k * 6.283) * 18 * (1 - k)); if (k < 1) requestAnimationFrame(f); })(t0); }, { threshold: .6 });
+    io.observe(box);
+  }
+})();
+
+(function () {
+  var c = document.querySelector('[data-calc]'); if (!c) return;
+  var r = c.querySelector('input'), h = c.querySelector('[data-h]'), y = c.querySelector('[data-y]'), w = c.querySelector('[data-w]');
+  function up() {
+    var v = +r.value, yr = v * 52;
+    h.textContent = v; y.textContent = yr.toLocaleString('en-US'); w.textContent = (Math.round(yr / 40 * 10) / 10).toString();
+    r.style.setProperty('--v', ((v - 1) / 39 * 100) + '%');
+  }
+  r.addEventListener('input', up); up();
+})();
+
+(function () {
+  var f = document.querySelector('[data-fl]'); if (!f) return;
+  var tabs = [].slice.call(f.querySelectorAll('[role=tab]')), panels = [].slice.call(f.querySelectorAll('[role=tabpanel]')), bar = f.querySelector('.fl__bar b');
+  var cur = 0, t0 = 0, raf = 0, hold = false, vis = false, D = 3800;
+  var motion = !(matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search));
+  function show(i, user) {
+    cur = i; t0 = performance.now();
+    tabs.forEach(function (t, k) { var on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; panels[k].hidden = !on; });
+    if (user && !motion) bar.style.width = '100%';
+    var t = tabs[i]; if (t.scrollIntoView && f.querySelector('.fl__tabs').scrollWidth > f.querySelector('.fl__tabs').clientWidth) f.querySelector('.fl__tabs').scrollTo({ left: t.offsetLeft - 20, behavior: motion ? 'smooth' : 'auto' });
+  }
+  function tick(now) {
+    raf = 0; if (!vis) return;
+    if (hold) t0 = now - (parseFloat(bar.style.width) || 0) / 100 * D;
+    var k = Math.min(1, (now - t0) / D); bar.style.width = k * 100 + '%';
+    if (k >= 1) show((cur + 1) % tabs.length);
+    raf = requestAnimationFrame(tick);
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i, true); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' ? (cur + 1) % tabs.length : e.key === 'ArrowLeft' ? (cur + tabs.length - 1) % tabs.length : -1;
+      if (n < 0) return; e.preventDefault(); show(n, true); tabs[n].focus();
+    });
+  });
+  var card = f.querySelector('.fl__card');
+  ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { card.addEventListener(ev, function () { hold = true; }, { passive: true }); });
+  ['mouseleave', 'focusout'].forEach(function (ev) { card.addEventListener(ev, function () { hold = false; }); });
+  if (!motion) { bar.style.width = '100%'; return; }
+  new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis && !raf) { t0 = performance.now(); raf = requestAnimationFrame(tick); } }, { threshold: .4 }).observe(f);
+})();
+
+(function () {
+  var f = document.querySelector('[data-mb]'); if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var picks = [].slice.call(f.querySelectorAll('input[type=checkbox]:checked')).map(function (c) { return c.value; });
+    var name = f.n.value.trim();
+    var body = 'Hi Shakur,\n\n' + (picks.length ? 'What is slowing me down:\n- ' + picks.join('\n- ') + '\n\n' : '') + 'I would like to talk about it.\n\n' + (name || '');
+    location.href = 'mailto:shakur@opmventuresllc.com?subject=' + encodeURIComponent('OPM Ventures enquiry' + (name ? ' from ' + name : '')) + '&body=' + encodeURIComponent(body);
+  });
+})();
+
+(function () {
+  var c = document.querySelector('[data-call]'); if (!c) return;
+  var t = c.querySelector('.wcall__track'), d = [].slice.call(c.querySelectorAll('.wcall__dots i')), cards = [].slice.call(t.children);
+  t.addEventListener('scroll', function () {
+    var mid = t.scrollLeft + t.clientWidth / 2, best = 0, bd = 1e9;
+    cards.forEach(function (a, i) { var dd = Math.abs(a.offsetLeft + a.offsetWidth / 2 - mid); if (dd < bd) { bd = dd; best = i; } });
+    d.forEach(function (x, i) { x.classList.toggle('on', i === best); });
+  }, { passive: true });
+})();
