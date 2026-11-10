@@ -1,3 +1,14 @@
+// Safety net for very old browsers: if observers are missing, pretend everything is in view.
+if (!window.IntersectionObserver) {
+  window.IntersectionObserver = function (cb) {
+    var self = this;
+    this.observe = function (el) { setTimeout(function () { cb([{ isIntersecting: true, intersectionRatio: 1, target: el }], self); }, 0); };
+    this.unobserve = this.disconnect = function () {};
+  };
+}
+if (!window.ResizeObserver) {
+  window.ResizeObserver = function (cb) { this.observe = function () { setTimeout(function () { cb([]); }, 0); }; this.unobserve = this.disconnect = function () {}; };
+}
 // Site effects, plain-JS versions of three 21st.dev patterns:
 //  1. Text Reveal (Mask)  – headline words slide up out of a mask on scroll (soralabs)
 //  2. Magnetic            – buttons lean toward the cursor (ibelick)
@@ -311,7 +322,8 @@
     }, { threshold: .25 }).observe(img.parentNode);
   }
   var cv = document.querySelector('.remy__fx'); if (!cv || reduce) return;
-  var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = 1, ps = [], raf = 0, vis = false;
+  var ctx = cv.getContext('2d'); if (!ctx) return;
+  var W = 0, H = 0, dpr = 1, ps = [], raf = 0, vis = false;
   function size() {
     var r = cv.getBoundingClientRect(); W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -433,7 +445,7 @@
   if (copy) copy.addEventListener('click', function () {
     var cv = document.createElement('canvas'); cv.className = 'confetti'; cv.setAttribute('aria-hidden', 'true');
     var dpr = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; document.body.appendChild(cv);
-    var ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+    var ctx = cv.getContext('2d'); if (!ctx) { cv.remove(); return; } ctx.scale(dpr, dpr);
     var r = copy.getBoundingClientRect(), ox = r.left + r.width / 2, oy = r.top + r.height / 2, cols = ['#e0ba64', '#f5e2a8', '#ffffff', '#c9972f'], ps = [];
     for (var i = 0; i < 60; i++) { var a = Math.random() * 6.28, v = 3 + Math.random() * 6; ps.push({ x: ox, y: oy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 3, w: 4 + Math.random() * 5, h: 2 + Math.random() * 3, rot: Math.random() * 6, vr: (Math.random() - .5) * .4, c: cols[i % 4] }); }
     var t0 = performance.now();
