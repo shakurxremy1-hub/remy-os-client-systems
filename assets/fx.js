@@ -1007,3 +1007,84 @@
   }); });
   card.style.setProperty('--fx', motion ? '.75' : '.3');
 })();
+
+(function () {
+  /* Ask OPM: a fixed-answer assistant. No AI model, no network calls, nothing stored.
+     Visitor text is only ever compared against keywords and shown with textContent,
+     so it can never act as an instruction. */
+  var box = document.getElementById('cb'), launch = document.getElementById('cbl'); if (!box || !launch) return;
+  var log = box.querySelector('.cb__log'), chips = box.querySelector('.cb__chips'), form = box.querySelector('form'), inp = form.querySelector('input');
+  var BOOK = 'https://calendly.com/shakur-opmventuresllc/30min', MAIL = 'shakur@opmventuresllc.com';
+  var KB = [
+    { id: 'refuse', k: ['ignore previous', 'ignore all', 'ignore your', 'system prompt', 'your instructions', 'your rules', 'jailbreak', 'pretend', 'act as', 'you are now', 'developer mode', 'override', 'bypass', 'reveal', 'password', 'api key', 'secret', 'private', 'customer list', 'other clients', 'client data', 'database'],
+      a: 'I only share what is already on this site, and I can\'t change how I work. I don\'t hold any private or client information. For anything else, talk to Shakur directly.', link: 1 },
+    { id: 'discount', k: ['discount', 'coupon', 'promo', 'cheaper', 'free', 'lower price', 'price match', 'deal', 'waive', 'half off', 'special rate', 'negotiate', 'refund'],
+      a: 'I can\'t offer discounts, change prices or make promises about refunds. The prices on this site are the prices I can quote. For a custom scope, book a call with Shakur.', link: 1 },
+    { id: 'price', k: ['price', 'cost', 'how much', 'pricing', 'plans', 'tiers', 'tier', 'package', 'packages', 'fee', 'afford', 'budget'],
+      a: 'Four plans:\n\nFoundation: $2,000 one-time. A 5-page conversion website, delivered in 14 days.\nGrowth: $2,500 setup, then $1,500/month (3-month minimum). Site plus one ad platform, run weekly.\nScale & Fund: $4,000 setup, then $3,000/month (6-month minimum). Both ad platforms plus a fundability program. Application only.\nPartner: from $6,000/month, custom scope.', more: '#tiers' },
+    { id: 'foundation', k: ['foundation', '14 day', 'five page', '5 page', 'website only', 'just a website'],
+      a: 'Foundation is $2,000, one payment, no retainer. You get a 5-page conversion website with copywriting and a mobile build, on-page SEO basics, a lead form that goes to your inbox or CRM, and a Google Business Profile tune-up. One revision round, delivered in 14 days.' },
+    { id: 'growth', k: ['growth', 'ads', 'ad platform', 'meta', 'google ads', 'leads', 'advertising'],
+      a: 'Growth is $2,500 setup, then $1,500/month after onboarding, with a 3-month minimum. It includes your site, a full Meta or Google ads build, 5 ad creatives and a landing page, weekly optimization, a lead tracking dashboard and a monthly report with a strategy call.' },
+    { id: 'scale', k: ['scale', 'fund', 'funding', 'capital', 'loan', 'lender', 'credit', 'fundability', 'd-u-n-s', 'duns'],
+      a: 'Scale & Fund is $4,000 setup, then $3,000/month, with a 6-month minimum. It adds both ad platforms with retargeting, a business credit profile, a lender-ready financial packet, and a fundability scorecard with a lender shortlist. It is application only, with limited slots.' },
+    { id: 'partner', k: ['partner', 'multi location', 'multi-location', 'custom', 'enterprise', 'bigger'],
+      a: 'Partner is for multi-location businesses or higher budgets. It starts from $6,000/month with a custom scope. Book a call and we will work out what fits.', link: 1 },
+    { id: 'remy', k: ['remy', 'remy os', 'platform', 'product'],
+      a: 'OPM Ventures LLC is the company: practical technology, business systems, automation and consulting. Remy OS is the product: a technology and business automation platform. They are two different things.', more: '#remy' },
+    { id: 'who', k: ['who', 'founder', 'shakur', 'team', 'operator', 'owner', 'about'],
+      a: 'You work with one person, Shakur, founder of OPM Ventures LLC in San Antonio, TX. Shakur is accountable for the whole chain.', more: '#operator' },
+    { id: 'process', k: ['how does it work', 'process', 'start', 'next step', 'after i book', 'what happens', 'begin', 'onboard', 'steps'],
+      a: 'On a call we lock the offer, the customer and the scope. Then you get a blueprint covering the offer, the customer, the tier and the dates. Then Shakur builds.', more: '#start' },
+    { id: 'minimum', k: ['minimum', 'contract', 'commitment', 'cancel', 'retainer', 'lock in', 'long term'],
+      a: 'Foundation is a one-time payment with no retainer. Growth has a 3-month minimum and Scale & Fund has a 6-month minimum. On Growth the monthly retainer begins after onboarding.' },
+    { id: 'book', k: ['book', 'call', 'schedule', 'meeting', 'talk', 'contact', 'email', 'reach', 'speak', 'calendar', 'phone'],
+      a: 'The quickest way is to book a call. You can also email ' + MAIL + '.', link: 1 },
+    { id: 'privacy', k: ['privacy', 'data', 'cookies', 'tracking', 'gdpr', 'store my', 'collect'],
+      a: 'This site sets no cookies and has no analytics. This chat runs in your browser, sends nothing anywhere and stores nothing. Full details are on the privacy page.', priv: 1 },
+    { id: 'hi', k: ['hi', 'hello', 'hey', 'yo', 'sup', 'good morning', 'good afternoon'],
+      a: 'Hi. Ask me about the plans, how long things take, or how to get started.' }
+  ];
+  var FALL = 'I can only answer from what is on this site, and I don\'t have an answer for that. Try one of the buttons below, or ask Shakur directly.';
+  function tok(t) { return ' ' + t.toLowerCase().replace(/[^a-z0-9$ -]+/g, ' ').replace(/\s+/g, ' ').trim() + ' '; }
+  function match(q) {
+    var t = tok(q), best = null, bs = 0;
+    KB.forEach(function (e, idx) {
+      var sc = 0;
+      e.k.forEach(function (w) { if (t.indexOf(' ' + w + ' ') > -1 || (w.length > 4 && t.indexOf(w) > -1)) sc += w.length > 4 ? 2 : 1; });
+      if (e.id === 'refuse' && sc) sc += 10;
+      if (e.id === 'discount' && sc) sc += 6;
+      if (sc > bs) { bs = sc; best = e; }
+    });
+    return best;
+  }
+  function add(role, text, extra) {
+    var m = document.createElement('div'); m.className = 'cb__m cb__m--' + role; m.textContent = text;
+    if (extra) { [].forEach.call(extra, function (l) { m.appendChild(document.createTextNode(' ')); var a = document.createElement('a'); a.textContent = l[0]; a.href = l[1]; if (/^https?:/.test(l[1])) { a.target = '_blank'; a.rel = 'noopener'; } m.appendChild(a); }); }
+    log.appendChild(m); log.scrollTop = log.scrollHeight;
+  }
+  function answer(q) {
+    var e = match(q);
+    if (!e) { add('b', FALL, [['Book a call', BOOK]]); return; }
+    var links = [];
+    if (e.more) links.push(['See it on the page', e.more]);
+    if (e.link) links.push(['Book a call', BOOK]);
+    if (e.priv) links.push(['Privacy page', 'privacy.html']);
+    add('b', e.a, links);
+  }
+  function ask(q) { q = String(q).slice(0, 200).trim(); if (!q) return; add('u', q); setTimeout(function () { answer(q); }, 220); }
+  [['Plans and prices', 'plans and prices'], ['How it works', 'how does it work'], ['Remy OS or OPM?', 'what is remy os'], ['Book a call', 'book a call']].forEach(function (c) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = c[0]; b.addEventListener('click', function () { ask(c[1]); }); chips.appendChild(b);
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); var v = inp.value; inp.value = ''; ask(v); });
+  var started = false;
+  function open(o) {
+    box.hidden = !o; launch.setAttribute('aria-expanded', o);
+    if (o) { if (!started) { started = true; add('b', 'Hi, I\'m the OPM Ventures assistant. I answer from what is on this site. I can\'t change prices, give discounts or share private information.'); } inp.focus(); }
+    else launch.focus();
+  }
+  launch.addEventListener('click', function () { open(box.hidden); });
+  box.querySelector('.cb__x').addEventListener('click', function () { open(false); });
+  box.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); open(false); } });
+  box.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href^="#"]'); if (a) open(false); });
+})();
