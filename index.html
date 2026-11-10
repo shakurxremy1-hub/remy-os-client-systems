@@ -155,9 +155,6 @@ h2.big{font-family:var(--display);font-weight:400;text-transform:uppercase;font-
 .founder{background:var(--paper);color:var(--ink);overflow:hidden}
 .founder .fin{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,6vw,100px);align-items:end;padding:clamp(80px,10vw,140px) var(--pad) 0}
 .founder img{width:100%;max-width:520px;margin:0 auto;filter:grayscale(1) contrast(1.05)}
-.founder__media{position:relative;width:100%;max-width:520px;margin:0 auto;background:#000;overflow:hidden;isolation:isolate}
-.founder__media canvas{mix-blend-mode:screen;z-index:2}
-.founder__media img{display:block;position:relative;z-index:1}
 .founder .body{padding-bottom:clamp(60px,8vw,120px)}
 .founder h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,6vw,94px);line-height:.95;margin-bottom:26px}
 .founder p{max-width:540px;color:var(--mute-d);margin-bottom:16px}
@@ -1222,9 +1219,7 @@ main>*:not(#tiers){display:none!important}
 <!-- OPERATOR -->
 <section class="founder" id="operator" aria-label="The operator">
   <div class="fin">
-    <div class="founder__media" id="founderVortex">
-      <img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async">
-    </div>
+    <img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async">
     <div class="body reveal">
       <span class="tag">The operator</span>
       <h2>One person. Your whole <em>system.</em></h2>
@@ -1450,13 +1445,6 @@ main>*:not(#tiers){display:none!important}
 
 <script src="assets/kinetic-grid-warp.js?v=20261110a" defer></script>
 <script src="assets/fx.js?v=20261110a" defer></script>
-<script src="assets/vortex-dust-fall.js?v=20261110a" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var h=document.getElementById('founderVortex');
-  if(h&&window.VortexDustFall)VortexDustFall(h,{ring:{radius:100,thickness:8},tilt:12});
-});
-</script>
 <script>
 (function(){
   var b=document.getElementById('burger'),n=document.getElementById('nav');
