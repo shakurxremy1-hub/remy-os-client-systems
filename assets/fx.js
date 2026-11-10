@@ -1088,3 +1088,35 @@
   box.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); open(false); } });
   box.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href^="#"]'); if (a) open(false); });
 })();
+
+(function () {
+  var root = document.querySelector('[data-cost]'); if (!root) return;
+  var P = {
+    foundation: { setup: 2000, mo: 0, min: 0, label: 'Foundation' },
+    growth: { setup: 2500, mo: 1500, min: 3, label: 'Growth' },
+    scale: { setup: 4000, mo: 3000, min: 6, label: 'Scale & Fund' },
+    partner: { setup: 0, mo: 6000, min: 1, label: 'Partner', from: true }
+  };
+  var cur = 'growth', btns = [].slice.call(root.querySelectorAll('[data-p]')), row = root.querySelector('[data-months]'),
+      rng = row.querySelector('input'), mv = root.querySelector('[data-mv]'), pre = root.querySelector('[data-pre]'),
+      tot = root.querySelector('[data-total]'), det = root.querySelector('[data-det]');
+  function money(n) { return '$' + n.toLocaleString('en-US'); }
+  function render() {
+    var p = P[cur], m = +rng.value;
+    row.hidden = !p.mo; 
+    if (p.mo) { rng.min = p.min; if (m < p.min) { m = p.min; rng.value = m; } }
+    rng.style.setProperty('--v', ((m - rng.min) / (rng.max - rng.min) * 100) + '%');
+    mv.textContent = m;
+    var total = p.setup + p.mo * (p.mo ? m : 0);
+    pre.textContent = p.from ? 'Total, from' : 'Total';
+    tot.textContent = money(total);
+    if (!p.mo) det.textContent = 'One payment of ' + money(p.setup) + '. No retainer. A 5-page website delivered in 14 days.';
+    else if (cur === 'partner') det.textContent = money(p.mo) + ' a month for ' + m + ' month' + (m > 1 ? 's' : '') + ', or more depending on scope. Custom engagement, so the real number comes from the call.';
+    else det.textContent = money(p.setup) + ' setup, then ' + money(p.mo) + ' a month for ' + m + ' months. Minimum for ' + p.label + ' is ' + p.min + ' months (' + money(p.setup + p.mo * p.min) + ').';
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () {
+    cur = b.getAttribute('data-p'); btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); render();
+  }); });
+  rng.addEventListener('input', render);
+  render();
+})();
