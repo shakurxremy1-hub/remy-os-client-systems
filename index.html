@@ -692,6 +692,26 @@ section[id]{scroll-margin-top:70px}
 .wcall__dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s}
 .wcall__dots i.on{width:22px;border-radius:7px;background:#f0d68a}
 }
+.kfoot{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.kfoot:hover{color:#f0d68a}
+kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px solid rgba(255,255,255,.25);border-bottom-width:2px;border-radius:7px;font-family:var(--mono);font-size:12px;text-align:center;color:#ddd;background:rgba(255,255,255,.05)}
+.keys{margin:auto;position:fixed;inset:0;height:fit-content;border:1px solid var(--line);border-radius:26px;background:rgba(22,22,22,.85);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);color:#fff;padding:0;width:min(460px,calc(100% - 40px));box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.keys::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(4px)}
+.keys[open]{animation:keyin .35s cubic-bezier(.2,1.2,.4,1)}
+@keyframes keyin{from{opacity:0;transform:translateY(14px) scale(.96)}}
+.keys__in{padding:26px 28px 30px}
+.keys__h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.keys__h h2{margin:0;font-size:22px}
+.keys__h button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:none;color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.keys__h button:hover{border-color:#f0d68a;color:#f0d68a}
+.keys dl{margin:0;display:grid}
+.keys dl div{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.keys dt{white-space:nowrap}
+.keys dd{margin:0;color:#aaa;font-size:15px;text-align:right}
+.term{border-bottom:1px dashed #f0d68a;cursor:help;transition:color .2s,border-color .2s}
+.term:hover,.term:focus-visible{color:#f0d68a;outline:none;border-bottom-style:solid}
+.tip{position:fixed;z-index:9998;max-width:min(280px,calc(100vw - 24px));padding:14px 16px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(24,24,24,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#eee;font:400 14px/1.45 var(--body,Inter,system-ui,sans-serif);text-transform:none;letter-spacing:0;box-shadow:0 18px 50px rgba(0,0,0,.5);pointer-events:none;opacity:0;transform:translateY(6px) scale(.97);transition:opacity .2s,transform .3s cubic-bezier(.2,1.2,.4,1)}
+.tip.on{opacity:1;transform:none}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
@@ -815,7 +835,7 @@ section[id]{scroll-margin-top:70px}
   </div>
   <div class="caps">
     <ul>
-      <li class="reveal"><b>AI-powered business assistance</b><span>Help with questions, drafts and everyday work.</span></li>
+      <li class="reveal"><b>AI-powered business assistance</b><span>Help with <span class="term" tabindex="0" data-tip="Software that assists people with questions, first drafts and routine tasks. It helps. It does not replace judgement.">questions, drafts and everyday work</span>.</span></li>
       <li class="reveal"><b>Workflow and process automation</b><span>Repeatable steps run without someone starting them.</span></li>
       <li class="reveal"><b>Lead and customer management</b><span>Know who reached out and what happens next.</span></li>
       <li class="reveal"><b>Business information organization</b><span>What your business knows, kept in order.</span></li>
@@ -864,7 +884,7 @@ section[id]{scroll-margin-top:70px}
           <div class="orbit"><span>AI</span><span>Automation</span><span>Intelligence</span><span>Operations</span></div>
           <img src="assets/img/remy-os-logo.png" alt="" width="84" height="84" loading="lazy">
         </div>
-        <div class="txt"><small>One connected environment</small><p>Technology and business automation in one place, so the repetitive work gets handled and you can see what is happening.</p></div>
+        <div class="txt"><small>One connected environment</small><p>Technology and business <span class="term" tabindex="0" data-tip="Steps that run on their own, so someone does not have to start them by hand each time.">automation</span> in one place, so the <span class="term" tabindex="0" data-tip="The same task done again and again: answering the same question, sending the same reminder, copying the same details between tools.">repetitive work</span> gets handled and you can see what is happening.</p></div>
       </article>
     </div>
   </div>
@@ -1080,9 +1100,21 @@ section[id]{scroll-margin-top:70px}
 <div class="toast" id="toast" role="status" aria-live="polite">Email copied</div>
 <a class="fab" id="fab" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a>
 
+<dialog class="keys" id="keys" aria-label="Keyboard shortcuts">
+  <div class="keys__in">
+    <div class="keys__h"><h2>Keyboard shortcuts</h2><button type="button" data-keys-close aria-label="Close">&times;</button></div>
+    <dl>
+      <div><dt><kbd>&#8984;</kbd><kbd>K</kbd></dt><dd>Open the command menu</dd></div>
+      <div><dt><kbd>1</kbd>–<kbd>6</kbd></dt><dd>Jump to a section</dd></div>
+      <div><dt><kbd>&larr;</kbd><kbd>&rarr;</kbd></dt><dd>Move the sliders and tabs</dd></div>
+      <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
+      <div><dt><kbd>Esc</kbd></dt><dd>Close anything open</dd></div>
+    </dl>
+  </div>
+</dialog>
 <footer>
   <span>© 2026 OPM Ventures LLC · San Antonio, TX</span>
-  <span><a href="#top">Back to top ↑</a></span>
+  <span><button class="kfoot" type="button" data-share>Share this page</button> &nbsp;·&nbsp; <button class="kfoot" type="button" data-keys>Keyboard shortcuts <kbd>?</kbd></button> &nbsp;·&nbsp; <a href="#top">Back to top ↑</a></span>
 </footer>
 
 <script src="assets/kinetic-grid-warp.js" defer></script>

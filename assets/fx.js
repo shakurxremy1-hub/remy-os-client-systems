@@ -850,3 +850,49 @@
     d.forEach(function (x, i) { x.classList.toggle('on', i === best); });
   }, { passive: true });
 })();
+
+(function () {
+  var d = document.getElementById('keys'); if (!d || !d.showModal) return;
+  function open() { if (!d.open) d.showModal(); }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-keys]')) open();
+    else if (e.target.closest('[data-keys-close]') || e.target === d) d.close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== '?' || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target; if (t && (/input|textarea|select/i.test(t.tagName) || t.isContentEditable)) return;
+    e.preventDefault(); open();
+  });
+})();
+
+(function () {
+  var tip = document.createElement('div'); tip.className = 'tip'; tip.setAttribute('role', 'tooltip'); tip.id = 'tip'; document.body.appendChild(tip);
+  var cur = null;
+  function show(el) {
+    cur = el; tip.textContent = el.getAttribute('data-tip'); el.setAttribute('aria-describedby', 'tip');
+    var r = el.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = Math.max(12, Math.min(innerWidth - tw - 12, r.left + r.width / 2 - tw / 2));
+    var y = r.top - th - 12; if (y < 12) y = r.bottom + 12;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.classList.add('on');
+  }
+  function hide() { if (cur) cur.removeAttribute('aria-describedby'); cur = null; tip.classList.remove('on'); }
+  document.addEventListener('mouseover', function (e) { var t = e.target.closest && e.target.closest('.term'); if (t) show(t); });
+  document.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest('.term')) hide(); });
+  document.addEventListener('focusin', function (e) { if (e.target.classList && e.target.classList.contains('term')) show(e.target); });
+  document.addEventListener('focusout', hide);
+  document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('.term'); if (t) show(t); else hide(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  var sy = 0; addEventListener('scroll', function () { if (cur && Math.abs(scrollY - sy) > 60) hide(); }, { passive: true });
+  var _show = show; show = function (el) { sy = scrollY; _show(el); };
+})();
+
+(function () {
+  var b = document.querySelector('[data-share]'), t = document.getElementById('toast'); if (!b || !t) return;
+  function say(m) { t.textContent = m; t.classList.add('show'); setTimeout(function () { t.classList.remove('show'); t.textContent = 'Email copied'; }, 1900); }
+  b.addEventListener('click', function () {
+    var data = { title: 'OPM Ventures LLC', text: 'OPM Ventures LLC builds practical technology and business systems.', url: location.origin + location.pathname };
+    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(data.url).then(function () { say('Link copied'); }, function () { say(data.url); });
+    else say(data.url);
+  });
+})();
