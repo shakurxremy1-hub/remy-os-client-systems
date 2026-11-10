@@ -1,0 +1,3 @@
+# GitHub Pages (Jekyll): serve the .well-known folder (security.txt)
+include:
+  - ".well-known"

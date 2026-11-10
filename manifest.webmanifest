@@ -1,0 +1,14 @@
+{
+  "name": "OPM Ventures LLC",
+  "short_name": "OPM Ventures",
+  "description": "Remy OS, websites, paid ads and fundability from OPM Ventures LLC.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    {"src": "/assets/img/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/assets/img/favicon-180.png", "sizes": "180x180", "type": "image/png"}
+  ]
+}

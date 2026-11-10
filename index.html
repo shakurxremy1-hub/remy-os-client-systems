@@ -15,6 +15,7 @@
 <meta property="og:url" content="https://opmventuresllc.com/">
 <meta property="og:image" content="https://opmventuresllc.com/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
@@ -467,6 +468,30 @@ html{scrollbar-width:thin;scrollbar-color:#555 #0b0b0b}
 .caps li{position:relative}
 @media (prefers-reduced-motion:reduce){html:not(.fxon) .svc article::after,html:not(.fxon) .caps li::after{animation:none}}
 
+
+/* launch checklist */
+.launch{background:#101010;border-top:1px solid var(--line);padding:clamp(70px,9vw,130px) var(--pad)}
+.launch__in{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(30px,6vw,100px);align-items:start}
+.launch__lead{color:var(--mute);max-width:420px;margin:14px 0 26px}
+.lc__meter{height:6px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;max-width:420px}
+.lc__meter i{display:block;height:100%;width:100%;background:#f0d68a;transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.lc__score{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:10px 0 0}
+.lc__score b{color:#fff;font-size:22px;letter-spacing:0}
+.lc__msg{min-height:3.2em;margin:14px 0 22px;max-width:420px;color:#e8e8e8}
+.lc__cta{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.lc__reset{cursor:pointer;background:none;border:0;color:var(--mute);font:12px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:underline}
+.lc__g{border:0;margin:0 0 22px;padding:0}
+.lc__g legend{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:0 0 8px}
+.lc__i{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line);cursor:pointer;font-size:15px;line-height:1.45}
+.lc__i input{position:absolute;opacity:0;pointer-events:none}
+.lc__b{flex:none;width:20px;height:20px;margin-top:1px;border:1.5px solid rgba(255,255,255,.5);border-radius:5px;position:relative;transition:background .2s,border-color .2s}
+.lc__b::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;border:solid #111;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .2s}
+.lc__i input:checked+.lc__b{background:#f0d68a;border-color:#f0d68a}
+.lc__i input:checked+.lc__b::after{transform:rotate(45deg) scale(1)}
+.lc__i input:checked~span:last-child{color:var(--mute);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.lc__i input:focus-visible+.lc__b{outline:2px solid #f0d68a;outline-offset:3px}
+@media (max-width:860px){.launch__in{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.lc__meter i,.lc__b,.lc__b::after{transition:none}}
 /* round 20: FAQ accordion */
 .faq{background:#0b0b0b;border-top:1px solid var(--line);padding:clamp(70px,9vw,130px) var(--pad)}
 .faq__in{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(30px,6vw,100px);align-items:start}
@@ -1362,6 +1387,22 @@ main>*:not(#tiers){display:none!important}
 </section>
 
 <!-- CONTACT -->
+<!-- LAUNCH CHECKLIST -->
+<section class="launch" id="launch" aria-label="Website launch checklist">
+  <div class="launch__in">
+    <div class="reveal">
+      <span class="tag">Launch checklist</span>
+      <h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Is your site ready to <em>launch?</em></h2>
+      <p class="launch__lead">Tick what&rsquo;s done. I&rsquo;ll tell you what to fix first. Your answers stay in your browser.</p>
+      <div class="lc__meter" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="lcMeter"><i id="lcFill"></i></div>
+      <p class="lc__score"><b id="lcCount">0</b> of 16 done</p>
+      <p class="lc__msg" id="lcMsg" aria-live="polite"></p>
+      <div class="lc__cta"><a class="btn btn--light" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a><button type="button" class="lc__reset" id="lcReset">Reset</button></div>
+    </div>
+    <div class="reveal" id="lcList"><fieldset class="lc__g"><legend>The basics</legend><label class="lc__i"><input type="checkbox" data-lc="1"><span class="lc__b" aria-hidden="true"></span><span>Your own domain, served over HTTPS</span></label><label class="lc__i"><input type="checkbox" data-lc="2"><span class="lc__b" aria-hidden="true"></span><span>Looks and works right on a phone</span></label><label class="lc__i"><input type="checkbox" data-lc="3"><span class="lc__b" aria-hidden="true"></span><span>Loads fast (about 3 seconds or less)</span></label><label class="lc__i"><input type="checkbox" data-lc="4"><span class="lc__b" aria-hidden="true"></span><span>A friendly 404 page for broken links</span></label></fieldset><fieldset class="lc__g"><legend>Get found</legend><label class="lc__i"><input type="checkbox" data-lc="5"><span class="lc__b" aria-hidden="true"></span><span>A unique title and description on every page</span></label><label class="lc__i"><input type="checkbox" data-lc="6"><span class="lc__b" aria-hidden="true"></span><span>sitemap.xml and robots.txt in place</span></label><label class="lc__i"><input type="checkbox" data-lc="7"><span class="lc__b" aria-hidden="true"></span><span>Google Business Profile claimed and matching</span></label><label class="lc__i"><input type="checkbox" data-lc="8"><span class="lc__b" aria-hidden="true"></span><span>A social share image (Open Graph) set</span></label></fieldset><fieldset class="lc__g"><legend>Turn visitors into leads</legend><label class="lc__i"><input type="checkbox" data-lc="9"><span class="lc__b" aria-hidden="true"></span><span>One clear call to action above the fold</span></label><label class="lc__i"><input type="checkbox" data-lc="10"><span class="lc__b" aria-hidden="true"></span><span>Contact form or booking link tested end to end</span></label><label class="lc__i"><input type="checkbox" data-lc="11"><span class="lc__b" aria-hidden="true"></span><span>Phone and email are tap-to-call and tap-to-email</span></label></fieldset><fieldset class="lc__g"><legend>Trust and legal</legend><label class="lc__i"><input type="checkbox" data-lc="12"><span class="lc__b" aria-hidden="true"></span><span>Privacy policy and terms published</span></label><label class="lc__i"><input type="checkbox" data-lc="13"><span class="lc__b" aria-hidden="true"></span><span>Cookie notice if you use trackers or ads</span></label></fieldset><fieldset class="lc__g"><legend>Protect and track</legend><label class="lc__i"><input type="checkbox" data-lc="14"><span class="lc__b" aria-hidden="true"></span><span>Uptime alerts so you hear about outages first</span></label><label class="lc__i"><input type="checkbox" data-lc="15"><span class="lc__b" aria-hidden="true"></span><span>Analytics set up (privacy-friendly is fine)</span></label><label class="lc__i"><input type="checkbox" data-lc="16"><span class="lc__b" aria-hidden="true"></span><span>Backups, plus two-factor on host, domain and email</span></label></fieldset></div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="faq" id="faq" aria-label="Questions">
   <div class="faq__in">
@@ -1477,7 +1518,7 @@ main>*:not(#tiers){display:none!important}
   </div>
 </dialog>
 <footer>
-  <span>© 2026 OPM Ventures LLC · San Antonio, TX · <a href="privacy.html">Privacy</a></span>
+  <span>© 2026 OPM Ventures LLC · San Antonio, TX · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
   <span><button class="kfoot" type="button" data-share>Share this page</button> &nbsp;·&nbsp; <button class="kfoot" type="button" data-keys>Keyboard shortcuts <kbd>?</kbd></button> &nbsp;·&nbsp; <a href="#top">Back to top ↑</a></span>
 </footer>
 
@@ -1511,6 +1552,31 @@ main>*:not(#tiers){display:none!important}
     (function tick(t){var k=Math.min((t-t0)/d,1);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(tick)})(t0);
   })},{threshold:.6});
   nums.forEach(function(n){n.textContent='0';io.observe(n)});
+})();
+</script>
+<script>
+(function(){
+  var list=document.getElementById('lcList'); if(!list)return;
+  var boxes=[].slice.call(list.querySelectorAll('input[data-lc]')),TOTAL=boxes.length,KEY='opm-launch-checklist';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+  function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+  var done=load(); boxes.forEach(function(b){b.checked=done.indexOf(b.dataset.lc)>-1});
+  function msg(n){
+    if(n===0)return 'Start ticking. Be honest, it helps.';
+    if(n<TOTAL*.5)return 'Early days. The basics come first, and I can handle the heavy lifting.';
+    if(n<TOTAL*.85)return 'Getting there. A few gaps could be costing you leads.';
+    if(n<TOTAL)return 'Almost launch-ready. Close the last gaps and go.';
+    return 'Launch-ready. Nice work. A quick review call can still catch the small stuff.';
+  }
+  function paint(){
+    var n=boxes.filter(function(b){return b.checked}).length;
+    document.getElementById('lcCount').textContent=n;document.getElementById('lcMsg').textContent=msg(n);
+    var m=document.getElementById('lcMeter');m.setAttribute('aria-valuenow',n);document.getElementById('lcFill').style.setProperty('--p',n/TOTAL);
+    save(boxes.filter(function(b){return b.checked}).map(function(b){return b.dataset.lc}));
+  }
+  list.addEventListener('change',paint);
+  document.getElementById('lcReset').addEventListener('click',function(){boxes.forEach(function(b){b.checked=false});paint()});
+  paint();
 })();
 </script>
 </body>
