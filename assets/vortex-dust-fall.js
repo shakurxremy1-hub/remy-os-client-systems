@@ -140,7 +140,7 @@
 
   var DEFAULTS = {
     baseColor: '#FFFFFF', accentColor: '#FFFFFF', density: 129, dotSize: 107, speed: 46,
-    distance: 1495, tilt: 7,
+    distance: 1495, tilt: 7, frameShift: FRAME_SHIFT,
     ring: { radius: 142, thickness: 11 },
     fall: { height: 140, spin: 36, spray: 0 },
     field: { scatter: 300, blur: 0 },
@@ -232,7 +232,7 @@
       var radius = RADIUS_REF * (P.ring.radius / 100), fallH = radius * (P.fall.height / 100);
       var tiltRad = (P.tilt * Math.PI) / 180 + hy * hAmt * ha * ((10 * Math.PI) / 180);
       var camDist = P.distance - ha * hAmt * 150;
-      var yPx = h * FRAME_SHIFT;
+      var yPx = h * P.frameShift;
       var base = parseColor(P.baseColor), acc = parseColor(P.accentColor);
 
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
