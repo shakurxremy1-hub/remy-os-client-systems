@@ -16,10 +16,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OPM Ventures LLC","url":"https://opmventuresllc.com","email":"shakur@opmventuresllc.com","address":{"@type":"PostalAddress","addressLocality":"San Antonio","addressRegion":"TX"}}</script>
 <style>
 :root{
@@ -784,6 +782,37 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 .cv__go{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#f0d68a;border:1px solid #f0d68a;border-radius:999px;padding:13px 20px;transition:background .25s,color .25s}
 .cv__go:hover,.cv__go:focus-visible{background:#f0d68a;color:#111}
 @media (max-width:640px){.cv{--w:62vw}.cv__go{order:3;width:100%;text-align:center;margin:0 20px}}
+.hc{width:100%;margin:40px auto 10px;display:grid;justify-items:center;gap:18px}
+.hc__hint{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.hc__wrap{--mm:calc(min(480px,calc(100vw - 40px))/91);width:min(480px,calc(100vw - 40px));aspect-ratio:91/55;perspective:1200px;touch-action:pan-y}
+.hc__card{--px:.5;--py:.5;--mx:50%;--my:50%;--holo:.12;--fx:.7;position:relative;display:block;width:100%;height:100%;cursor:pointer;user-select:none;-webkit-user-select:none;border-radius:calc(3.5*var(--mm));transform-style:preserve-3d;outline:none;-webkit-tap-highlight-color:transparent;text-align:left}
+.hc__card:focus-visible{box-shadow:0 0 0 2px #f0d68a,0 0 0 6px rgba(240,214,138,.25)}
+.hc__flip{position:absolute;inset:0;display:block;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.35,.45,1)}
+.hc__card.flipped .hc__flip{transform:rotateY(180deg)}
+.hc__face{position:absolute;inset:0;display:block;overflow:hidden;border-radius:calc(3.5*var(--mm));backface-visibility:hidden;-webkit-backface-visibility:hidden;color:#fff;background:radial-gradient(120% 140% at 85% 0,#2a2415 0%,#141414 55%,#0b0b0b 100%);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 4px 14px rgba(0,0,0,.4)}
+.hc__back{transform:rotateY(180deg)}
+.hc__top{position:absolute;left:calc(6.5*var(--mm));top:calc(6*var(--mm));display:flex;align-items:center;gap:calc(3*var(--mm))}
+.hc__top img{width:calc(10*var(--mm));height:calc(10*var(--mm));border-radius:50%;background:#fff;object-fit:cover}
+.hc__ln{font-family:var(--display);font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96;font-size:calc(6.4*var(--mm));letter-spacing:.01em;line-height:1}
+.hc__mid{position:absolute;left:calc(6.5*var(--mm));right:calc(6.5*var(--mm));top:calc(22*var(--mm));font-size:calc(3.3*var(--mm));line-height:1.3;color:#d8d8d8;max-width:calc(62*var(--mm))}
+.hc__mid em{font-family:'Instrument Serif',serif;font-size:1.25em;color:#f0d68a}
+.hc__bot{position:absolute;left:calc(6.5*var(--mm));right:calc(6.5*var(--mm));bottom:calc(5*var(--mm));display:flex;justify-content:space-between;font-family:var(--mono);font-size:calc(2.1*var(--mm));letter-spacing:.08em;text-transform:uppercase;color:#f0d68a}
+.hc__bar{position:absolute;inset:0 0 auto;height:calc(1.6*var(--mm));background:linear-gradient(90deg,#b88a2a,#f0d68a,#b88a2a)}
+.hc__ph{position:absolute;right:calc(5*var(--mm));top:calc(7*var(--mm));width:calc(24*var(--mm));height:calc(24*var(--mm));object-fit:cover;object-position:50% 12%;border-radius:calc(2.5*var(--mm));filter:grayscale(1) contrast(1.05);border:1px solid rgba(240,214,138,.5)}
+.hc__nm{position:absolute;left:calc(6.5*var(--mm));top:calc(8*var(--mm));font-family:var(--display);font-weight:800;font-stretch:75%;font-size:calc(8*var(--mm));line-height:1}
+.hc__role{position:absolute;left:calc(6.5*var(--mm));top:calc(18.5*var(--mm));font-family:var(--mono);font-size:calc(2.2*var(--mm));letter-spacing:.1em;text-transform:uppercase;color:#f0d68a}
+.hc__rows{position:absolute;left:calc(6.5*var(--mm));right:calc(5*var(--mm));bottom:calc(6*var(--mm));display:grid;gap:calc(1.8*var(--mm));font-size:calc(2.7*var(--mm));color:#e8e8e8}
+.hc__foil,.hc__glare{position:absolute;inset:0;pointer-events:none;display:block}
+.hc__foil{opacity:calc(var(--holo)*var(--fx)*.6);mix-blend-mode:color-dodge;-webkit-mask-image:radial-gradient(farthest-corner circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.4) 55%,transparent 100%);mask-image:radial-gradient(farthest-corner circle at var(--mx) var(--my),#000 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
+.hc__glare{opacity:calc(var(--holo)*var(--fx));background-image:radial-gradient(farthest-corner circle at var(--mx) var(--my),rgba(255,255,255,.28) 0%,rgba(255,255,255,.06) 30%,transparent 60%)}
+.hc__card[data-fx=gold] .hc__foil{background-image:linear-gradient(115deg,transparent 30%,rgba(255,214,120,.55) 41%,rgba(255,248,225,.95) 48%,rgba(255,232,160,.85) 51%,rgba(196,140,40,.5) 58%,transparent 70%);background-size:250% 250%;background-position:var(--mx) var(--my);-webkit-mask-image:none;mask-image:none}
+.hc__card[data-fx=rainbow] .hc__foil{background-image:repeating-linear-gradient(110deg,hsl(0 100% 72%) 0%,hsl(45 100% 68%) 6%,hsl(110 90% 70%) 12%,hsl(185 100% 70%) 18%,hsl(250 100% 76%) 24%,hsl(310 100% 74%) 30%,hsl(360 100% 72%) 36%);background-size:300% 300%;background-position:var(--mx) var(--my)}
+.hc__card[data-fx=aurora] .hc__foil{background-image:linear-gradient(165deg,transparent 18%,rgba(70,255,180,.75) 32%,transparent 44%,rgba(80,200,255,.6) 56%,transparent 68%,rgba(170,110,255,.75) 80%,transparent 92%),linear-gradient(195deg,transparent 25%,rgba(140,90,255,.5) 40%,transparent 52%,rgba(60,240,200,.55) 66%,transparent 80%);background-size:100% 260%,100% 220%;background-position:0 calc(var(--py)*100%),0 calc(100% - var(--px)*100%);-webkit-mask-image:none;mask-image:none}
+.hc__fx{display:flex;gap:8px}
+.hc__fx button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#aaa;cursor:pointer;transition:all .25s}
+.hc__fx button:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.hc__fx button[aria-pressed=true]{background:#f0d68a;color:#111;border-color:#f0d68a}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .hc__flip{transition:none}}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
@@ -1157,6 +1186,29 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
     <span class="tag">Get started</span>
     <h2 class="big">Let's build your <em>system.</em></h2>
     <p class="lead">One call. Offer, customer and scope, locked in. Then I build.</p>
+    <div class="hc" data-hc>
+      <p class="hc__hint">Hover to tilt. Tap to flip.</p>
+      <div class="hc__wrap">
+        <div class="hc__card" data-fx="gold" role="button" tabindex="0" aria-pressed="false" aria-label="OPM Ventures LLC business card. Press to flip.">
+          <span class="hc__flip">
+            <span class="hc__face hc__front">
+              <span class="hc__top"><img src="assets/img/logo.png" alt="" width="56" height="56" draggable="false"><span class="hc__ln">OPM VENTURES LLC</span></span>
+              <span class="hc__mid">Practical technology, business systems, <em>automation</em> and consulting.</span>
+              <span class="hc__bot"><span>San Antonio, TX</span><span>opmventuresllc.com</span></span>
+              <span class="hc__foil" aria-hidden="true"></span><span class="hc__glare" aria-hidden="true"></span>
+            </span>
+            <span class="hc__face hc__back">
+              <span class="hc__bar" aria-hidden="true"></span><img class="hc__ph" src="assets/img/founder.png" alt="" draggable="false">
+              <span class="hc__nm">Shakur</span>
+              <span class="hc__role">Founder, OPM Ventures LLC</span>
+              <span class="hc__rows"><span>shakur@opmventuresllc.com</span><span>opmventuresllc.com</span><span>Book a call: calendly.com/shakur-opmventuresllc</span></span>
+              <span class="hc__foil" aria-hidden="true"></span><span class="hc__glare" aria-hidden="true"></span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="hc__fx" role="group" aria-label="Foil style"><button type="button" data-set="gold" aria-pressed="true">Gold</button><button type="button" data-set="rainbow" aria-pressed="false">Rainbow</button><button type="button" data-set="aurora" aria-pressed="false">Aurora</button></div>
+    </div>
     <div class="wcall" data-call aria-label="What we settle on the call">
       <div class="wcall__track" tabindex="0"><article><span>01</span><h3>Offer</h3><p>What you sell, and what makes someone say yes.</p></article><article><span>02</span><h3>Customer</h3><p>Who you want more of, and where they come from.</p></article><article><span>03</span><h3>Scope</h3><p>What gets built first, so the work has a clear edge.</p></article></div>
       <div class="wcall__dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
@@ -1207,7 +1259,7 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
   </div>
 </dialog>
 <footer>
-  <span>© 2026 OPM Ventures LLC · San Antonio, TX</span>
+  <span>© 2026 OPM Ventures LLC · San Antonio, TX · <a href="privacy.html">Privacy</a></span>
   <span><button class="kfoot" type="button" data-share>Share this page</button> &nbsp;·&nbsp; <button class="kfoot" type="button" data-keys>Keyboard shortcuts <kbd>?</kbd></button> &nbsp;·&nbsp; <a href="#top">Back to top ↑</a></span>
 </footer>
 

@@ -971,3 +971,39 @@
   if ('ResizeObserver' in window) new ResizeObserver(layout).observe(cards[0]); addEventListener('resize', layout);
   layout(); mark();
 })();
+
+(function () {
+  var root = document.querySelector('[data-hc]'); if (!root) return;
+  var wrap = root.querySelector('.hc__wrap'), card = root.querySelector('.hc__card');
+  var motion = !(matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search));
+  var MAX = 16, REST = .12, px = .5, py = .5, tx = .5, ty = .5, h = REST, th = REST, sc = 1, tsc = 1, raf = 0;
+  function frame() {
+    raf = 0;
+    px += (tx - px) * .14; py += (ty - py) * .14; h += (th - h) * .12; sc += (tsc - sc) * .14;
+    card.style.setProperty('--px', px.toFixed(3)); card.style.setProperty('--py', py.toFixed(3));
+    card.style.setProperty('--mx', (px * 100).toFixed(1) + '%'); card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+    card.style.setProperty('--holo', h.toFixed(3));
+    card.style.transform = 'rotateX(' + ((.5 - py) * 2 * MAX).toFixed(2) + 'deg) rotateY(' + ((px - .5) * 2 * MAX).toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+    if (Math.abs(tx - px) + Math.abs(ty - py) + Math.abs(th - h) + Math.abs(tsc - sc) > .002) raf = requestAnimationFrame(frame);
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+  function track(e) {
+    var r = wrap.getBoundingClientRect();
+    tx = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)); ty = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+    th = 1; tsc = 1.03; kick();
+  }
+  function rest() { tx = .5; ty = .5; th = REST; tsc = 1; kick(); }
+  if (motion) {
+    wrap.addEventListener('pointermove', track); wrap.addEventListener('pointerdown', track);
+    wrap.addEventListener('pointerleave', rest); wrap.addEventListener('pointercancel', rest);
+  }
+  function flip() { var on = card.classList.toggle('flipped'); card.setAttribute('aria-pressed', on); }
+  card.addEventListener('click', flip);
+  card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+  var btns = [].slice.call(root.querySelectorAll('[data-set]'));
+  btns.forEach(function (b) { b.addEventListener('click', function () {
+    card.setAttribute('data-fx', b.getAttribute('data-set'));
+    btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+  }); });
+  card.style.setProperty('--fx', motion ? '.75' : '.3');
+})();
