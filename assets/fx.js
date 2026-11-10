@@ -340,8 +340,10 @@
     ['Remy OS', 'Section', '#remy'], ['Services', 'Section', '#services'], ['How we start', 'Section', '#start'],
     ['Operator', 'Section', '#operator'], ['Tiers', 'Section', '#tiers'], ['Questions', 'Section', '#faq'], ['Contact', 'Section', '#contact'],
     ['Book a call', 'Action', 'https://calendly.com/shakur-opmventuresllc/30min'],
-    ['Copy email', 'Action', 'copy']
+    ['Copy email', 'Action', 'copy'],
+    ['Keyboard shortcuts', 'Action', 'keys'], ['Share this page', 'Action', 'share'], ['Email me', 'Action', 'mailto:shakur@opmventuresllc.com']
   ];
+  [].forEach.call(document.querySelectorAll('.faq details summary span'), function (s, i) { items.push([s.textContent, 'Question', 'faq:' + i]); });
   var el = document.createElement('div'); el.className = 'cmd'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Jump to');
   el.innerHTML = '<div class="cmd__box"><input type="text" placeholder="Jump to…" aria-label="Search" autocomplete="off" spellcheck="false"><ul role="listbox"></ul></div>';
   document.body.appendChild(el);
@@ -349,6 +351,7 @@
   function render() {
     var q = input.value.trim().toLowerCase();
     shown = items.filter(function (it) { return !q || it[0].toLowerCase().indexOf(q) > -1; });
+    if (!q) shown = shown.slice(0, 9);
     sel = Math.min(sel, Math.max(0, shown.length - 1));
     list.innerHTML = shown.length ? '' : '<p>No match.</p>';
     shown.forEach(function (it, i) {
@@ -365,6 +368,9 @@
   function run(it) {
     close();
     if (it[2] === 'copy') { var c = document.getElementById('copy'); if (c) c.click(); }
+    else if (it[2] === 'keys' || it[2] === 'share') { var kb = document.querySelector('[data-' + it[2] + ']'); if (kb) setTimeout(function () { kb.click(); }, 120); }
+    else if (it[2].indexOf('faq:') === 0) { var d = document.querySelectorAll('.faq details')[+it[2].slice(4)]; if (d) { d.hidden = false; d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+    else if (it[2].indexOf('mailto:') === 0) location.href = it[2];
     else if (it[2].charAt(0) === '#') { var t = document.querySelector(it[2]); if (t) t.scrollIntoView({ behavior: 'smooth' }); }
     else window.open(it[2], '_blank', 'noopener');
   }
@@ -911,4 +917,57 @@
     none.hidden = shown > 0 || !v;
     n.textContent = v ? shown + ' of ' + items.length : '';
   });
+})();
+
+(function () {
+  var b = document.querySelector('[data-bp]'); if (!b) return;
+  var cells = [].slice.call(b.querySelectorAll('[data-type]'));
+  var motion = !(matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search));
+  cells.forEach(function (c) { c._full = c.getAttribute('data-type'); c.textContent = c._full; });
+  if (!motion || !('IntersectionObserver' in window)) return;
+  cells.forEach(function (c) { c.setAttribute('aria-label', c._full); c.textContent = ''; });
+  var io = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return; io.disconnect();
+    var i = 0;
+    (function next() {
+      if (i >= cells.length) return;
+      var c = cells[i++], n = 0; c.classList.add('typing');
+      (function type() { n++; c.textContent = c._full.slice(0, n); if (n < c._full.length) setTimeout(type, 22); else { c.classList.remove('typing'); setTimeout(next, 180); } })();
+    })();
+  }, { threshold: .5 });
+  io.observe(b);
+})();
+
+(function () {
+  var root = document.querySelector('[data-cv]'); if (!root) return;
+  var ring = root.querySelector('.cv__ring'), stage = root.querySelector('.cv__stage'), cards = [].slice.call(ring.children), n = cards.length;
+  var tag = root.querySelector('[data-cv-tag]'), txt = root.querySelector('[data-cv-text]'), idx = root.querySelector('[data-cv-i]'), go = root.querySelector('[data-cv-go]');
+  var prev = root.querySelector('[data-cv-prev]'), next = root.querySelector('[data-cv-next]');
+  var step = 30, cur = 0, ang = 0, drag = false, sx = 0, sa = 0, moved = 0, R = 0;
+  function pad(k) { return (k < 10 ? '0' : '') + k; }
+  function clamp(k) { return Math.max(0, Math.min(n - 1, k)); }
+  function layout() {
+    var w = cards[0].offsetWidth; R = Math.round((w + 22) / 2 / Math.tan(step * Math.PI / 360));
+    cards.forEach(function (c, i) { c.style.transform = 'rotateY(' + i * step + 'deg) translateZ(' + R + 'px)'; });
+    apply();
+  }
+  function apply() { ring.style.transform = 'translateZ(' + -R + 'px) rotateY(' + -ang + 'deg)'; }
+  function mark() {
+    cards.forEach(function (c, i) { var on = i === cur; c.classList.toggle('on', on); c.setAttribute('aria-hidden', on ? 'false' : 'true'); });
+    var c = cards[cur]; tag.textContent = c.getAttribute('data-tag'); txt.textContent = c.getAttribute('data-cap');
+    idx.textContent = pad(cur + 1); go.setAttribute('href', c.getAttribute('href'));
+    prev.disabled = cur === 0; next.disabled = cur === n - 1;
+  }
+  function goTo(k) { cur = clamp(k); ang = cur * step; apply(); mark(); }
+  next.addEventListener('click', function () { goTo(cur + 1); });
+  prev.addEventListener('click', function () { goTo(cur - 1); });
+  stage.addEventListener('pointerdown', function (e) { drag = true; moved = 0; sx = e.clientX; sa = ang; ring.classList.add('drag'); stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove', function (e) { if (!drag) return; var dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx)); ang = Math.max(-12, Math.min((n - 1) * step + 12, sa - dx / R * (180 / Math.PI) * 1.5)); apply(); });
+  function end() { if (!drag) return; drag = false; ring.classList.remove('drag'); goTo(Math.round(ang / step)); }
+  stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+  stage.addEventListener('click', function (e) { var a = e.target.closest('.cv__c'); if (moved > 6) { e.preventDefault(); return; } if (a && !a.classList.contains('on')) { e.preventDefault(); goTo(cards.indexOf(a)); } });
+  root.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { goTo(cur + 1); e.preventDefault(); } if (e.key === 'ArrowLeft') { goTo(cur - 1); e.preventDefault(); } });
+  root.setAttribute('tabindex', '0');
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(cards[0]); addEventListener('resize', layout);
+  layout(); mark();
 })();

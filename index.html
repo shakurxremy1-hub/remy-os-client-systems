@@ -741,6 +741,49 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 .nfoot a{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-decoration:none}
 .nfoot .nbook{padding:14px 24px;border-radius:999px;background:#f0d68a;color:#111;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
 }
+.bp{width:min(1100px,92%);margin:clamp(40px,6vw,80px) auto 0;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,5vw,64px);align-items:center}
+.bp__doc{border:1px solid var(--line);border-radius:22px;background:#141414;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.bp__top{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
+.bp__dots{display:flex;gap:6px}.bp__dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.2)}
+.bp__name{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#aaa}
+.bp__tag{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:#f0d68a;color:#111}
+.bp dl{margin:0;padding:6px 22px}
+.bp__r{display:grid;grid-template-columns:100px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.bp__r:last-child{border-bottom:0}
+.bp dt{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f0d68a}
+.bp dd{margin:0;font-size:clamp(16px,1.7vw,20px);min-height:1.4em}
+.bp dd.typing::after{content:"";display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:#f0d68a;animation:bpc .8s steps(1) infinite}
+@keyframes bpc{50%{opacity:0}}
+.bp__note{margin:0;padding:14px 22px 18px;font-size:12px;color:var(--mute)}
+.bp__side h3{font-family:var(--display);font-weight:800;font-stretch:75%;font-variation-settings:"opsz" 96;text-transform:uppercase;font-size:clamp(40px,5vw,76px);line-height:.95;margin:0 0 16px}
+.bp__side h3 em{text-transform:none;font-family:'Instrument Serif',serif;font-weight:400;font-stretch:100%;color:#f0d68a}
+.bp__side p{color:#bbb;max-width:24em}
+@media (max-width:860px){.bp{grid-template-columns:1fr;width:calc(100% - 40px)}.bp__side{order:-1}.bp__r{grid-template-columns:78px 1fr;gap:10px}}
+.tour{background:#0d0d0d;border-top:1px solid var(--line);padding:clamp(70px,9vw,130px) 0 clamp(60px,8vw,110px);overflow:hidden}
+.tour__head{width:min(1100px,92%);margin:0 auto 10px}
+.cv{--w:clamp(210px,24vw,340px);--h:calc(var(--w)*1.25);user-select:none;-webkit-user-select:none}
+.cv__stage{position:relative;height:calc(var(--h) + 60px);perspective:1500px;perspective-origin:50% 45%;cursor:grab;touch-action:pan-y;display:grid;place-items:center}
+.cv__stage:active{cursor:grabbing}
+.cv__ring{position:relative;width:var(--w);height:var(--h);transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.9,.2,1)}
+.cv__ring.drag{transition:none}
+.cv__c{position:absolute;inset:0;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#161616;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:filter .6s,opacity .6s;filter:brightness(.45) saturate(.8);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.cv__c.on{filter:none}
+.cv__c{filter:brightness(.55) saturate(.85)}
+.cv__c img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cv__c[href="#operator"] img{object-position:50% 12%}
+.cv__c[href="#tiers"] img{object-fit:cover}
+.cv__cap{width:min(720px,88%);margin:8px auto 0;text-align:center;min-height:92px}
+.cv__cap small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f0d68a}
+.cv__cap p{margin:8px 0 0;font-size:clamp(22px,3vw,38px);line-height:1.15}
+.cv__bar{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:20px;flex-wrap:wrap}
+.cv__bar button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font-size:18px;cursor:pointer;transition:border-color .25s,background .25s,transform .25s}
+.cv__bar button:disabled{opacity:.3;cursor:default;transform:none}
+.cv__bar button:hover:not(:disabled){border-color:#f0d68a;background:rgba(240,214,138,.1);transform:scale(1.06)}
+.cv__n{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:#888;min-width:74px;text-align:center}
+.cv__n b{color:#fff;font-weight:400}
+.cv__go{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#f0d68a;border:1px solid #f0d68a;border-radius:999px;padding:13px 20px;transition:background .25s,color .25s}
+.cv__go:hover,.cv__go:focus-visible{background:#f0d68a;color:#111}
+@media (max-width:640px){.cv{--w:62vw}.cv__go{order:3;width:100%;text-align:center;margin:0 20px}}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
@@ -799,6 +842,15 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 </section>
 
 <!-- SERVICES -->
+<section class="tour" id="tour" aria-label="Tour of the site">
+  <div class="tour__head reveal"><span class="tag">Take the tour</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Five places to <em>start.</em></h2></div>
+  <div class="cv" data-cv role="region" aria-roledescription="carousel" aria-label="Site tour">
+    <div class="cv__stage"><div class="cv__ring"><a class="cv__c" href="#services" data-cap="A website that converts." data-tag="Be found" tabindex="-1"><img src="assets/daemon/mountain.png" alt="Mountain landscape" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#remy" data-cap="The operating layer for your business." data-tag="Remy OS" tabindex="-1"><img src="assets/daemon/cave.png" alt="A cave opening onto a landscape" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#remy" data-cap="Four parts. One system." data-tag="Inside Remy OS" tabindex="-1"><img src="assets/img/remy-os-logo.png" alt="The Remy OS logo" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#operator" data-cap="One person, accountable for every step." data-tag="The operator" tabindex="-1"><img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#tiers" data-cap="Four tiers, from a site to full funding." data-tag="The plans" tabindex="-1"><img src="assets/img/og.jpg" alt="OPM Ventures LLC" loading="lazy" decoding="async" draggable="false"></a></div></div>
+    <div class="cv__cap" aria-live="polite"><small data-cv-tag></small><p data-cv-text></p></div>
+    <div class="cv__bar"><button type="button" data-cv-prev aria-label="Previous">&larr;</button><span class="cv__n"><b data-cv-i>01</b> / <span data-cv-n>05</span></span><button type="button" data-cv-next aria-label="Next">&rarr;</button><a class="cv__go" href="#" data-cv-go>Go there</a></div>
+  </div>
+</section>
+
 <section class="services" id="services">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap">
@@ -964,6 +1016,14 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
     </div>
     <p class="calc__out"><b data-y>312</b> hours a year. That is <b data-w>7.8</b> full work weeks.</p>
     <a class="calc__cta" href="#contact">Talk about getting them back</a>
+  </div>
+  <div class="bp reveal" data-bp>
+    <div class="bp__doc">
+      <div class="bp__top"><span class="bp__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="bp__name">Blueprint</span><span class="bp__tag">Example</span></div>
+      <dl><div class="bp__r"><dt>Offer</dt><dd data-type="Free roof inspection, then a clear repair quote."></dd></div><div class="bp__r"><dt>Customer</dt><dd data-type="Homeowners in your service area."></dd></div><div class="bp__r"><dt>Tier</dt><dd data-type="Foundation"></dd></div><div class="bp__r"><dt>Dates</dt><dd data-type="Kickoff on the call. Site live in 14 days."></dd></div></dl>
+      <p class="bp__note">An example only. After the call, yours is written for your business.</p>
+    </div>
+    <div class="bp__side"><span class="tag">After the call</span><h3>You get a <em>blueprint.</em></h3><p>The offer, the customer, the tier and the dates, on one page. Then I build.</p></div>
   </div>
   <div class="names reveal">
     <div><small>The company</small><h3>OPM Ventures LLC</h3><p>Practical technology, business systems, automation and consulting. We look for where a business is losing time, money, opportunities or productivity, then build the system that fixes it.</p></div>
