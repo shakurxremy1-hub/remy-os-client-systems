@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'none'; object-src 'none'">
+<title>OPM Ventures LLC film</title>
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261110a">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#fff;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+#view{position:fixed;inset:0 0 56px 0;overflow:hidden}
+body.render #view{inset:0}
+#stage{position:absolute;left:50%;top:50%;margin:-540px 0 0 -960px;width:1920px;height:1080px;transform-origin:center center;background:#000;overflow:hidden;cursor:pointer}
+.bg{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.bg img{width:100%;height:100%;object-fit:cover;display:block}
+.bg--mtn img{filter:grayscale(1) brightness(.62) contrast(1.1)}
+.bg--cave img{filter:brightness(.5) saturate(.8)}
+.shade{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 30%,rgba(0,0,0,.78) 100%)}
+.grid{background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:96px 96px;background:#0b0b0b}
+.grid::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:96px 96px}
+.gold{background:radial-gradient(70% 80% at 50% 55%,rgba(240,214,138,.28),transparent 65%),#080808}
+.t{position:absolute;opacity:0;will-change:opacity,transform,filter}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.22em;text-transform:uppercase;font-size:26px;color:#f0d68a}
+.disp{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-stretch:75%;text-transform:uppercase;line-height:.95;letter-spacing:.005em}
+.ser{font-family:'Instrument Serif',serif;font-style:italic;color:#f0d68a;line-height:1.05}
+.c{left:0;right:0;text-align:center}
+.logo{width:170px;height:170px;border-radius:50%;background:#fff;object-fit:cover;left:875px;top:210px}
+#title{top:420px;font-size:170px}
+#tag{top:640px;font-size:66px;padding:0 150px}
+#loc{top:900px}
+.pl{left:180px;font-size:112px}
+#pl1{top:250px}#pl2{top:400px}#pl3{top:550px}#pl4{top:700px}
+#plabel{left:180px;top:150px}
+#fix{right:180px;bottom:120px;font-size:96px;text-align:right}
+.card{left:180px;width:1560px}
+.card .n{top:190px}
+.card .h{top:250px;font-size:128px}
+.card .s{top:585px;font-size:48px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;color:#f0d68a;text-transform:uppercase}
+.card .d{top:665px;font-size:60px;line-height:1.25;color:#e6e6e6;max-width:1300px;font-weight:300}
+#uhead{left:180px;top:120px}
+#rl{width:340px;height:340px;right:180px;top:380px;border-radius:50%}
+#c1{top:300px;font-size:300px}
+#c2{top:640px;font-size:74px;padding:0 240px}
+#c3{top:820px;left:0;right:0;display:flex;justify-content:center}
+#c3 span{display:inline-block;font-family:'JetBrains Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-size:34px;color:#111;background:#f0d68a;border-radius:999px;padding:30px 64px}
+#c4{top:945px;font-size:34px}
+#c5{top:1005px;font-size:34px;color:#cfcfcf}
+#clogo{width:120px;height:120px;border-radius:50%;background:#fff;object-fit:cover;left:900px;top:130px}
+#black{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+#ui{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:14px;padding:0 16px;background:#0c0c0c;border-top:1px solid rgba(255,255,255,.12)}
+body.render #ui{display:none}
+#ui button{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;width:38px;height:38px;cursor:pointer;font-size:14px}
+#ui button:hover,#ui button:focus-visible{border-color:#f0d68a;color:#f0d68a;outline:none}
+#bar{flex:1;accent-color:#f0d68a;height:6px;cursor:pointer}
+#time{font:12px 'JetBrains Mono',monospace;color:#999;min-width:92px;text-align:right}
+</style>
+</head>
+<body>
+<div id="view"><div id="stage" aria-label="OPM Ventures LLC film. On-screen text carries the whole message.">
+
+  <div class="bg bg--mtn" data-in="0" data-out="10" data-zoom="1,1.16,0,10"><img src="assets/daemon/mountain.png" alt=""></div>
+  <div class="bg grid" data-in="9" data-out="21"></div>
+  <div class="bg bg--cave" data-in="20.4" data-out="36" data-zoom="1.12,1,20,36"><img src="assets/daemon/cave.png" alt=""></div>
+  <div class="bg gold" data-in="35.4" data-out="45"></div>
+  <div class="shade"></div>
+
+  <!-- intro -->
+  <img class="t logo" src="assets/img/logo.png" alt="" data-in="0.8" data-out="8.6" data-y="30">
+  <div class="t c disp" id="title" data-in="1.8" data-out="8.6" data-y="50" data-blur="14">OPM Ventures LLC</div>
+  <div class="t c ser" id="tag" data-in="3.8" data-out="8.6" data-y="30" data-blur="8">Practical technology, business systems, automation and consulting.</div>
+  <div class="t c mono" id="loc" data-in="6" data-out="8.6" data-y="14">San Antonio, TX</div>
+
+  <!-- problem -->
+  <div class="t mono" id="plabel" data-in="9.5" data-out="20.2" data-y="16">Sound familiar?</div>
+  <div class="t pl disp" id="pl1" data-in="10.4" data-out="20.2" data-y="40" data-dim="12.4">Leads go unanswered.</div>
+  <div class="t pl disp" id="pl2" data-in="12.4" data-out="20.2" data-y="40" data-dim="14.4">Follow-ups get missed.</div>
+  <div class="t pl disp" id="pl3" data-in="14.4" data-out="20.2" data-y="40" data-dim="16.4">Too much manual admin.</div>
+  <div class="t pl disp" id="pl4" data-in="16.4" data-out="20.2" data-y="40">A website that doesn't convert.</div>
+  <div class="t ser" id="fix" data-in="18.2" data-out="20.2" data-y="30" data-blur="6">A system fixes that.</div>
+
+  <!-- use cases -->
+  <div class="t mono" id="uhead" data-in="21" data-out="35.2" data-y="14">What I build</div>
+
+  <div class="card">
+    <div class="t mono n" style="left:180px" data-in="21.4" data-out="25.1" data-y="14">01</div>
+    <div class="t disp h" style="left:180px" data-in="21.6" data-out="25.1" data-y="46" data-blur="10">A website<br>that converts.</div>
+    <div class="t s" style="left:180px" data-in="22.6" data-out="25.1" data-y="20">Foundation &middot; $2,000 one time</div>
+    <div class="t d" style="left:180px" data-in="23" data-out="25.1" data-y="20">A 5-page site with copy and a mobile build. Live in 14 days.</div>
+  </div>
+  <div class="card">
+    <div class="t mono n" style="left:180px" data-in="25" data-out="28.7" data-y="14">02</div>
+    <div class="t disp h" style="left:180px" data-in="25.2" data-out="28.7" data-y="46" data-blur="10">Ads that<br>bring buyers.</div>
+    <div class="t s" style="left:180px" data-in="26.2" data-out="28.7" data-y="20">Growth &middot; $2,500 setup, $1,500 a month</div>
+    <div class="t d" style="left:180px" data-in="26.6" data-out="28.7" data-y="20">Your site plus one ad platform, run weekly. <span style="white-space:nowrap">3-month</span> minimum.</div>
+  </div>
+  <div class="card">
+    <div class="t mono n" style="left:180px" data-in="28.6" data-out="32.3" data-y="14">03</div>
+    <div class="t disp h" style="left:180px;font-size:112px" data-in="28.8" data-out="32.3" data-y="46" data-blur="10">A business<br>ready for lenders.</div>
+    <div class="t s" style="left:180px" data-in="29.8" data-out="32.3" data-y="20">Scale &amp; Fund &middot; $4,000 setup, $3,000 a month</div>
+    <div class="t d" style="left:180px" data-in="30.2" data-out="32.3" data-y="20">Both ad platforms plus a fundability program. <span style="white-space:nowrap">6-month</span> minimum.</div>
+  </div>
+  <div class="card">
+    <div class="t mono n" style="left:180px" data-in="32.2" data-out="35.3" data-y="14">04 &middot; The product</div>
+    <div class="t disp h" style="left:180px" data-in="32.4" data-out="35.3" data-y="46" data-blur="10">Remy OS.</div>
+    <div class="t d" style="left:180px;top:460px" data-in="33.2" data-out="35.3" data-y="20">A technology and business automation platform.</div>
+  </div>
+  <img class="t" id="rl" src="assets/img/remy-os-logo.png" alt="" data-in="32.6" data-out="35.3" data-y="30" data-blur="8">
+
+  <!-- call to action -->
+  <img class="t" id="clogo" src="assets/img/logo.png" alt="" data-in="36" data-out="44.6" data-y="20">
+  <div class="t c disp" id="c1" data-in="36.4" data-out="44.6" data-y="60" data-blur="16">One call.</div>
+  <div class="t c ser" id="c2" data-in="37.8" data-out="44.6" data-y="30" data-blur="8">Offer, customer and scope locked in. Then I build.</div>
+  <div class="t" id="c3" data-in="39.4" data-out="44.6" data-y="20"><span>Book a call</span></div>
+  <div class="t c mono" id="c4" data-in="40.6" data-out="44.6" data-y="10">opmventuresllc.com</div>
+  <div class="t c mono" id="c5" data-in="41.2" data-out="44.6" data-y="10">shakur@opmventuresllc.com</div>
+
+  <div id="black"></div>
+</div></div>
+
+<div id="ui">
+  <button id="pp" type="button" aria-label="Play">&#9654;</button>
+  <input id="bar" type="range" min="0" max="440" value="0" aria-label="Seek">
+  <span id="time">0:00 / 0:44</span>
+  <button id="rp" type="button" aria-label="Replay">&#8634;</button>
+</div>
+
+<script>
+(function () {
+  var DUR = 44, q = location.search, RENDER = /[?&]render=1/.test(q), AUTO = /[?&]autoplay=1/.test(q);
+  if (RENDER) document.body.classList.add('render');
+  var stage = document.getElementById('stage'), view = document.getElementById('view'), black = document.getElementById('black');
+  var els = [].slice.call(stage.querySelectorAll('[data-in]'));
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ease(x) { return 1 - Math.pow(1 - x, 3); }
+  function fit() {
+    var w = view.clientWidth, h = view.clientHeight; if (!w || !h) return; var s = Math.min(w / 1920, h / 1080);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  function render(t) {
+    els.forEach(function (el) {
+      var a = parseFloat(el.dataset.in), b = parseFloat(el.dataset.out), y = parseFloat(el.dataset.y || 0), bl = parseFloat(el.dataset.blur || 0);
+      var isBg = el.classList.contains('bg');
+      var p = ease(cl((t - a) / (isBg ? 1.1 : .9))), o = ease(cl((t - b) / (isBg ? 1.1 : .55)));
+      var op = p * (1 - o);
+      if (el.dataset.dim) op *= 1 - .65 * ease(cl((t - parseFloat(el.dataset.dim)) / .8));
+      el.style.opacity = op.toFixed(3);
+      if (isBg) {
+        var z = el.dataset.zoom;
+        if (z) { var f = z.split(','); var k = cl((t - f[2]) / (f[3] - f[2])); el.style.transform = 'scale(' + (+f[0] + (f[1] - f[0]) * k).toFixed(4) + ')'; }
+      } else {
+        var ty = (1 - p) * y - o * 18;
+        el.style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+        el.style.filter = bl ? 'blur(' + ((1 - p) * bl).toFixed(1) + 'px)' : '';
+      }
+    });
+    var f0 = 1 - ease(cl(t / .8)), f1 = ease(cl((t - 43.2) / .8));
+    black.style.opacity = Math.max(f0, f1).toFixed(3);
+  }
+  var now = 0, playing = false, last = 0, bar = document.getElementById('bar'), time = document.getElementById('time'), pp = document.getElementById('pp');
+  function mm(s) { return Math.floor(s / 60) + ':' + ('0' + Math.floor(s % 60)).slice(-2); }
+  function seek(t) { now = Math.max(0, Math.min(DUR, t)); render(now); bar.value = Math.round(now * 10); time.textContent = mm(now) + ' / ' + mm(DUR); }
+  function loop(ts) {
+    if (!playing) return;
+    var dt = (ts - last) / 1000; last = ts; seek(now + dt);
+    if (now >= DUR) { playing = false; pp.innerHTML = '&#9654;'; pp.setAttribute('aria-label', 'Play'); return; }
+    requestAnimationFrame(loop);
+  }
+  function play() { if (now >= DUR) seek(0); playing = true; last = performance.now(); pp.innerHTML = '&#10074;&#10074;'; pp.setAttribute('aria-label', 'Pause'); requestAnimationFrame(loop); }
+  function pause() { playing = false; pp.innerHTML = '&#9654;'; pp.setAttribute('aria-label', 'Play'); }
+  pp.addEventListener('click', function () { playing ? pause() : play(); });
+  stage.addEventListener('click', function () { playing ? pause() : play(); });
+  document.getElementById('rp').addEventListener('click', function () { seek(0); play(); });
+  bar.addEventListener('input', function () { seek(bar.value / 10); });
+  addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); playing ? pause() : play(); } });
+  addEventListener('resize', fit);
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(view);
+  window.film = { seek: seek, play: play, pause: pause, duration: DUR };
+  fit(); seek(RENDER ? 0 : 0);
+  if (AUTO && !RENDER) play();
+})();
+</script>
+</body>
+</html>

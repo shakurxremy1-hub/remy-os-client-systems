@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'">
-<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261110a">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OPM Ventures LLC","url":"https://opmventuresllc.com","email":"shakur@opmventuresllc.com","address":{"@type":"PostalAddress","addressLocality":"San Antonio","addressRegion":"TX"}}</script>
 <style>
 :root{
@@ -884,9 +884,81 @@ main>*:not(#tiers){display:none!important}
 #tiers .tier{break-inside:avoid}
 #tiers a{text-decoration:none}
 }
+.filmband{padding:clamp(40px,6vw,90px) var(--pad,20px) 0}
+.filmband[hidden]{display:none}
+.filmband__in{width:min(1100px,100%);margin:0 auto}
+.filmband__poster{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:1px solid var(--line);border-radius:26px;overflow:hidden;cursor:pointer;background:#000;color:#fff;text-align:left}
+.filmband__poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.6);transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .4s}
+.filmband__poster:hover img,.filmband__poster:focus-visible img{transform:scale(1.05);filter:grayscale(1) brightness(.78)}
+.filmband__poster:focus-visible{outline:2px solid #f0d68a;outline-offset:4px}
+.filmband__play{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;display:grid;place-items:center;border-radius:50%;background:rgba(240,214,138,.95);color:#111;box-shadow:0 0 0 12px rgba(240,214,138,.18);transition:transform .3s}
+.filmband__poster:hover .filmband__play{transform:scale(1.08)}
+.filmband__cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,3vw,34px);display:grid;gap:6px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.filmband__cap b{font:800 clamp(26px,4vw,48px)/1 var(--display);font-stretch:75%;text-transform:uppercase}
+.filmband__cap small{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#cfcfcf}
+.filmd{--w:min(1100px,94vw,calc((100dvh - 130px) * 1.7778));margin:auto;position:fixed;inset:0;height:fit-content;width:var(--w);max-width:none;padding:0;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:#000;overflow:visible}
+.filmd::backdrop{background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.filmd iframe{display:block;width:100%;height:calc(var(--w) * .5625 + 56px);border:0;border-radius:18px;background:#000}
+.filmd__x{position:absolute;right:0;top:-46px;background:none;border:1px solid rgba(255,255,255,.3);color:#fff;width:38px;height:38px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer}
+.filmd__x:hover,.filmd__x:focus-visible{border-color:#f0d68a;color:#f0d68a;outline:none}
+/* Remy OS section type upgrade */
+.remy__intro>div:last-child p:first-of-type{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(26px,2.9vw,40px);line-height:1.12;color:#f2f2f2;max-width:15em;margin-bottom:22px}
+.remy__intro>div:last-child p:nth-of-type(2){font-family:Inter,system-ui,sans-serif;font-weight:400;font-size:clamp(16px,1.25vw,18px);line-height:1.6;color:#b9b9b9}
+.pillars span{font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-weight:700;font-size:13px;letter-spacing:.06em}
+.caps li{padding:26px 22px 30px;min-height:170px}
+.caps li b{font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-weight:800;font-size:clamp(17px,1.5vw,22px);line-height:1.05;letter-spacing:.01em;padding-left:20px;margin-bottom:12px}
+.caps li b::before{top:.3em;width:9px;height:9px;border-color:#f0d68a}
+.caps li span{font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.5;color:#b4b4b4}
+.fl__panels p{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(26px,3.3vw,46px);line-height:1.1;font-weight:400}
+.familiar li{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(22px,2.3vw,32px);letter-spacing:0;line-height:1.15;padding:20px 0}
+.familiar li.lit{color:#f0d68a}
+.txt small{font-family:'Bricolage Grotesque',sans-serif;font-stretch:75%;font-weight:700;font-size:14px;letter-spacing:.08em}
+.txt p{font-family:Inter,system-ui,sans-serif;font-weight:400}
+/* tour illustrations */
+.cv__c{font-size:calc(var(--w) / 20)}
+.il{position:absolute;inset:0;display:flex;flex-direction:column;gap:.9em;padding:1.5em;color:#fff;background:radial-gradient(120% 80% at 85% 0,rgba(240,214,138,.24),transparent 60%),linear-gradient(165deg,#202020,#0d0d0d);text-align:left}
+.il__k{font:.62em/1 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:#f0d68a}
+.il__f{margin-top:auto;font:800 1.5em/1 'Bricolage Grotesque',sans-serif;font-stretch:75%;text-transform:uppercase;letter-spacing:.01em}
+.il__f em{font:italic 1em 'Instrument Serif',serif;text-transform:none;color:#f0d68a}
+.bw{display:block;border:1px solid rgba(255,255,255,.2);border-radius:.8em;overflow:hidden;background:#111;box-shadow:0 1em 2em rgba(0,0,0,.5)}
+.bw__bar{display:flex;align-items:center;gap:.35em;padding:.55em .7em;background:#1c1c1c;border-bottom:1px solid rgba(255,255,255,.1)}
+.bw__bar i{width:.5em;height:.5em;border-radius:50%;background:#555}.bw__bar i:first-child{background:#e0ba64}
+.bw__bar em{margin-left:.6em;font:normal .55em 'JetBrains Mono',monospace;color:#999;background:#0c0c0c;border-radius:1em;padding:.35em .9em;flex:1}
+.bw__hero{display:flex;flex-direction:column;gap:.55em;padding:1.1em .9em 1em}
+.bw__hero b{display:block;height:1.1em;width:88%;border-radius:.3em;background:#fff}.bw__hero b.s{height:.55em;width:62%;background:#555}
+.bw__hero u{text-decoration:none;align-self:flex-start;margin-top:.3em;font:700 .65em Inter,sans-serif;color:#111;background:#f0d68a;border-radius:1em;padding:.55em 1.1em}
+.bw__row{display:flex;gap:.5em;padding:0 .9em 1em}.bw__row s{flex:1;height:2.6em;border-radius:.5em;background:linear-gradient(135deg,#2a2a2a,#171717);border:1px solid rgba(255,255,255,.08)}
+.sx{display:flex;gap:.8em}
+.sx__c{flex:1;border-radius:.8em;overflow:hidden;background:#151515;border:1px solid rgba(255,255,255,.16);display:flex;flex-direction:column}
+.sx__c small{font:.5em 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#888;padding:.6em .7em .3em}
+.sx__c i{display:block;height:4.2em;background:linear-gradient(135deg,#f0d68a,#7a5a1c)}
+.sx__c:nth-child(2) i{background:linear-gradient(135deg,#8a8a8a,#2b2b2b)}
+.sx__c b{display:block;margin:.6em .7em .2em;height:.55em;border-radius:.3em;background:#ddd}
+.sx__c u{text-decoration:none;margin:.4em .7em .8em;align-self:flex-start;font:700 .55em Inter,sans-serif;color:#111;background:#fff;border-radius:1em;padding:.45em .9em}
+.bars{display:flex;align-items:flex-end;gap:.5em;height:5.4em;padding:.4em .2em 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.bars i{flex:1;border-radius:.3em .3em 0 0;background:linear-gradient(#f0d68a,#8a6a24)}
+.bars i:nth-child(1){height:22%}.bars i:nth-child(2){height:35%}.bars i:nth-child(3){height:30%}.bars i:nth-child(4){height:52%}.bars i:nth-child(5){height:66%}.bars i:nth-child(6){height:88%}
+.dk{display:flex;flex-direction:column;gap:.6em}
+.dk__r{display:flex;align-items:center;gap:.8em;padding:.8em .9em;border-radius:.8em;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);font:700 .78em Inter,sans-serif}
+.dk__r::before{content:"\2713";flex:none;display:grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;background:#f0d68a;color:#111;font-size:.9em}
+.dk__r:nth-child(2){margin-left:.9em}.dk__r:nth-child(3){margin-left:1.8em}
+.ro{position:relative;flex:1;display:grid;place-items:center}
+.ro img{width:42%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:22%;box-shadow:0 0 3em rgba(240,214,138,.35);position:relative;z-index:2}
+.ro i{position:absolute;border:1px solid rgba(240,214,138,.35);border-radius:50%}
+.ro i:nth-child(1){width:62%;aspect-ratio:1}.ro i:nth-child(2){width:88%;aspect-ratio:1;border-color:rgba(255,255,255,.14)}
+.ro span{position:absolute;font:.5em 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;background:#1b1b1b;border:1px solid rgba(255,255,255,.2);border-radius:1em;padding:.4em .8em;z-index:3;color:#ddd}
+.ro span:nth-of-type(1){top:6%;left:50%;transform:translateX(-50%)}.ro span:nth-of-type(2){right:0;top:48%}.ro span:nth-of-type(3){bottom:6%;left:50%;transform:translateX(-50%)}.ro span:nth-of-type(4){left:0;top:48%}
+.op{position:absolute;inset:0}.op img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;filter:grayscale(1) contrast(1.05)}
+.op::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.85))}
+.op .il__k,.op .il__f{position:absolute;left:1.5em;z-index:2}.op .il__k{top:1.5em}.op .il__f{bottom:1.3em}
+.pl{display:flex;flex-direction:column;gap:.55em;justify-content:flex-end;flex:1}
+.pl__r{display:flex;justify-content:space-between;align-items:center;padding:.7em .9em;border-radius:.7em;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);font:700 .72em Inter,sans-serif}
+.pl__r small{font:.8em 'JetBrains Mono',monospace;color:#f0d68a;letter-spacing:.06em}
+.pl__r:nth-child(1){width:58%}.pl__r:nth-child(2){width:72%}.pl__r:nth-child(3){width:86%}.pl__r:nth-child(4){width:100%;background:rgba(240,214,138,.14);border-color:#f0d68a}
+.cv__c .il{pointer-events:none}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.filmband,.filmd,.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
 </head>
 <body>
 <div class="intro" aria-hidden="true"><img src="assets/img/logo.png" alt=""><span>OPM Ventures LLC</span><i class="intro__bar"></i></div>
@@ -943,12 +1015,23 @@ main>*:not(#tiers){display:none!important}
 </section>
 
 <!-- SERVICES -->
+<section class="filmband" aria-label="Watch the film" hidden>
+  <div class="filmband__in reveal">
+    <button type="button" class="filmband__poster" data-film aria-haspopup="dialog">
+      <img src="assets/daemon/mountain.png" alt="" loading="lazy" width="1456" height="816">
+      <span class="filmband__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+      <span class="filmband__cap"><b>Watch the film</b><small>44 seconds &middot; what OPM Ventures does &middot; text on screen, no sound needed</small></span>
+    </button>
+  </div>
+</section>
+<dialog id="filmd" class="filmd" aria-label="OPM Ventures LLC film"><button type="button" class="filmd__x" aria-label="Close film">&times;</button><iframe title="OPM Ventures LLC film" allow="fullscreen" loading="lazy"></iframe></dialog>
+
 <section class="tour" id="tour" aria-label="Tour of the site">
-  <div class="tour__head reveal"><span class="tag">Take the tour</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Five places to <em>start.</em></h2></div>
+  <div class="tour__head reveal"><span class="tag">Take the tour</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Six places to <em>start.</em></h2></div>
   <div class="cv" data-cv role="region" aria-roledescription="carousel" aria-label="Site tour">
-    <div class="cv__stage"><div class="cv__ring"><a class="cv__c" href="#services" data-cap="A website that converts." data-tag="Be found" tabindex="-1"><img src="assets/daemon/mountain.png" alt="Mountain landscape" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#remy" data-cap="The operating layer for your business." data-tag="Remy OS" tabindex="-1"><img src="assets/daemon/cave.png" alt="A cave opening onto a landscape" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#remy" data-cap="Four parts. One system." data-tag="Inside Remy OS" tabindex="-1"><img src="assets/img/remy-os-logo.png" alt="The Remy OS logo" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#operator" data-cap="One person, accountable for every step." data-tag="The operator" tabindex="-1"><img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async" draggable="false"></a><a class="cv__c" href="#tiers" data-cap="Four tiers, from a site to full funding." data-tag="The plans" tabindex="-1"><img src="assets/img/og.jpg" alt="OPM Ventures LLC" loading="lazy" decoding="async" draggable="false"></a></div></div>
+    <div class="cv__stage"><div class="cv__ring"><a class="cv__c" href="#services" data-cap="A website that converts." data-tag="Be found" aria-label="Be found: A website that converts." tabindex="-1"><span class="il"><span class="il__k">Website</span><span class="bw"><span class="bw__bar"><i></i><i></i><i></i><em>yourbusiness.com</em></span><span class="bw__hero"><b></b><b class="s"></b><u>Get a quote</u></span><span class="bw__row"><s></s><s></s><s></s></span></span><span class="il__f">Live in <em>14 days</em></span></span></a><a class="cv__c" href="#services" data-cap="Ads that bring buyers." data-tag="Get leads" aria-label="Get leads: Ads that bring buyers." tabindex="-1"><span class="il"><span class="il__k">Paid ads</span><span class="sx"><span class="sx__c"><small>Sponsored</small><i></i><b></b><u>Learn more</u></span><span class="sx__c"><small>Sponsored</small><i></i><b></b><u>Learn more</u></span></span><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="il__f">Tuned <em>weekly</em></span></span></a><a class="cv__c" href="#services" data-cap="A business ready for lenders." data-tag="Get funded" aria-label="Get funded: A business ready for lenders." tabindex="-1"><span class="il"><span class="il__k">Fundability</span><span class="dk"><span class="dk__r">Business credit profile</span><span class="dk__r">Lender-ready packet</span><span class="dk__r">Fundability scorecard</span></span><span class="il__f">Ready for <em>lenders</em></span></span></a><a class="cv__c" href="#remy" data-cap="The operating layer for your business." data-tag="Remy OS" aria-label="Remy OS: The operating layer for your business." tabindex="-1"><span class="il"><span class="il__k">The platform</span><span class="ro"><i></i><i></i><img src="assets/img/remy-os-logo.png" alt="" draggable="false"><span>AI</span><span>Automation</span><span>Intelligence</span><span>Operations</span></span><span class="il__f">Remy <em>OS</em></span></span></a><a class="cv__c" href="#operator" data-cap="One person, accountable for every step." data-tag="The operator" aria-label="The operator: One person, accountable for every step." tabindex="-1"><span class="op"><img src="assets/img/founder.png" alt="" loading="lazy" decoding="async" draggable="false"><span class="il__k">The operator</span><span class="il__f">Shakur, <em>founder</em></span></span></a><a class="cv__c" href="#tiers" data-cap="Four tiers, from a site to full funding." data-tag="The plans" aria-label="The plans: Four tiers, from a site to full funding." tabindex="-1"><span class="il"><span class="il__k">The plans</span><span class="pl"><span class="pl__r">Foundation<small>$2,000</small></span><span class="pl__r">Growth<small>$2,500+</small></span><span class="pl__r">Scale &amp; Fund<small>$4,000+</small></span><span class="pl__r">Partner<small>Custom</small></span></span><span class="il__f">Four <em>tiers</em></span></span></a></div></div>
     <div class="cv__cap" aria-live="polite"><small data-cv-tag></small><p data-cv-text></p></div>
-    <div class="cv__bar"><button type="button" data-cv-prev aria-label="Previous">&larr;</button><span class="cv__n"><b data-cv-i>01</b> / <span data-cv-n>05</span></span><button type="button" data-cv-next aria-label="Next">&rarr;</button><a class="cv__go" href="#" data-cv-go>Go there</a></div>
+    <div class="cv__bar"><button type="button" data-cv-prev aria-label="Previous">&larr;</button><span class="cv__n"><b data-cv-i>01</b> / <span data-cv-n>06</span></span><button type="button" data-cv-next aria-label="Next">&rarr;</button><a class="cv__go" href="#" data-cv-go>Go there</a></div>
   </div>
 </section>
 
@@ -1359,8 +1442,8 @@ main>*:not(#tiers){display:none!important}
   <span><button class="kfoot" type="button" data-share>Share this page</button> &nbsp;·&nbsp; <button class="kfoot" type="button" data-keys>Keyboard shortcuts <kbd>?</kbd></button> &nbsp;·&nbsp; <a href="#top">Back to top ↑</a></span>
 </footer>
 
-<script src="assets/kinetic-grid-warp.js" defer></script>
-<script src="assets/fx.js" defer></script>
+<script src="assets/kinetic-grid-warp.js?v=20261110a" defer></script>
+<script src="assets/fx.js?v=20261110a" defer></script>
 <script>
 (function(){
   var b=document.getElementById('burger'),n=document.getElementById('nav');

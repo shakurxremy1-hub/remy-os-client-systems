@@ -1143,3 +1143,16 @@ if (!window.ResizeObserver) {
   addEventListener('beforeprint', function () { window.__printing = true; prices.forEach(function (p) { p[0].nodeValue = p[1]; }); if (cmp) { was = cmp.open; cmp.open = true; } });
   addEventListener('afterprint', function () { window.__printing = false; if (cmp) cmp.open = was; });
 })();
+
+(function () {
+  var band = document.querySelector('.filmband'), dlg = document.getElementById('filmd'), btn = document.querySelector('[data-film]');
+  if (!band || !dlg || !btn || typeof dlg.showModal !== 'function') return;
+  band.hidden = false;
+  var fr = dlg.querySelector('iframe');
+  function open() { fr.src = 'film.html?autoplay=1&v=20261110a'; dlg.showModal(); }
+  function shut() { if (dlg.open) dlg.close(); }
+  btn.addEventListener('click', open);
+  dlg.querySelector('.filmd__x').addEventListener('click', shut);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
+  dlg.addEventListener('close', function () { fr.removeAttribute('src'); btn.focus(); });
+})();
