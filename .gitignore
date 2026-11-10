@@ -6,3 +6,11 @@ assets/_old-frames-backup/
 assets/_buggy-v1-frames-backup/
 node_modules/
 src/
+
+# secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+reviews.config.json
