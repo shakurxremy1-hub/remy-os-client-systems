@@ -155,7 +155,7 @@ h2.big{font-family:var(--display);font-weight:400;text-transform:uppercase;font-
 .founder{background:var(--paper);color:var(--ink);overflow:hidden}
 .founder .fin{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,6vw,100px);align-items:end;padding:clamp(80px,10vw,140px) var(--pad) 0}
 .founder img{width:100%;max-width:520px;margin:0 auto;filter:grayscale(1) contrast(1.05)}
-.founder__media{position:relative;width:100%;max-width:520px;margin:0 auto;padding-top:40%;background:#000;overflow:hidden;isolation:isolate}
+.founder__media{position:relative;width:100%;max-width:520px;margin:0 auto;background:#000;overflow:hidden;isolation:isolate}
 .founder__media canvas{mix-blend-mode:screen;z-index:2}
 .founder__media img{display:block;position:relative;z-index:1}
 .founder .body{padding-bottom:clamp(60px,8vw,120px)}
@@ -1450,11 +1450,11 @@ main>*:not(#tiers){display:none!important}
 
 <script src="assets/kinetic-grid-warp.js?v=20261110a" defer></script>
 <script src="assets/fx.js?v=20261110a" defer></script>
-<script src="assets/vortex-dust-fall.js?v=20261110b" defer></script>
+<script src="assets/vortex-dust-fall.js?v=20261110a" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   var h=document.getElementById('founderVortex');
-  if(h&&window.VortexDustFall)VortexDustFall(h,{ring:{radius:65,thickness:7},tilt:14,frameShift:0.34});
+  if(h&&window.VortexDustFall)VortexDustFall(h,{ring:{radius:100,thickness:8},tilt:12});
 });
 </script>
 <script>
