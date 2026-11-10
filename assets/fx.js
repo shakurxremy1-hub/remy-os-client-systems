@@ -625,7 +625,7 @@
     var tk = 0;
     function track() {
       tk = 0; var mid = innerHeight * .5, found = null;
-      links.forEach(function (a) { var t = document.querySelector(a.getAttribute('href')); if (t && t.getBoundingClientRect().top < mid && t.getBoundingClientRect().bottom > mid) found = a; });
+      links.forEach(function (a) { var h = a.getAttribute('href'); if (h.charAt(0) !== '#' || h.length < 2) return; var t = document.querySelector(h); if (t && t.getBoundingClientRect().top < mid && t.getBoundingClientRect().bottom > mid) found = a; });
       if (found !== cur) { cur = found; if (!nav.matches(':hover')) to(cur); }
     }
     addEventListener('scroll', function () { if (!tk) tk = requestAnimationFrame(track); }, { passive: true });
@@ -894,5 +894,21 @@
     if (navigator.share) { navigator.share(data).catch(function () {}); return; }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(data.url).then(function () { say('Link copied'); }, function () { say(data.url); });
     else say(data.url);
+  });
+})();
+
+(function () {
+  var q = document.querySelector('[data-faq-s]'); if (!q) return;
+  var items = [].slice.call(document.querySelectorAll('.faq details')), none = document.querySelector('.faq__none'), n = document.querySelector('.faq__n');
+  items.forEach(function (d) { d._t = d.textContent.toLowerCase(); });
+  q.addEventListener('input', function () {
+    var v = q.value.trim().toLowerCase(), shown = 0;
+    items.forEach(function (d) {
+      var ok = !v || v.split(/\s+/).every(function (w) { return d._t.indexOf(w) > -1; });
+      d.hidden = !ok; if (ok) shown++;
+      if (v && ok) d.open = true; else if (!v) d.open = false;
+    });
+    none.hidden = shown > 0 || !v;
+    n.textContent = v ? shown + ' of ' + items.length : '';
   });
 })();

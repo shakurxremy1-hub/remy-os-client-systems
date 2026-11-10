@@ -712,11 +712,40 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 .term:hover,.term:focus-visible{color:#f0d68a;outline:none;border-bottom-style:solid}
 .tip{position:fixed;z-index:9998;max-width:min(280px,calc(100vw - 24px));padding:14px 16px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(24,24,24,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#eee;font:400 14px/1.45 var(--body,Inter,system-ui,sans-serif);text-transform:none;letter-spacing:0;box-shadow:0 18px 50px rgba(0,0,0,.5);pointer-events:none;opacity:0;transform:translateY(6px) scale(.97);transition:opacity .2s,transform .3s cubic-bezier(.2,1.2,.4,1)}
 .tip.on{opacity:1;transform:none}
+.faq__right{min-width:0}
+.faq__s{display:flex;align-items:center;gap:12px;padding:0 18px;margin-bottom:22px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);color:#888;transition:border-color .25s,background .25s}
+.faq__s:focus-within{border-color:#f0d68a;background:rgba(240,214,138,.05);color:#f0d68a}
+.faq__s input{flex:1;min-width:0;padding:15px 0;border:0;background:none;color:#fff;font:inherit;font-size:16px;outline:none}
+.faq__s input::placeholder{color:#777}
+.faq__s input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;width:16px;height:16px;cursor:pointer;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 3l10 10M13 3L3 13' stroke='%23aaa' stroke-width='1.6' stroke-linecap='round'/></svg>") center/contain no-repeat}
+.faq__n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#777;white-space:nowrap}
+.faq__none{margin:18px 0;color:#aaa}
+.faq__none a{color:#f0d68a}
+.faq details[hidden]{display:none}
+.faq mark{background:rgba(240,214,138,.25);color:#fff;border-radius:3px;padding:0 2px}
+@media (max-width:860px){.faq__right{width:100%}}
+.intro__bar{position:absolute;left:50%;bottom:calc(50% - 56px);width:min(220px,50vw);height:2px;margin-left:calc(min(220px,50vw)/-2);background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;opacity:0;animation:introIn .4s .35s ease-out forwards}
+.intro__bar::after{content:"";position:absolute;inset:0;background:#f0d68a;transform-origin:left;transform:scaleX(0);animation:introBar 1s .4s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes introBar{to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){html:not(.fxon) .intro__bar{display:none}}
+.nfoot{display:none}
+@media (max-width:860px){
+.nav{counter-reset:n;align-items:flex-start!important;justify-content:center!important;gap:0!important;padding:96px 28px 40px;background:radial-gradient(90% 60% at 100% 0,rgba(240,214,138,.14),transparent 60%) #0c0c0c!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;font-size:clamp(34px,10vw,48px)!important;letter-spacing:-.01em!important;text-transform:none!important;font-family:var(--display)!important;font-weight:800;font-stretch:75%}
+.nav>a{counter-increment:n;display:flex;align-items:baseline;gap:14px;width:100%;padding:8px 0;opacity:0;transform:translateY(22px);transition:opacity .5s,transform .6s cubic-bezier(.2,1,.3,1),color .2s}
+.nav>a::before{content:"0" counter(n);font-family:var(--mono);font-weight:400;font-stretch:100%;font-size:11px;letter-spacing:.14em;color:#f0d68a}
+.menu-open .nav>a{opacity:.92;transform:none}
+.menu-open .nav>a:nth-child(1){transition-delay:.08s}.menu-open .nav>a:nth-child(2){transition-delay:.13s}.menu-open .nav>a:nth-child(3){transition-delay:.18s}.menu-open .nav>a:nth-child(4){transition-delay:.23s}.menu-open .nav>a:nth-child(5){transition-delay:.28s}.menu-open .nav>a:nth-child(6){transition-delay:.33s}
+.nav>a:active{color:#f0d68a}
+.nav .nfoot{display:flex;flex-direction:column;gap:14px;align-items:flex-start;margin-top:34px;padding-top:24px;border-top:1px solid var(--line);width:100%;opacity:0;transition:opacity .5s .4s}
+.menu-open .nav .nfoot{opacity:1}
+.nfoot a{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-decoration:none}
+.nfoot .nbook{padding:14px 24px;border-radius:999px;background:#f0d68a;color:#111;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
+}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
 <body>
-<div class="intro" aria-hidden="true"><img src="assets/img/logo.png" alt=""><span>OPM Ventures LLC</span></div>
+<div class="intro" aria-hidden="true"><img src="assets/img/logo.png" alt=""><span>OPM Ventures LLC</span><i class="intro__bar"></i></div>
 <div class="prog" id="prog" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -729,6 +758,7 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
     <a href="#operator">Operator</a>
     <a href="#tiers">Tiers</a>
     <a href="#contact">Contact</a>
+    <div class="nfoot"><a class="nbook" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a><a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a></div>
   </nav>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span></button>
 </header>
@@ -1044,13 +1074,17 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 <section class="faq" id="faq" aria-label="Questions">
   <div class="faq__in">
     <div class="reveal"><span class="tag">Questions</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Straight <em>answers.</em></h2></div>
-    <div class="faq__list reveal">
+    <div class="faq__right reveal">
+    <div class="faq__s"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input type="search" placeholder="Search the questions" aria-label="Search the questions" data-faq-s><span class="faq__n" aria-live="polite"></span></div>
+    <p class="faq__none" hidden>No match. <a href="#contact">Ask me directly</a>.</p>
+    <div class="faq__list">
       <details><summary><span>What do I get with Foundation?</span><i aria-hidden="true"></i></summary><div class="ans"><p>A 5-page conversion website with copywriting and a mobile build, on-page SEO basics, a lead form that goes to your inbox or CRM, and a Google Business Profile tune-up. It includes one revision round and is delivered in 14 days. One payment, no retainer.</p></div></details>
       <details><summary><span>What happens after I book a call?</span><i aria-hidden="true"></i></summary><div class="ans"><p>On the call we lock the offer, the customer and the scope. Then you get a blueprint covering the offer, the customer, the tier and the dates. Then I build.</p></div></details>
       <details><summary><span>Do the monthly plans have a minimum?</span><i aria-hidden="true"></i></summary><div class="ans"><p>Growth has a 3-month minimum and Scale &amp; Fund has a 6-month minimum. On Growth, the monthly retainer begins after onboarding.</p></div></details>
       <details><summary><span>What is the difference between OPM Ventures and Remy OS?</span><i aria-hidden="true"></i></summary><div class="ans"><p>OPM Ventures LLC is the company: practical technology, business systems, automation and consulting. Remy OS is the product: a technology and business automation platform.</p></div></details>
       <details><summary><span>Who will I be working with?</span><i aria-hidden="true"></i></summary><div class="ans"><p>One person, accountable for the entire chain. I build the website, run the paid traffic and get your business lender-ready. That is Shakur, founder of OPM Ventures LLC.</p></div></details>
       
+    </div>
     </div>
   </div>
 </section>
