@@ -855,6 +855,16 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
 .cost__det{margin:8px 0 0;font-size:clamp(15px,1.8vw,18px);color:#cfcfcf;min-height:3em}
 .cost__fine{margin:18px 0 0;font:12px var(--mono);letter-spacing:.04em;color:var(--mute)}
 @media (max-width:640px){.cost__row{flex-wrap:wrap}.cost__row label{max-width:none;width:100%}}
+.trust{list-style:none;margin:clamp(36px,5vw,60px) auto 0;padding:0;width:min(1100px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--line)}
+.trust li{text-align:left;background:#121212;padding:22px 20px;display:grid;gap:6px;align-content:start;color:#9a9a9a;font-size:14px;line-height:1.45}
+.trust li b{color:#fff;font:600 15px/1.2 Inter,sans-serif}
+.trust svg{color:#f0d68a;margin-bottom:4px}
+.trust svg path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s .3s cubic-bezier(.3,.7,.2,1)}
+.trust li.in svg path,html:not(.fx) .trust svg path{stroke-dashoffset:0}
+.trust__more{grid-column:1/-1;padding:14px 20px!important;text-align:center}
+.trust__more a{color:#f0d68a;font:12px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:860px){.trust{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.trust{grid-template-columns:1fr}}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 </head>
@@ -1280,6 +1290,13 @@ kbd{display:inline-block;min-width:26px;padding:3px 8px;margin:0 2px;border:1px 
       <div class="mb__row"><input type="text" name="n" placeholder="Your name" autocomplete="name" aria-label="Your name"><button class="btn btn--light" type="submit">Write the email</button></div>
       <p class="mb__f">This opens your email app with the message filled in. Nothing is sent until you press send.</p>
     </form>
+    <ul class="trust" aria-label="How this site treats your data">
+      <li class="reveal"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><b>No cookies</b><span>Nothing is stored in your browser to follow you.</span></li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><b>No trackers</b><span>No analytics, no ad pixels, no session recording.</span></li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><b>Nothing sent to Google</b><span>Fonts and images load from this site.</span></li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><b>Prices up front</b><span>Every plan and its minimum is listed on this page.</span></li>
+      <li class="trust__more"><a href="privacy.html">Read the privacy page</a></li>
+    </ul>
     <p class="fine">OPM&nbsp;Ventures&nbsp;LLC &nbsp;·&nbsp; opmventuresllc.com &nbsp;·&nbsp; <a href="mailto:shakur@opmventuresllc.com">shakur@opmventuresllc.com</a><button class="copy" id="copy" type="button">Copy</button></p>
   </div>
 </section>
