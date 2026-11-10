@@ -1104,7 +1104,7 @@ if (!window.ResizeObserver) {
 (function () {
   var root = document.querySelector('[data-cost]'); if (!root) return;
   var P = {
-    foundation: { setup: 2000, mo: 0, min: 0, label: 'Foundation' },
+    foundation: { setup: 2500, mo: 0, min: 0, label: 'Foundation' },
     growth: { setup: 2500, mo: 1500, min: 3, label: 'Growth' },
     scale: { setup: 4000, mo: 3000, min: 6, label: 'Scale & Fund' },
     partner: { setup: 0, mo: 6000, min: 1, label: 'Partner', from: true }
