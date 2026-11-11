@@ -488,10 +488,17 @@ html{scrollbar-width:thin;scrollbar-color:#555 #0b0b0b}
 .lc__b::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;border:solid #111;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .2s}
 .lc__i input:checked+.lc__b{background:#f0d68a;border-color:#f0d68a}
 .lc__i input:checked+.lc__b::after{transform:rotate(45deg) scale(1)}
-.lc__i input:checked~span:last-child{color:var(--mute);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.lc__t b{display:block;font-weight:600;color:#fff;font-size:15.5px}.lc__t small{display:block;margin-top:3px;color:var(--mute);font-size:13.5px;line-height:1.5}
+.lc__i input:checked~.lc__t b{color:var(--mute);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
 .lc__i input:focus-visible+.lc__b{outline:2px solid #f0d68a;outline-offset:3px}
 @media (max-width:860px){.launch__in{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.lc__meter i,.lc__b,.lc__b::after{transition:none}}
+.lc__steps{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:12px;max-width:440px}
+.lc__steps li{display:flex;gap:14px;align-items:flex-start;color:#d8d8d8;font-size:15px;line-height:1.45}
+.lc__steps b{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid #f0d68a;color:#f0d68a;font:600 13px/24px var(--mono);text-align:center}
+.lc__card{max-width:440px;padding:22px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03)}
+.lc__card .lc__score{margin:0 0 12px}.lc__card .lc__meter{max-width:none}.lc__card .lc__msg{max-width:none;margin:14px 0 18px}
+.lc__fine{margin:14px 0 0;font-size:12px;color:var(--mute)}
 /* round 20: FAQ accordion */
 .faq{background:#0b0b0b;border-top:1px solid var(--line);padding:clamp(70px,9vw,130px) var(--pad)}
 .faq__in{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(30px,6vw,100px);align-items:start}
@@ -1391,15 +1398,23 @@ main>*:not(#tiers){display:none!important}
 <section class="launch" id="launch" aria-label="Website launch checklist">
   <div class="launch__in">
     <div class="reveal">
-      <span class="tag">Launch checklist</span>
-      <h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Is your site ready to <em>launch?</em></h2>
-      <p class="launch__lead">Tick what&rsquo;s done. I&rsquo;ll tell you what to fix first. Your answers stay in your browser.</p>
-      <div class="lc__meter" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="lcMeter"><i id="lcFill"></i></div>
-      <p class="lc__score"><b id="lcCount">0</b> of 16 done</p>
-      <p class="lc__msg" id="lcMsg" aria-live="polite"></p>
-      <div class="lc__cta"><a class="btn btn--light" href="https://calendly.com/shakur-opmventuresllc/30min">Book a call</a><button type="button" class="lc__reset" id="lcReset">Reset</button></div>
+      <span class="tag">Free 2-minute self-check</span>
+      <h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Does your website pass the <em>launch test?</em></h2>
+      <p class="launch__lead">These are the 16 things that decide whether a business website actually brings in customers. Tick each one your site already has. Whatever is left unticked is a gap that could be costing you leads.</p>
+      <ol class="lc__steps">
+        <li><b>1</b><span>Tick what your site already has. Not sure? Leave it unticked.</span></li>
+        <li><b>2</b><span>Watch your score and read what to do next.</span></li>
+        <li><b>3</b><span>Want help closing the gaps? Book a free call.</span></li>
+      </ol>
+      <div class="lc__card">
+        <p class="lc__score"><b id="lcCount">0</b> of 16 ticked</p>
+        <div class="lc__meter" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="lcMeter"><i id="lcFill"></i></div>
+        <p class="lc__msg" id="lcMsg" aria-live="polite"></p>
+        <div class="lc__cta"><a class="btn btn--light" href="https://calendly.com/shakur-opmventuresllc/30min">Book a free call</a><button type="button" class="lc__reset" id="lcReset">Start over</button></div>
+        <p class="lc__fine">Private. Your ticks stay in your browser and are never sent anywhere.</p>
+      </div>
     </div>
-    <div class="reveal" id="lcList"><fieldset class="lc__g"><legend>The basics</legend><label class="lc__i"><input type="checkbox" data-lc="1"><span class="lc__b" aria-hidden="true"></span><span>Your own domain, served over HTTPS</span></label><label class="lc__i"><input type="checkbox" data-lc="2"><span class="lc__b" aria-hidden="true"></span><span>Looks and works right on a phone</span></label><label class="lc__i"><input type="checkbox" data-lc="3"><span class="lc__b" aria-hidden="true"></span><span>Loads fast (about 3 seconds or less)</span></label><label class="lc__i"><input type="checkbox" data-lc="4"><span class="lc__b" aria-hidden="true"></span><span>A friendly 404 page for broken links</span></label></fieldset><fieldset class="lc__g"><legend>Get found</legend><label class="lc__i"><input type="checkbox" data-lc="5"><span class="lc__b" aria-hidden="true"></span><span>A unique title and description on every page</span></label><label class="lc__i"><input type="checkbox" data-lc="6"><span class="lc__b" aria-hidden="true"></span><span>sitemap.xml and robots.txt in place</span></label><label class="lc__i"><input type="checkbox" data-lc="7"><span class="lc__b" aria-hidden="true"></span><span>Google Business Profile claimed and matching</span></label><label class="lc__i"><input type="checkbox" data-lc="8"><span class="lc__b" aria-hidden="true"></span><span>A social share image (Open Graph) set</span></label></fieldset><fieldset class="lc__g"><legend>Turn visitors into leads</legend><label class="lc__i"><input type="checkbox" data-lc="9"><span class="lc__b" aria-hidden="true"></span><span>One clear call to action above the fold</span></label><label class="lc__i"><input type="checkbox" data-lc="10"><span class="lc__b" aria-hidden="true"></span><span>Contact form or booking link tested end to end</span></label><label class="lc__i"><input type="checkbox" data-lc="11"><span class="lc__b" aria-hidden="true"></span><span>Phone and email are tap-to-call and tap-to-email</span></label></fieldset><fieldset class="lc__g"><legend>Trust and legal</legend><label class="lc__i"><input type="checkbox" data-lc="12"><span class="lc__b" aria-hidden="true"></span><span>Privacy policy and terms published</span></label><label class="lc__i"><input type="checkbox" data-lc="13"><span class="lc__b" aria-hidden="true"></span><span>Cookie notice if you use trackers or ads</span></label></fieldset><fieldset class="lc__g"><legend>Protect and track</legend><label class="lc__i"><input type="checkbox" data-lc="14"><span class="lc__b" aria-hidden="true"></span><span>Uptime alerts so you hear about outages first</span></label><label class="lc__i"><input type="checkbox" data-lc="15"><span class="lc__b" aria-hidden="true"></span><span>Analytics set up (privacy-friendly is fine)</span></label><label class="lc__i"><input type="checkbox" data-lc="16"><span class="lc__b" aria-hidden="true"></span><span>Backups, plus two-factor on host, domain and email</span></label></fieldset></div>
+    <div class="reveal" id="lcList"><fieldset class="lc__g"><legend>The basics</legend><label class="lc__i"><input type="checkbox" data-lc="1"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Your own web address</b><small>Like yourbusiness.com, with the padlock (HTTPS) so visitors know it's secure.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="2"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Works well on a phone</b><small>Most people visit on mobile. Text is easy to read and buttons are easy to tap.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="3"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Loads fast</b><small>Pages appear in about 3 seconds. Slow sites lose visitors before they see anything.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="4"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>A friendly &ldquo;page not found&rdquo; page</b><small>If someone mistypes a link, they land on a helpful page instead of an ugly error.</small></span></label></fieldset><fieldset class="lc__g"><legend>Getting found on Google</legend><label class="lc__i"><input type="checkbox" data-lc="5"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Every page has its own title and description</b><small>That's the text people read in Google results before they click.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="6"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Google can find all your pages</b><small>A sitemap file lists your pages so search engines don't miss any.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="7"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Google Business Profile set up</b><small>Your free listing on Google Maps and local search, with the same details as your site.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="8"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Looks good when shared</b><small>A preview image and title show up when your link is posted on Facebook, LinkedIn or in a text.</small></span></label></fieldset><fieldset class="lc__g"><legend>Turning visitors into customers</legend><label class="lc__i"><input type="checkbox" data-lc="9"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>One clear next step</b><small>A big button like &ldquo;Book a call&rdquo; you can see without scrolling.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="10"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Your contact form or booking link works</b><small>Try it yourself and confirm the message really reaches you.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="11"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Tap to call and tap to email</b><small>On a phone, your number and email open the dialer and mail app with one tap.</small></span></label></fieldset><fieldset class="lc__g"><legend>Trust and legal</legend><label class="lc__i"><input type="checkbox" data-lc="12"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Privacy policy and terms pages</b><small>They build trust, and you need them if you collect names or emails.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="13"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>A cookie notice, if you use ads or tracking</b><small>Only needed if your site tracks visitors. If it doesn't, leave this unticked.</small></span></label></fieldset><fieldset class="lc__g"><legend>Staying safe and informed</legend><label class="lc__i"><input type="checkbox" data-lc="14"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Alerts if your site goes down</b><small>You hear about an outage before your customers do.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="15"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Visitor stats</b><small>You can see how many people visit and which buttons they click.</small></span></label><label class="lc__i"><input type="checkbox" data-lc="16"><span class="lc__b" aria-hidden="true"></span><span class="lc__t"><b>Backups and two-step login</b><small>Protects your site, domain and email from being lost or hacked.</small></span></label></fieldset></div>
   </div>
 </section>
 
@@ -1562,11 +1577,11 @@ main>*:not(#tiers){display:none!important}
   function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
   var done=load(); boxes.forEach(function(b){b.checked=done.indexOf(b.dataset.lc)>-1});
   function msg(n){
-    if(n===0)return 'Start ticking. Be honest, it helps.';
-    if(n<TOTAL*.5)return 'Early days. The basics come first, and I can handle the heavy lifting.';
-    if(n<TOTAL*.85)return 'Getting there. A few gaps could be costing you leads.';
-    if(n<TOTAL)return 'Almost launch-ready. Close the last gaps and go.';
-    return 'Launch-ready. Nice work. A quick review call can still catch the small stuff.';
+    if(n===0)return 'Start ticking whatever your site already has. Be honest, it only helps you.';
+    if(n<TOTAL*.5)return 'Your site is missing some key basics, so it is likely losing visitors and leads. These are usually quick wins. Book a call and we will go through them.';
+    if(n<TOTAL*.85)return 'Solid start. A few gaps are still holding your site back. Fixing them is usually quick.';
+    if(n<TOTAL)return 'Nearly there. Close the last few gaps and your site is ready to launch.';
+    return 'Your site passes. Nice work. A quick review call can still catch small things.';
   }
   function paint(){
     var n=boxes.filter(function(b){return b.checked}).length;
