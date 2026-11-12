@@ -200,3 +200,54 @@
   window.addEventListener('resize', update);
   update();
 })();
+
+// Typing placeholder in the Ask OPM input (cycles real FAQ questions while the box is empty; stops once you type).
+(function () {
+  var cb = document.getElementById('cb');
+  var input = cb && cb.querySelector('.cb__form input');
+  if (!input) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search);
+  if (reduce) return;
+  var base = input.getAttribute('placeholder') || '';
+  var qs = ['What do I get with Foundation?', 'What happens after I book a call?', 'Do the monthly plans have a minimum?'];
+  var qi = 0, ci = 0, dir = 1, hold = 0, timer = 0;
+  function tick() {
+    if (cb.hidden || input.value) return;
+    var q = qs[qi];
+    if (hold > 0) { hold--; return; }
+    ci += dir;
+    input.setAttribute('placeholder', q.slice(0, ci) || ' ');
+    if (dir === 1 && ci >= q.length) { dir = -1; hold = 28; }
+    else if (dir === -1 && ci <= 0) { dir = 1; qi = (qi + 1) % qs.length; hold = 6; }
+  }
+  function start() { if (!timer) timer = setInterval(tick, 55); }
+  function stop() { clearInterval(timer); timer = 0; input.setAttribute('placeholder', base); ci = 0; dir = 1; hold = 0; }
+  input.addEventListener('blur', function () { if (!input.value) { ci = 0; dir = 1; hold = 0; } });
+  new MutationObserver(function () { if (cb.hidden) stop(); else start(); }).observe(cb, { attributes: true, attributeFilter: ['hidden'] });
+  if (!cb.hidden) start();
+})();
+
+// Scroll-velocity skew on the facts numerals: they lean into the scroll, then settle.
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search);
+  var els = Array.prototype.slice.call(document.querySelectorAll('.facts b'));
+  var band = document.querySelector('.facts');
+  if (reduce || !els.length || !band) return;
+  var lastY = window.scrollY, skew = 0, running = false;
+  function frame() {
+    var y = window.scrollY, v = y - lastY; lastY = y;
+    var target = Math.max(-7, Math.min(7, v * -0.22));
+    skew += (target - skew) * 0.14;
+    if (Math.abs(skew) < 0.02 && Math.abs(v) < 0.5) {
+      skew = 0; els.forEach(function (e) { e.style.transform = ''; }); running = false; return;
+    }
+    els.forEach(function (e) { e.style.transform = 'skewY(' + skew.toFixed(2) + 'deg)'; });
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('scroll', function () {
+    if (running) return;
+    var r = band.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) { lastY = window.scrollY; return; }
+    running = true; requestAnimationFrame(frame);
+  }, { passive: true });
+})();

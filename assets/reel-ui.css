@@ -85,3 +85,19 @@ footer a:hover,.fine a:hover,.faq .ans a:hover,footer a:focus-visible,.fine a:fo
   html:not(.fxon) footer a,html:not(.fxon) .fine a,html:not(.fxon) .faq .ans a{transition:none}
   html:not(.fxon) .rv-w{opacity:1;transition:none}
 }
+
+/* ---------- 9. border beam on the Ask OPM panel (Magic UI Border Beam) ----------
+   Reuses the site's own @property --beam and @keyframes beam. */
+.cb::before{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--beam),transparent 0 72%,#f0d68a 88%,#fff 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:beam 6s linear infinite}
+
+/* ---------- 10. scroll-velocity skew (Skiper UI) on the big numerals ---------- */
+.facts b{will-change:transform;transform-origin:left bottom}
+
+@media (prefers-reduced-motion:reduce){
+  html:not(.fxon) .cb::before{animation:none;opacity:.5}
+  html:not(.fxon) .facts b{transform:none!important}
+}
