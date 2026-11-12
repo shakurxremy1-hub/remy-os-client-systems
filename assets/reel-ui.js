@@ -251,3 +251,18 @@
     running = true; requestAnimationFrame(frame);
   }, { passive: true });
 })();
+
+// Copy button morph: "Copy" turns into "Copied" for a moment, and the toast gets a check badge.
+(function () {
+  var btn = document.getElementById('copy'), toast = document.getElementById('toast');
+  if (!btn) return;
+  var t1 = 0, t2 = 0, label = btn.textContent;
+  btn.addEventListener('click', function () {
+    clearTimeout(t1); clearTimeout(t2);
+    btn.textContent = 'Copied';
+    btn.classList.add('is-done');
+    if (toast) toast.classList.add('ok');
+    t1 = setTimeout(function () { btn.textContent = label; btn.classList.remove('is-done'); }, 1800);
+    t2 = setTimeout(function () { if (toast) toast.classList.remove('ok'); }, 2200);
+  });
+})();
