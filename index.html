@@ -4,10 +4,11 @@
 <script>/*frame-guard*/if(window.top!==window.self){try{window.top.location=window.self.location}catch(e){document.documentElement.style.display="none"}}</script>
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OPM Ventures: Remy OS, Websites, Paid Ads &amp; Fundability</title>
 <meta name="description" content="Be found. Be chosen. Be ready. One operator, one system: a website that converts, ads that bring buyers, and a business ready for lenders. Remy OS is the business automation platform from OPM Ventures LLC.">
 <meta name="theme-color" content="#111111">
+<meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://opmventuresllc.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="OPM Ventures: Remy OS, Websites, Paid Ads & Fundability">
@@ -1009,6 +1010,56 @@ main>*:not(#tiers){display:none!important}
 .pl__r small{font:.8em 'JetBrains Mono',monospace;color:#f0d68a;letter-spacing:.06em}
 .pl__r:nth-child(1){width:58%}.pl__r:nth-child(2){width:72%}.pl__r:nth-child(3){width:86%}.pl__r:nth-child(4){width:100%;background:rgba(240,214,138,.14);border-color:#f0d68a}
 .cv__c .il{pointer-events:none}
+
+/* ---------- Apple HIG polish layer (apple-design skill) ---------- */
+:root{color-scheme:dark;--spring:cubic-bezier(.32,.72,0,1)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-weight:400;-webkit-tap-highlight-color:transparent}
+a,button,summary,label,input{touch-action:manipulation}
+h1,h2,h3{text-wrap:balance}
+p,li,blockquote{text-wrap:pretty}
+/* accessibility.md > Vision: 11pt minimum text */
+.badge,.dots a span,.cmd li small,.bp__tag{font-size:11px}
+/* layout/buttons: 44pt minimum hit region without changing the visual size */
+.dots a::before{content:"";position:absolute;inset:-17px}
+.burger{width:44px;height:44px}
+.burger::before,.burger::after,.burger span{left:10px;right:10px}
+.burger::before{top:12px}.burger span{top:20px}.burger::after{top:28px}
+.menu-open .burger::before{top:20px}.menu-open .burger::after{top:20px}
+.copy{min-height:32px}
+.hero__foot a,.nav a{min-height:44px;display:inline-flex;align-items:center}
+.nav a{min-height:0}
+@media (max-width:860px){.nav a{min-height:44px}}
+/* layout.md: respect safe areas (notch, home indicator, landscape insets) */
+.hdr{padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right));padding-top:max(14px,env(safe-area-inset-top))}
+.fab{right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom))}
+footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
+/* motion.md/feedback: brief, physical press response */
+.btn,.fab,.nbook{transition-timing-function:var(--spring)}
+.btn:active{transform:translate(var(--mx,0px),calc(var(--my,0px) + 6px)) scale(.985);box-shadow:0 1px 0 #000,0 3px 6px rgba(0,0,0,.3);transition-duration:.08s}
+.fab:active,.nbook:active{transform:scale(.96);transition-duration:.08s}
+/* accessibility.md: 4.5:1 text contrast on the glass header, even over the pale hero */
+@media (min-width:861px){.hdr,.hdr.glass-on{background:linear-gradient(135deg,rgba(26,26,26,.84),rgba(12,12,12,.8))}}
+.hdr .nav a{opacity:1}
+/* layout.md: keep the headline in the first screenful on phones */
+@media (max-width:860px){
+  .hero{min-height:calc(100svh - 150px)}
+  .hero__in{padding-top:84px}
+}
+/* motion.md: let people cancel/skip motion */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* color.md/accessibility.md: Increase Contrast */
+@media (prefers-contrast:more){
+  :root{--mute:rgba(255,255,255,.82);--line:rgba(255,255,255,.4);--mute-d:rgba(0,0,0,.85)}
+  :focus-visible{outline-width:3px}
+  .tag,.chips span,.pillars span{border-color:rgba(255,255,255,.6)}
+}
+/* materials.md: Reduce Transparency */
+@media (prefers-reduced-transparency:reduce){
+  .hdr.glass-on{background:#1b1b1b;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+/* Forced colors: keep focus and controls visible */
+@media (forced-colors:active){.btn,.fab,.nbook{border:1px solid ButtonText}}
 </style>
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.filmband,.filmd,.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
