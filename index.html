@@ -83,6 +83,7 @@ h2.big{font-family:var(--display);font-weight:400;text-transform:uppercase;font-
 .hero{min-height:100svh;background:var(--paper);color:var(--ink);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 0}
 .hero__bg{position:absolute;inset:0;background:url(assets/daemon/mountain.png) center bottom/cover no-repeat;opacity:.95;-webkit-mask-image:linear-gradient(transparent 18%,#000 62%);mask-image:linear-gradient(transparent 18%,#000 62%)}
 .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line-d) 1px,transparent 1px),linear-gradient(90deg,var(--line-d) 1px,transparent 1px);background-size:25% 33.33%;pointer-events:none;opacity:.7;z-index:1}
+.hero__fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .hero__in{position:relative;z-index:2;padding-top:110px;padding-bottom:clamp(30px,5vw,60px)}
 .hero h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(54px,11.4vw,210px);line-height:.9;letter-spacing:-.005em;color:#121212}
 .hero h1>span{display:block}
@@ -1089,6 +1090,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <!-- HERO -->
 <section class="hero" aria-label="OPM Ventures">
   <div class="hero__bg" aria-hidden="true"></div>
+  <canvas class="hero__fx" data-hero-fx data-rgb="17,17,17" data-alpha=".45" data-haze="255,255,255" aria-hidden="true"></canvas>
   <div class="hero__in">
     <h1><span>Be found.</span><span>Be chosen.</span><span>Be <em>ready.</em></span></h1>
     <p class="hero__sub glass">One operator. One system. A website that converts, ads that bring buyers, and a business ready for lenders. With Remy OS underneath.</p>
@@ -1589,6 +1591,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <script src="assets/kinetic-grid-warp.js?v=20261110a" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/fx.js?v=20261116a" defer></script>
+<script src="assets/hero-fx.js?v=20261116a" defer></script>
 <link rel="stylesheet" href="assets/reel-ui.css?v=20261112e">
 <script src="assets/reel-ui.js?v=20261112e" defer></script>
 <script>
