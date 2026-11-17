@@ -16,7 +16,7 @@
     var ctx = cv.getContext('2d');
     if (!ctx) return;
     var c = rgbOf(cv.dataset.rgb, '201,169,110');
-    var A = parseFloat(cv.dataset.alpha || '.4');
+    var A = parseFloat(cv.dataset.alpha || '.4'), AA = A;
     var hor = cv.dataset.horizon ? rgbOf(cv.dataset.horizon) : null;
     var haze = cv.dataset.haze ? rgbOf(cv.dataset.haze) : null;
     var fade = cv.hasAttribute('data-fade');
@@ -24,14 +24,16 @@
     var onScreen = true, running = false, last = 0, t = 0;
 
     function seed() {
-      var n = clamp(Math.round(w * h / 15000), 16, 64);
-      if (w < 600) n = Math.round(n * 0.7);
+      /* phones: one dense, bolder network (more nodes, longer links, stronger alpha) so it reads at small sizes */
+      var small = w < 600;
+      var n = clamp(Math.round(w * h / (small ? 8500 : 15000)), 16, small ? 42 : 64);
+      AA = Math.min(1, A * (small ? 1.4 : 1));
       nodes = [];
       for (var i = 0; i < n; i++) {
         nodes.push({
           x: Math.random() * w, y: Math.random() * h,
           vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
-          r: Math.random() < .15 ? 2.2 : 1.1 + Math.random() * .8,
+          r: (Math.random() < .15 ? 2.2 : 1.1 + Math.random() * .8) * (small ? 1.25 : 1),
           p: Math.random() * 6.28
         });
       }
@@ -40,7 +42,7 @@
         blobs.push({ x: Math.random() * w, y: h * (.55 + Math.random() * .4),
           r: w * (.18 + Math.random() * .22), v: (.05 + Math.random() * .08) * (Math.random() < .5 ? -1 : 1) });
       }
-      link = clamp(Math.min(w, h) * .24, 90, 170);
+      link = clamp(Math.min(w, h) * (small ? .36 : .24), 90, 170);
     }
 
     function resize() {
@@ -92,7 +94,7 @@
           if (dx > link || dx < -link || dy > link || dy < -link) continue;
           d = Math.sqrt(dx * dx + dy * dy);
           if (d < link) {
-            al = (1 - d / link) * .55 * A;
+            al = (1 - d / link) * .55 * AA;
             ctx.strokeStyle = 'rgba(' + c + ',' + al + ')';
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
@@ -102,10 +104,10 @@
         a = nodes[i];
         var tw = .7 + .3 * Math.sin(t * .0016 + a.p);
         if (a.r > 2) {
-          ctx.fillStyle = 'rgba(' + c + ',' + (.14 * A) + ')';
+          ctx.fillStyle = 'rgba(' + c + ',' + (.14 * AA) + ')';
           ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 4, 0, 6.28); ctx.fill();
         }
-        ctx.fillStyle = 'rgba(' + c + ',' + (A * tw) + ')';
+        ctx.fillStyle = 'rgba(' + c + ',' + (AA * tw) + ')';
         ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.28); ctx.fill();
       }
     }
