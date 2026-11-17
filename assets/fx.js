@@ -458,42 +458,29 @@ if (!window.ResizeObserver) {
   });
 })();
 
-/* ---- round 9: inertial smooth scrolling (own implementation) ---- */
+/* ---- round 9: smooth scrolling (Lenis, self-hosted in assets/vendor) ---- */
 (function () {
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search);
   var fine = window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches;
-  if (reduce || !fine) return;
-  var root = document.documentElement, cur = scrollY, tgt = scrollY, run = false, last = 0, vel = 0;
-  function max() { return Math.max(0, root.scrollHeight - innerHeight); }
-  function clamp(v) { return Math.min(max(), Math.max(0, v)); }
-  function loop(now) {
-    var dt = Math.min(48, now - last || 16); last = now;
-    var k = 1 - Math.pow(1 - 0.12, dt / 16.67), d = tgt - cur;
-    if (Math.abs(d) < .3) { cur = tgt; run = false; } else cur += d * k;
-    window.scrollTo({ top: cur, behavior: 'instant' });
-    vel += (Math.max(-2, Math.min(2, d / 90)) - vel) * .2; root.style.setProperty('--vel', vel.toFixed(3));
-    if (run) requestAnimationFrame(loop); else { root.style.setProperty('--vel', '0'); }
-  }
-  function go() { if (!run) { run = true; last = 0; requestAnimationFrame(loop); } }
+  if (reduce || !fine || typeof Lenis === 'undefined') return;
+  var root = document.documentElement;
+  var lenis = new Lenis({
+    lerp: 0.12,
+    prevent: function (node) { return !!(node.closest && node.closest('.cmd, textarea, input, select')); }
+  });
+  window.lenis = lenis;
   root.classList.add('smooth');
-  addEventListener('wheel', function (e) {
-    if (e.ctrlKey || e.defaultPrevented) return;
-    if (e.target.closest && e.target.closest('.cmd, textarea, input, select')) return;
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-    e.preventDefault();
-    var dy = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
-    if (!run) cur = scrollY;
-    tgt = clamp(tgt + dy); go();
-  }, { passive: false });
-  // keep in sync when something else moves the page (scrollbar, keys, anchors, palette)
-  addEventListener('scroll', function () { if (!run) { cur = tgt = scrollY; } }, { passive: true });
+  // feed the skew-on-velocity effect (html.smooth .big { skewY(var(--vel)) })
+  var vel = 0;
+  lenis.on('scroll', function (e) { vel += (Math.max(-2, Math.min(2, e.velocity / 6)) - vel) * .2; root.style.setProperty('--vel', vel.toFixed(3)); });
+  (function raf(t) { lenis.raf(t); if (!lenis.isScrolling && Math.abs(vel) > .001) { vel *= .8; root.style.setProperty('--vel', vel.toFixed(3)); } requestAnimationFrame(raf); })(performance.now());
   // in-page links glide with the same easing
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || e.defaultPrevented) return;
     var id = a.getAttribute('href'); if (id.length < 2) return;
     var t = document.querySelector(id); if (!t) return;
-    e.preventDefault(); cur = scrollY;
-    tgt = clamp(t.getBoundingClientRect().top + scrollY); go();
+    e.preventDefault();
+    lenis.scrollTo(t, { offset: -(parseFloat(getComputedStyle(root).scrollPaddingTop) || 0) });
     history.replaceState(null, '', id);
   });
 })();
