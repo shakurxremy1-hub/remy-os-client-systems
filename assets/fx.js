@@ -1136,7 +1136,7 @@ if (!window.ResizeObserver) {
   if (!band || !dlg || !btn || typeof dlg.showModal !== 'function') return;
   band.hidden = false;
   var fr = dlg.querySelector('iframe');
-  function open() { fr.src = 'film.html?autoplay=1&v=20261110a'; dlg.showModal(); }
+  function open() { fr.src = 'film.html?autoplay=1&v=20261116a'; dlg.showModal(); }
   function shut() { if (dlg.open) dlg.close(); }
   btn.addEventListener('click', open);
   dlg.querySelector('.filmd__x').addEventListener('click', shut);
