@@ -386,6 +386,7 @@ body.render #ui{display:none}
   function mm(s) { return Math.floor(s / 60) + ':' + ('0' + Math.floor(s % 60)).slice(-2); }
   function seek(t) { now = Math.max(0, Math.min(DUR, t)); render(now); bar.value = Math.round(now * 10); time.textContent = mm(now) + ' / ' + mm(DUR); }
   function setPP() { pp.innerHTML = playing ? '&#10074;&#10074;' : '&#9654;'; pp.setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
+  var lastFix = 0;
   var blocked = false;   /* iOS/Safari refuse audio that starts without a tap inside this frame */
   function setSnd() { snd.textContent = blocked ? 'Tap for sound' : aud.muted ? 'Sound off' : 'Sound on'; snd.setAttribute('aria-label', (blocked || aud.muted) ? 'Turn sound on' : 'Turn sound off'); }
   function unlock() {   /* runs inside a real tap, which is the only place iOS lets audio start */
@@ -403,7 +404,8 @@ body.render #ui{display:none}
   function loop(ts) {
     if (!playing) return;
     var dt = (ts - last) / 1000; last = ts;
-    if (!RENDER && !aud.paused && !aud.ended && aud.readyState >= 3) seek(aud.currentTime); else seek(now + dt);
+    seek(now + dt);   /* the timer is the master clock: a stalled or blocked audio track must never freeze the picture */
+    if (!RENDER && !aud.paused && !aud.ended && aud.readyState >= 3 && Math.abs(aud.currentTime - now) > .5 && ts - lastFix > 1500) { lastFix = ts; try { aud.currentTime = now; } catch (e) {} }
     if (now >= DUR - .02) { playing = false; setPP(); try { aud.pause(); } catch (e) {} return; }
     requestAnimationFrame(loop);
   }
@@ -420,6 +422,7 @@ body.render #ui{display:none}
   window.film = { seek: function (t) { seek(t); if (!RENDER) { try { aud.currentTime = now; } catch (e) {} } }, play: play, pause: pause, duration: DUR };
   setSnd(); fit(); seek(0);
   if (AUTO && !RENDER) play();
+  else if (!RENDER) { seek(4.5); now = 0; bar.value = 0; time.textContent = mm(0) + ' / ' + mm(DUR); }   /* idle first frame = the title card, not black */
 })();
 </script>
 </body>
