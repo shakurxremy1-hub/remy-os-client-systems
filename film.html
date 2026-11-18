@@ -386,12 +386,18 @@ body.render #ui{display:none}
   function mm(s) { return Math.floor(s / 60) + ':' + ('0' + Math.floor(s % 60)).slice(-2); }
   function seek(t) { now = Math.max(0, Math.min(DUR, t)); render(now); bar.value = Math.round(now * 10); time.textContent = mm(now) + ' / ' + mm(DUR); }
   function setPP() { pp.innerHTML = playing ? '&#10074;&#10074;' : '&#9654;'; pp.setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
-  function setSnd() { snd.textContent = aud.muted ? 'Sound off' : 'Sound on'; snd.setAttribute('aria-label', aud.muted ? 'Turn sound on' : 'Turn sound off'); }
+  var blocked = false;   /* iOS/Safari refuse audio that starts without a tap inside this frame */
+  function setSnd() { snd.textContent = blocked ? 'Tap for sound' : aud.muted ? 'Sound off' : 'Sound on'; snd.setAttribute('aria-label', (blocked || aud.muted) ? 'Turn sound on' : 'Turn sound off'); }
+  function unlock() {   /* runs inside a real tap, which is the only place iOS lets audio start */
+    blocked = false; aud.muted = false; snd.classList.remove('hint'); setSnd();
+    try { aud.currentTime = now; var pr = aud.play(); if (pr && pr.catch) pr.catch(function () { blocked = true; aud.muted = true; setSnd(); snd.classList.add('hint'); }); } catch (e) {}
+  }
+  document.addEventListener('click', function (e) { if (blocked && !RENDER) { e.stopPropagation(); e.preventDefault(); unlock(); } }, true);
   function startAudio() {
     if (RENDER) return;
     try {
       aud.currentTime = now; var pr = aud.play();
-      if (pr && pr.catch) pr.catch(function () { aud.muted = true; setSnd(); snd.classList.add('hint'); try { aud.play().catch(function () {}); } catch (e) {} });
+      if (pr && pr.catch) pr.catch(function () { blocked = true; aud.muted = true; setSnd(); snd.classList.add('hint'); try { aud.play().catch(function () {}); } catch (e) {} });
     } catch (e) {}
   }
   function loop(ts) {
