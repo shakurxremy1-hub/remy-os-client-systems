@@ -1,0 +1,65 @@
+/* hero-v2.css — "Signal" hero: a field of noise that resolves into the headline.
+   Loaded after the inline styles in index.html, so these rules win on equal specificity.
+   Everything degrades: with no JS / reduced motion the hero is a plain dark hero with white text. */
+
+.hero.hero--v2{background:#0a0a0a;color:#fff}
+.hero--v2 .hero__bg,
+.hero--v2 .hero__fx{display:none}
+
+/* ::before = faint blueprint grid (replaces the old mist) */
+.hero.hero--v2::before{
+  left:0;width:100%;top:0;bottom:auto;height:100%;filter:none;animation:none;opacity:1;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:25% 33.333%;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 70%,#000 20%,transparent 78%);
+          mask-image:radial-gradient(120% 90% at 50% 70%,#000 20%,transparent 78%);
+}
+/* ::after = soft warm light that follows the cursor */
+.hero.hero--v2::after{
+  left:0;width:100%;top:0;bottom:auto;height:100%;filter:none;animation:none;opacity:1;
+  background:radial-gradient(520px circle at var(--hx,62%) var(--hy,58%),rgba(240,214,138,.13),transparent 62%);
+  transition:background-position .2s;
+}
+
+.hero__sig{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:block}
+
+/* headline: real text stays in the DOM (SEO, screen readers, fallback). Once the canvas is live it is drawn by particles instead. */
+.hero--v2 h1{color:#fff}
+@media (min-width:861px){.hero.hero--v2 h1{font-size:clamp(64px,15.2vw,270px)}}
+@media (max-width:860px){.hero.hero--v2 h1{font-size:clamp(52px,23.5vw,170px)}}
+.hero--v2 h1 em{color:#f0d68a}
+.hero--v2.is-live h1{color:transparent;-webkit-text-stroke:0 transparent;user-select:none}
+.hero--v2.is-live h1 em{color:transparent}
+.fx .hero--v2 h1 .twi:hover{color:inherit;-webkit-text-stroke:0 transparent}
+
+.hero--v2 .hero__in{z-index:3}
+.hero--v2 .hero__side{color:rgba(255,255,255,.78);z-index:4}
+.hero--v2 .hero__side>span{opacity:0;transform:translateX(14px);animation:v2in .8s cubic-bezier(.19,1,.22,1) forwards}
+.hero--v2 .hero__side>span:nth-child(1){animation-delay:2.1s}
+.hero--v2 .hero__side>span:nth-child(2){animation-delay:2.2s}
+.hero--v2 .hero__side>span:nth-child(3){animation-delay:2.3s}
+.hero--v2 .hero__side>span:nth-child(4){animation-delay:2.4s}
+.hero--v2 .hero__side .btn{animation:v2in .8s 2.6s cubic-bezier(.19,1,.22,1) both}
+.hero--v2 .hero__sub{animation:v2up .9s 2.2s cubic-bezier(.19,1,.22,1) both}
+@keyframes v2in{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+@keyframes v2up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* sub copy: dark glass on the dark hero */
+.hero--v2 .hero__sub.glass{
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+  color:rgba(255,255,255,.88);border-color:rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 14px 40px rgba(0,0,0,.45);
+}
+
+/* small mono caption that sits under the field and tells you it reacts */
+.hero__hint{position:absolute;right:var(--pad);bottom:24px;z-index:4;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.42);display:flex;align-items:center;gap:10px;opacity:0;animation:v2in 1s 3s ease both}
+.hero__hint i{width:26px;height:1px;background:currentColor;display:block}
+@media (hover:none){.hero__hint{display:none}}
+@media (max-width:860px){.hero--v2 .hero__side>span{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html:not(.fxon) .hero--v2 .hero__side>span,
+  html:not(.fxon) .hero--v2 .hero__side .btn,
+  html:not(.fxon) .hero--v2 .hero__sub,
+  html:not(.fxon) .hero__hint{animation:none;opacity:1;transform:none}
+}

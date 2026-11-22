@@ -1064,6 +1064,8 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 /* Forced colors: keep focus and controls visible */
 @media (forced-colors:active){.btn,.fab,.nbook{border:1px solid ButtonText}}
 </style>
+<link rel="stylesheet" href="assets/hero-v2.css?v=20261122a">
+<link rel="stylesheet" href="assets/scroll-fx.css?v=20261122a">
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.filmband,.filmd,.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
 </head>
@@ -1089,17 +1091,16 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <main id="main">
 
 <!-- HERO -->
-<section class="hero" aria-label="OPM Ventures">
-  <div class="hero__bg" aria-hidden="true"></div>
-  <canvas class="hero__fx" data-hero-fx data-rgb="17,17,17" data-alpha=".45" data-haze="255,255,255" aria-hidden="true"></canvas>
+<section class="hero hero--v2" aria-label="OPM Ventures">
   <div class="hero__in">
     <h1><span>Be found.</span><span>Be chosen.</span><span>Be <em>ready.</em></span></h1>
     <p class="hero__sub glass">One operator. One system. A website that converts, ads that bring buyers, and a business ready for lenders. With Remy OS underneath.</p>
   </div>
   <div class="hero__side">
     <span>Websites</span><span>Paid ads</span><span>Fundability</span><span>Remy OS</span>
-    <a class="btn" href="#tiers">See the tiers</a>
+    <a class="btn btn--light" href="#tiers">See the tiers</a>
   </div>
+  <div class="hero__hint" aria-hidden="true"><i></i>Move through the noise</div>
 </section>
 
 <div class="ticker" aria-hidden="true"><div>
@@ -1538,6 +1539,10 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/fx.js?v=20261116c" defer></script>
 <script src="assets/hero-fx.js?v=20261116b" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/hero-v2.js?v=20261122a" defer></script>
+<script src="assets/scroll-fx.js?v=20261122a" defer></script>
 <link rel="stylesheet" href="assets/reel-ui.css?v=20261112e">
 <script src="assets/reel-ui.js?v=20261112e" defer></script>
 <script>
