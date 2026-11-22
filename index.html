@@ -1066,6 +1066,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 </style>
 <link rel="stylesheet" href="assets/hero-v2.css?v=20261122b">
 <link rel="stylesheet" href="assets/stars.css?v=20261122c">
+<link rel="stylesheet" href="assets/ui-extras.css?v=20261122d">
 <link rel="stylesheet" href="assets/scroll-fx.css?v=20261122a">
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.filmband,.filmd,.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
@@ -1093,7 +1094,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <main id="main">
 
 <!-- HERO -->
-<section class="hero hero--v2" aria-label="OPM Ventures">
+<section class="hero hero--v2" aria-label="OPM Ventures" data-tint="#1b2735">
   <div class="hero__in">
     <h1><span>Be found.</span><span>Be chosen.</span><span>Be <em>ready.</em></span></h1>
     <p class="hero__sub glass">One operator. One system. A website that converts, ads that bring buyers, and a business ready for lenders. With Remy OS underneath.</p>
@@ -1146,7 +1147,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
   </div>
 </section>
 
-<section class="services" id="services">
+<section class="services" id="services" data-tint="#1b2735">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div class="head reveal">
@@ -1232,6 +1233,20 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 </section>
 
 <!-- HOW WE START -->
+<!-- 3D STAGE (pinned; Remy OS tile turns with scroll) -->
+<section class="stage3d" id="stage" aria-label="Remy OS, in three lines" data-tint="#2a2314">
+  <div class="stage3d__pin">
+    <canvas aria-hidden="true"></canvas>
+    <img class="stage3d__still" src="assets/img/remy-os-logo.png" alt="Remy OS logo" width="512" height="512" loading="lazy">
+    <span class="tag stage3d__tag">Remy OS</span>
+    <div class="stage3d__lines">
+      <p>Not a <em>chatbot.</em></p>
+      <p>Not another tool to <em>babysit.</em></p>
+      <p>Business <em>infrastructure.</em></p>
+    </div>
+  </div>
+</section>
+
 <section id="start">
   <div class="marq" aria-hidden="true"><div><span>How we start</span><span>How we start</span><span>How we start</span><span>How we start</span></div></div>
   <div class="proc">
@@ -1273,7 +1288,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 </section>
 
 <!-- OPERATOR -->
-<section class="founder" id="operator" aria-label="The operator">
+<section class="founder" id="operator" aria-label="The operator" data-tint="#1b2735">
   <div class="fin">
     <div class="founder__photo" id="founderPhoto">
       <img src="assets/img/founder.png" alt="Shakur, founder of OPM Ventures LLC" loading="lazy" decoding="async">
@@ -1301,7 +1316,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 </section>
 
 <!-- TIERS -->
-<section class="tiers" id="tiers" aria-label="Pick your tier">
+<section class="tiers" id="tiers" aria-label="Pick your tier" data-tint="#1b2a3d">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap" style="position:relative">
     <p class="pprint">OPM Ventures LLC &nbsp;|&nbsp; opmventuresllc.com &nbsp;|&nbsp; shakur@opmventuresllc.com &nbsp;|&nbsp; San Antonio, TX</p>
@@ -1419,7 +1434,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 </section>
 
 <!-- FAQ -->
-<section class="faq" id="faq" aria-label="Questions">
+<section class="faq" id="faq" aria-label="Questions" data-tint="#1b2735">
   <div class="faq__in">
     <div class="reveal"><span class="tag">Questions</span><h2 class="big" style="font-size:clamp(34px,4.6vw,70px)">Straight <em>answers.</em></h2></div>
     <div class="faq__right reveal">
@@ -1440,7 +1455,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 
 <div class="marq marq--out" aria-hidden="true"><div><span>Website</span><span>Ads</span><span>Funding</span><span>Remy OS</span><span>Website</span><span>Ads</span><span>Funding</span><span>Remy OS</span></div></div>
 
-<section class="contact" id="contact">
+<section class="contact" id="contact" data-tint="#14263a">
   <div class="kgrid" data-warp-grid data-theme="monochrome" aria-hidden="true"></div>
   <div class="wrap">
     <span class="tag">Get started</span>
@@ -1546,6 +1561,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <script src="assets/hero-v2.js?v=20261122a" defer></script>
 <script src="assets/scroll-fx.js?v=20261122a" defer></script>
 <script src="assets/stars.js?v=20261122b" defer></script>
+<script src="assets/ui-extras.js?v=20261122f" defer></script>
 <link rel="stylesheet" href="assets/reel-ui.css?v=20261112e">
 <script src="assets/reel-ui.js?v=20261112e" defer></script>
 <script>
