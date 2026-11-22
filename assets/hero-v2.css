@@ -2,7 +2,7 @@
    Loaded after the inline styles in index.html, so these rules win on equal specificity.
    Everything degrades: with no JS / reduced motion the hero is a plain dark hero with white text. */
 
-.hero.hero--v2{background:#0a0a0a;color:#fff}
+.hero.hero--v2{background:transparent;color:#fff}
 .hero--v2 .hero__bg,
 .hero--v2 .hero__fx{display:none}
 
