@@ -19,7 +19,6 @@
   } });
 
   [].forEach.call(sec.querySelectorAll('.w'), function (w, i) {
-    gsap.set(w, { scaleX: w.classList.contains('s') ? 1.04 : 1.14, transformOrigin: '50% 60%' });
     gsap.fromTo(w, { yPercent: i % 2 ? 7 : -7 }, { yPercent: i % 2 ? -7 : 7, ease: 'none',
       scrollTrigger: { trigger: sec, start: 'top top', end: end, scrub: true } });
   });

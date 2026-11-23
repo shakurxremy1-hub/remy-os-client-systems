@@ -26,7 +26,7 @@
   hero.insertBefore(cv, hero.firstChild);
 
   var coarse = window.matchMedia && matchMedia('(pointer: coarse)').matches;
-  var WHITE = '#ffffff', GOLD = '#ccff00';
+  var WHITE = '#ffffff', GOLD = '#f0d68a';
   var LEVELS = [0.38, 0.6, 0.82, 1];
 
   var W = 0, H = 0, dpr = 1, N = 0, size = 2;

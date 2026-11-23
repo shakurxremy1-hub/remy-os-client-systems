@@ -4,7 +4,7 @@
 
 .mtog{position:fixed;left:18px;bottom:74px;z-index:55;display:inline-flex;align-items:center;gap:8px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(20,20,20,.72);border:1px solid var(--line);padding:10px 14px;border-radius:999px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .mtog:hover{background:#fff;color:#111}
-.mtog:focus-visible{outline:2px solid #ccff00;outline-offset:3px}
+.mtog:focus-visible{outline:2px solid #f0d68a;outline-offset:3px}
 .mtog svg{width:10px;height:10px;fill:currentColor}
 .mtog .ic-play{display:none}
 html.motion-off .mtog .ic-play{display:block}
@@ -21,7 +21,7 @@ html.motion-off :is(.stars i,.ticker>div,.marq *,.cube,.cube i){animation-play-s
 .stage3d__tag{position:absolute;top:clamp(80px,12vh,130px);left:var(--pad);z-index:2}
 .stage3d__lines{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(40px,12vh,120px);z-index:2;display:grid}
 .stage3d__lines p{grid-area:1/1;margin:0;font-family:var(--display);font-weight:800;font-size:clamp(28px,5vw,76px);line-height:1;text-transform:uppercase;letter-spacing:-.01em;opacity:0;transform:translateY(24px)}
-.stage3d__lines p em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;color:#ccff00}
+.stage3d__lines p em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;color:#f0d68a}
 .stage3d.is-still{height:auto;padding:clamp(80px,10vw,140px) 0}
 .stage3d.is-still .stage3d__pin{position:relative;height:auto;display:block;min-height:70vh}
 .stage3d.is-still .stage3d__lines{position:relative;left:auto;right:auto;bottom:auto;margin:calc(46vh + 20px) var(--pad) 0;gap:14px}
