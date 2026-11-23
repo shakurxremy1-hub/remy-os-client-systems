@@ -39,7 +39,20 @@
 .sentence .sp{fill:currentColor;stroke:none}
 .sentence__bar{background:rgba(255,255,255,.14);height:3px}
 .sentence__bar b{background:linear-gradient(90deg,var(--acid),#fff,var(--pink));box-shadow:0 0 14px rgba(204,255,0,.8)}
-.sentence__cue{color:var(--acid);text-shadow:-1px 0 #ff00ff,1px 0 #00f0ff;writing-mode:vertical-rl;transform:rotate(180deg);top:clamp(24px,5vh,48px)}
+.sentence__cue{color:var(--acid);text-shadow:-1px 0 #ff00ff,1px 0 #00f0ff;writing-mode:vertical-rl;transform:rotate(180deg);top:50%;transform:translateY(-50%) rotate(180deg)}
 .sentence.is-static .w{filter:none}
 @media (prefers-reduced-motion:reduce){.sentence::before{animation:none}}
 html.motion-off .sentence::before{animation:none}
+
+/* ---- acid marquee strips ---- */
+.sentence__mq{position:absolute;left:0;right:0;display:flex;overflow:hidden;white-space:nowrap;z-index:2;pointer-events:none;transform:rotate(-1.2deg)}
+.sentence__mq.mq-top{top:74px;background:var(--acid);color:#000;box-shadow:0 0 24px rgba(204,255,0,.45)}
+.sentence__mq.mq-bot{bottom:clamp(116px,20vh,170px);background:var(--pink);color:#000;box-shadow:0 0 24px rgba(255,0,255,.45);transform:rotate(1.2deg)}
+.sentence__mq .mq-run{display:flex;flex:none;min-width:100%;justify-content:space-around;animation:smq 28s linear infinite}
+.sentence__mq.mq-bot .mq-run{animation-direction:reverse;animation-duration:34s}
+.sentence__mq span{font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(16px,2vw,26px);line-height:1;padding:9px 0}
+.sentence__mq span::after{content:"\2726";margin:0 clamp(18px,3vw,44px)}
+@keyframes smq{to{transform:translateX(-100%)}}
+.sentence.is-static .sentence__mq,html.motion-off .sentence__mq .mq-run{animation:none}
+.sentence.is-static .sentence__mq{display:none}
+@media (prefers-reduced-motion:reduce){.sentence__mq .mq-run{animation:none}}
