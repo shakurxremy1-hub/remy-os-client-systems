@@ -6,15 +6,15 @@
 .svc{position:relative}
 .svc__line{
   position:absolute;top:-1px;left:50%;width:2px;margin-left:-1px;
-  background:linear-gradient(#f0d68a,#f0d68a 70%,rgba(240,214,138,.4));
-  box-shadow:0 0 16px rgba(240,214,138,.55),0 0 2px #fff;
+  background:linear-gradient(#ccff00,#ccff00 70%,rgba(204,255,0,.4));
+  box-shadow:0 0 16px rgba(204,255,0,.55),0 0 2px #fff;
   transform:scaleY(0);transform-origin:50% 0;pointer-events:none;z-index:3;will-change:transform;
 }
 .svc__line.is-edge{left:-1px;margin-left:0}
 .svc article .n{transition:color .45s}
 .svc article .n::before{content:"";display:inline-block;width:7px;height:7px;margin-right:10px;border-radius:50%;background:currentColor;opacity:.35;vertical-align:1px;transition:opacity .45s,transform .45s,box-shadow .45s}
-.svc article.is-lit .n{color:#f0d68a}
-.svc article.is-lit .n::before{opacity:1;transform:scale(1.25);box-shadow:0 0 12px #f0d68a}
+.svc article.is-lit .n{color:#ccff00}
+.svc article.is-lit .n::before{opacity:1;transform:scale(1.25);box-shadow:0 0 12px #ccff00}
 
 /* 2. headings: the italic word fills in as the heading scrolls through the viewport */
 .fx-fw{

@@ -1,0 +1,90 @@
+/* acid.css: Acid Graphic skin for the whole site (liquid chrome, volt green, hyper pink, grain).
+   Scoped to html.acid. To roll back: remove class="acid" from <html> (or this file's <link>). */
+html.acid{--bg:#000;--bg2:#0a0a0a;--paper:#050505;--ink:#f4f4f4;--line:rgba(204,255,0,.2);--line-d:rgba(204,255,0,.16);--mute:rgba(255,255,255,.64);--mute-d:rgba(255,255,255,.66);
+  --acid:#ccff00;--pink:#ff00ff;--cyan:#00f0ff;--chrome:linear-gradient(180deg,#fff 0%,#888 48%,#e0e0e0 72%,#fff 100%);--expo:cubic-bezier(.19,1,.22,1)}
+html.acid body{background:#000}
+html.acid ::selection{background:var(--acid);color:#000}
+html.acid :focus-visible{outline-color:var(--acid)}
+html.acid .stars{background:radial-gradient(ellipse at bottom,var(--glow) 0%,#000 78%)}
+
+/* grain overlay */
+.acid-grain{display:none}
+html.acid .acid-grain{display:block;position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.07;mix-blend-mode:screen}
+html.acid .acid-grain svg{width:100%;height:100%;display:block}
+
+/* chrome headlines with RGB split */
+html.acid .hero h1,html.acid h2.big,html.acid .remy__txt h2,html.acid .founder h2,html.acid .contact h2,html.acid .tiers h2,html.acid .faq h2,html.acid .statement p,html.acid .stage3d__lines>*{
+  font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-.045em;
+  background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan))}
+html.acid .hero h1>span{background:inherit;-webkit-background-clip:inherit;background-clip:inherit}
+html.acid .hero h1 em,html.acid h2 em,html.acid .statement em,html.acid .stage3d em{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;background:none;-webkit-text-fill-color:var(--acid);color:var(--acid);
+  animation:none;text-shadow:0 0 24px rgba(204,255,0,.55)}
+html.acid .statement p{filter:none;text-shadow:none}
+html.acid .statement p span{background:var(--chrome);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan))}
+html.acid .statement p span em{filter:none;background:none;-webkit-text-fill-color:var(--acid)}
+html.acid .stage3d__lines>*{filter:none}
+
+/* hero: dark with acid wash instead of paper */
+html.acid .hero,html.acid .hero.hero--v2{background:transparent;color:var(--ink)}
+html.acid .hero__bg{filter:grayscale(1) contrast(1.4) brightness(.55);mix-blend-mode:screen;opacity:.55}
+html.acid .hero::before{background-image:linear-gradient(rgba(204,255,0,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,0,255,.12) 1px,transparent 1px)}
+html.acid .hero__sub{color:#e9e9e9;background:rgba(0,0,0,.72);border:1px solid var(--acid);backdrop-filter:blur(14px);box-shadow:0 0 22px rgba(204,255,0,.25)}
+html.acid .hero__side,html.acid .hero__side *{color:var(--ink)}
+html.acid .hero__foot a{border-color:var(--acid);color:var(--acid);background:rgba(0,0,0,.7)}
+
+/* light sections to black */
+html.acid .founder,html.acid .names div+div{background:#050505;color:var(--ink)}
+html.acid .founder p{color:rgba(255,255,255,.72)}
+html.acid .founder img{filter:grayscale(1) contrast(1.35) brightness(1.05);box-shadow:-8px 0 0 var(--pink),8px 0 0 var(--cyan)}
+html.acid .founder .tag{border-color:var(--acid);color:var(--acid)}
+
+/* buttons: chrome cylinder / acid outline */
+html.acid .btn,html.acid .pbtn{background:linear-gradient(180deg,#fff 0%,#9a9a9a 52%,#e8e8e8 100%);color:#000;border-radius:999px;font-weight:700;letter-spacing:.08em;
+  box-shadow:0 0 0 1px #000,0 6px 0 #555,0 0 18px rgba(204,255,0,.25);transition:transform .45s var(--expo),box-shadow .45s var(--expo)}
+html.acid .btn::before,html.acid .btn::after{border-color:rgba(0,0,0,.45)}
+html.acid .btn:hover,html.acid .pbtn:hover{transform:scale(1.07) rotate(-2deg);box-shadow:0 0 0 1px #000,0 4px 0 #555,0 0 34px rgba(204,255,0,.7)}
+html.acid .btn--light{background:linear-gradient(180deg,var(--acid),#9bc400);color:#000}
+html.acid .btn--ghost{background:transparent;color:var(--acid);border:1.5px solid var(--acid);box-shadow:0 0 14px rgba(204,255,0,.3) inset,0 0 14px rgba(204,255,0,.25)}
+html.acid .btn--ghost:hover{background:var(--acid);color:#000}
+
+/* nav, header chrome */
+html.acid .nav a:hover{color:var(--acid);text-decoration:none}
+html.acid .prog{background:linear-gradient(90deg,var(--acid),#fff,var(--pink))}
+html.acid .tiers h2 em,html.acid .remy h2 em,html.acid .faq h2 em,html.acid .contact h2 em,html.acid .cmp .ck{color:var(--acid)}
+
+/* cards: iridescent borders, hard neon hover */
+html.acid .svc,html.acid .tiers__grid{border-top-color:var(--acid);border-left-color:var(--acid)}
+html.acid .svc article,html.acid .tier{border-right-color:rgba(204,255,0,.4);border-bottom-color:rgba(255,0,255,.35);transition:background .4s var(--expo),box-shadow .4s var(--expo)}
+html.acid .svc article:hover{background:rgba(204,255,0,.05);box-shadow:inset 0 0 40px rgba(204,255,0,.12)}
+html.acid .svc h3,html.acid .tier h3{color:var(--acid)}
+html.acid .tier--feature{background:rgba(255,0,255,.07);box-shadow:inset 0 0 50px rgba(255,0,255,.18)}
+html.acid .tier--feature::before{background:conic-gradient(from var(--beam),transparent 0 62%,var(--acid) 80%,var(--pink) 92%,#fff 100%)}
+html.acid .tier li{border-top-color:rgba(255,255,255,.14)}
+html.acid .svc .cta{background:rgba(204,255,0,.06)}
+
+/* services marquee -> volt strip */
+html.acid .ticker{background:var(--acid);border-color:#000;transform:rotate(-.8deg);margin:18px -2vw;box-shadow:0 0 30px rgba(204,255,0,.4)}
+html.acid .ticker span{color:#000;font-weight:700}
+html.acid .ticker span::after{color:#000}
+
+/* checklist, quiz, accents that used gold */
+html.acid .lc__meter i,html.acid .lc__i input:checked+.lc__b{background:var(--acid);border-color:var(--acid)}
+html.acid .lc__i input:focus-visible+.lc__b{outline-color:var(--acid)}
+html.acid .lc__steps b{border-color:var(--acid);color:var(--acid)}
+html.acid footer{border-top-color:var(--acid)}
+html.acid footer a:hover{color:var(--acid)}
+html.acid .fab{background:var(--acid);color:#000}
+
+@media (prefers-reduced-motion:reduce){html.acid .btn,html.acid .pbtn{transition:none}}
+
+/* split-word headings (fx.js wraps each word in .tw > .twi): paint the chrome on the words, not the heading, so nothing doubles */
+html.acid.fx .hero h1,html.acid.fx h2.big,html.acid.fx .founder h2{background:none;-webkit-text-fill-color:initial;color:#fff;filter:none}
+html.acid.fx :is(.hero h1,h2.big,.founder h2) .twi{background:var(--chrome);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan))}
+html.acid.fx :is(.hero h1,h2.big,.founder h2) em .twi,html.acid.fx .fx-fw{background:none!important;-webkit-text-fill-color:var(--acid)!important;color:var(--acid)!important;filter:none;text-shadow:0 0 22px rgba(204,255,0,.55)}
+html.acid.fx h2.big .twi:hover{-webkit-text-fill-color:transparent;-webkit-text-stroke:2px var(--acid)}
+html.acid.fx :is(.hero h1,h2.big,.founder h2) .twi{filter:drop-shadow(-1px 0 var(--pink)) drop-shadow(1px 0 var(--cyan))}
+html.acid.fx .hero h1 .twi{filter:drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan))}
+/* keep the colour split to the big hero lettering; smaller headings stay crisp and readable */
+html.acid.fx :is(h2.big,.founder h2) .twi{filter:none}

@@ -110,7 +110,7 @@
   if (!btn) return;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]fx=on/.test(location.search);
   if (reduce) return;
-  var colors = ['#f0d68a', '#ffffff', '#80ACFF', '#f6e3a8'];
+  var colors = ['#ccff00', '#ffffff', '#00f0ff', '#f6e3a8'];
   btn.addEventListener('click', function () {
     var r = btn.getBoundingClientRect();
     var cv = document.createElement('canvas');

@@ -2,7 +2,7 @@
    1. Dynamic Island (Cult UI pattern): bottom-centre pill that shows the current
       section + scroll progress and expands into quick links.
    2. Shimmer Button (Magic UI pattern): a slow light sweep across booking CTAs.
-   Colours reuse the site palette: #0b0b0b ink, #f0d68a gold, #80ACFF blue. */
+   Colours reuse the site palette: #0b0b0b ink, #ccff00 gold, #00f0ff blue. */
 
 /* ---------- 1. dynamic island ---------- */
 .isl{position:fixed;left:50%;bottom:18px;z-index:56;transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.34,1.56,.64,1);font-family:var(--mono,ui-monospace,monospace)}
@@ -10,11 +10,11 @@
 .isl__box{position:relative;overflow:hidden;background:rgba(12,12,12,.88);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.16);border-radius:999px;box-shadow:0 14px 40px rgba(0,0,0,.55);color:#fff;transition:border-radius .4s cubic-bezier(.34,1.3,.64,1),width .4s cubic-bezier(.34,1.3,.64,1),height .4s cubic-bezier(.34,1.3,.64,1);width:var(--w,190px);height:44px}
 .isl.open .isl__box{border-radius:26px;width:min(360px,calc(100vw - 36px));height:var(--h,260px)}
 .isl__pill{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;height:44px;padding:0 16px 0 12px;cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-.isl__pill:focus-visible{outline:2px solid #80ACFF;outline-offset:-4px;border-radius:999px}
+.isl__pill:focus-visible{outline:2px solid #00f0ff;outline-offset:-4px;border-radius:999px}
 .isl__ring{flex:none;width:22px;height:22px;transform:rotate(-90deg)}
 .isl__ring circle{fill:none;stroke-width:2.5}
 .isl__ring .bg{stroke:rgba(255,255,255,.18)}
-.isl__ring .fg{stroke:#f0d68a;stroke-linecap:round;stroke-dasharray:56.55;stroke-dashoffset:56.55;transition:stroke-dashoffset .15s linear}
+.isl__ring .fg{stroke:#ccff00;stroke-linecap:round;stroke-dasharray:56.55;stroke-dashoffset:56.55;transition:stroke-dashoffset .15s linear}
 .isl__lbl{flex:1;overflow:hidden;text-overflow:ellipsis}
 .isl__chev{flex:none;width:10px;height:10px;border-right:1.5px solid rgba(255,255,255,.7);border-bottom:1.5px solid rgba(255,255,255,.7);transform:rotate(-135deg) translate(-2px,-2px);transition:transform .3s}
 .isl.open .isl__chev{transform:rotate(45deg) translate(-2px,-2px)}
@@ -22,8 +22,8 @@
 .isl.open .isl__menu{opacity:1;transform:none;transition-delay:.12s}
 .isl__menu a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .isl__menu a:hover,.isl__menu a:focus-visible,.isl__menu a.on{background:rgba(255,255,255,.1);color:#fff}
-.isl__menu a.on::after{content:"";width:6px;height:6px;border-radius:50%;background:#f0d68a}
-.isl__menu .isl__cta{margin-top:8px;justify-content:center;background:#f0d68a;color:#111;font-weight:600}
+.isl__menu a.on::after{content:"";width:6px;height:6px;border-radius:50%;background:#ccff00}
+.isl__menu .isl__cta{margin-top:8px;justify-content:center;background:#ccff00;color:#111;font-weight:600}
 .isl__menu .isl__cta:hover,.isl__menu .isl__cta:focus-visible{background:#f6e3a8;color:#111}
 .isl:not(.open) .isl__menu{visibility:hidden}
 @media (max-width:860px){.isl{display:none}}
@@ -42,14 +42,14 @@
    A slow light sweep across the gold italic words in the pinned statement.
    Not used on h2.big headings: their word-reveal spans break text-clipped gradients. */
 .statement em{
-  background:linear-gradient(100deg,#f0d68a 40%,#fff6d6 50%,#f0d68a 60%) 0 0/250% 100% no-repeat;
+  background:linear-gradient(100deg,#ccff00 40%,#fff6d6 50%,#ccff00 60%) 0 0/250% 100% no-repeat;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
   animation:reelshine 5.5s ease-in-out infinite}
 @keyframes reelshine{0%,30%{background-position:120% 0}70%,100%{background-position:-20% 0}}
 
 /* ---------- 4. sparkles (Magic UI Sparkles Text) on the Recommended badge ---------- */
 .tier--feature .badge{overflow:visible}
-.reel-sp{position:absolute;width:10px;height:10px;pointer-events:none;color:#f0d68a;opacity:0;animation:reelsp 2.4s ease-in-out infinite}
+.reel-sp{position:absolute;width:10px;height:10px;pointer-events:none;color:#ccff00;opacity:0;animation:reelsp 2.4s ease-in-out infinite}
 .reel-sp::before,.reel-sp::after{content:"";position:absolute;left:50%;top:50%;background:currentColor;border-radius:2px;transform:translate(-50%,-50%)}
 .reel-sp::before{width:2px;height:100%}.reel-sp::after{width:100%;height:2px}
 @keyframes reelsp{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(90deg)}}
@@ -58,7 +58,7 @@
 .reel-confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:96}
 
 @media (prefers-reduced-motion:reduce){
-  html:not(.fxon) .statement em{animation:none;background:none;-webkit-text-fill-color:currentColor;color:#f0d68a}
+  html:not(.fxon) .statement em{animation:none;background:none;-webkit-text-fill-color:currentColor;color:#ccff00}
   html:not(.fxon) .reel-sp{display:none}
 }
 
@@ -89,7 +89,7 @@ footer a:hover,.fine a:hover,.faq .ans a:hover,footer a:focus-visible,.fine a:fo
 /* ---------- 9. border beam on the Ask OPM panel (Magic UI Border Beam) ----------
    Reuses the site's own @property --beam and @keyframes beam. */
 .cb::before{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;pointer-events:none;z-index:2;
-  background:conic-gradient(from var(--beam),transparent 0 72%,#f0d68a 88%,#fff 100%);
+  background:conic-gradient(from var(--beam),transparent 0 72%,#ccff00 88%,#fff 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
   animation:beam 6s linear infinite}
@@ -106,7 +106,7 @@ footer a:hover,.fine a:hover,.faq .ans a:hover,footer a:focus-visible,.fine a:fo
 .ticker,.marq{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 
 /* ---------- 12. copy button morph + toast check (Cult UI / Magic UI Copy Button) ---------- */
-.copy.is-done{background:#f0d68a;border-color:#f0d68a;color:#111}
+.copy.is-done{background:#ccff00;border-color:#ccff00;color:#111}
 .toast.ok{display:inline-flex;align-items:center;gap:10px}
 .toast.ok::before{content:"";flex:none;width:16px;height:16px;border-radius:50%;background:#2e9d5f
   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.2 8.4l2.4 2.4 5-5.2' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;

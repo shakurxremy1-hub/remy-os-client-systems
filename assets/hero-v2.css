@@ -17,7 +17,7 @@
 /* ::after = soft warm light that follows the cursor */
 .hero.hero--v2::after{
   left:0;width:100%;top:0;bottom:auto;height:100%;filter:none;animation:none;opacity:1;
-  background:radial-gradient(520px circle at var(--hx,62%) var(--hy,58%),rgba(240,214,138,.13),transparent 62%);
+  background:radial-gradient(520px circle at var(--hx,62%) var(--hy,58%),rgba(204,255,0,.13),transparent 62%);
   transition:background-position .2s;
 }
 
@@ -27,7 +27,7 @@
 .hero--v2 h1{color:#fff}
 @media (min-width:861px){.hero.hero--v2 h1{font-size:clamp(64px,15.2vw,270px)}}
 @media (max-width:860px){.hero.hero--v2 h1{font-size:clamp(52px,23.5vw,170px)}}
-.hero--v2 h1 em{color:#f0d68a}
+.hero--v2 h1 em{color:#ccff00}
 .hero--v2.is-live h1{color:transparent;-webkit-text-stroke:0 transparent;user-select:none}
 .hero--v2.is-live h1 em{color:transparent}
 .fx .hero--v2 h1 .twi:hover{color:inherit;-webkit-text-stroke:0 transparent}
