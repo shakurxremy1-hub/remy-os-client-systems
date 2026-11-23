@@ -118,7 +118,7 @@ h2.big{font-family:var(--display);font-weight:400;text-transform:uppercase;font-
 .cube{--s:clamp(150px,17vw,250px);--k:calc(var(--s)*.011);width:calc(var(--s)*2.05);height:calc(var(--s)*.62);position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
 .cube i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-style:normal;font-size:calc(var(--s)*.5);line-height:1;letter-spacing:.05em;word-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:hsl(36 62% calc(14% + var(--n)*2.6%));transform:translateZ(calc((var(--n) - 6)*var(--k)))}
 .cube i.fr{background:linear-gradient(100deg,#8a5d12 0%,#f6e3a1 28%,#c9972f 48%,#fff3c4 60%,#a8741b 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(224,186,100,.45));animation:shine 5s linear infinite}
-.cube i.fr,.cube i.bk{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cube i{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .cube i.bk{transform:rotateY(180deg) translateZ(calc(var(--k)*6))}
 @keyframes shine{to{background-position:-220% 0}}
 .cube b{position:absolute;left:50%;top:50%;width:calc(var(--s)*2.3);height:calc(var(--s)*2.3);margin:calc(var(--s)*-1.15) 0 0 calc(var(--s)*-1.15);border:2px solid rgba(214,174,86,.75);border-radius:50%;box-shadow:0 0 22px rgba(214,174,86,.35);transform:rotateX(78deg) rotateY(-14deg);pointer-events:none}
@@ -1067,6 +1067,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <link rel="stylesheet" href="assets/hero-v2.css?v=20261122b">
 <link rel="stylesheet" href="assets/stars.css?v=20261122c">
 <link rel="stylesheet" href="assets/ui-extras.css?v=20261122d">
+<link rel="stylesheet" href="assets/tier-quiz.css?v=20261122h">
 <link rel="stylesheet" href="assets/scroll-fx.css?v=20261122a">
 <script>if(/[?&]fx=on/.test(location.search))document.documentElement.classList.add('fxon')</script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.filmband,.filmd,.pbar,.intro,.cbl,.cb,.cost,.calc,.mb,.ba,.fl,.hc,.tour,.kfoot,.dots,.fab{display:none!important}</style></noscript>
@@ -1561,6 +1562,7 @@ footer{padding-bottom:max(26px,env(safe-area-inset-bottom))}
 <script src="assets/scroll-fx.js?v=20261122a" defer></script>
 <script src="assets/stars.js?v=20261122b" defer></script>
 <script src="assets/ui-extras.js?v=20261122g" defer></script>
+<script src="assets/tier-quiz.js?v=20261122h" defer></script>
 <link rel="stylesheet" href="assets/reel-ui.css?v=20261112e">
 <script src="assets/reel-ui.js?v=20261112e" defer></script>
 <script>

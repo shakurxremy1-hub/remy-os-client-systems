@@ -1,0 +1,35 @@
+/* Tier quiz: three questions, one recommended plan. Runs entirely in the browser; nothing is stored or sent. */
+.tq{margin:0 0 clamp(26px,3vw,40px);max-width:760px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow:hidden}
+.tq__bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px}
+.tq__lead{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0}
+.tq__go,.tq__nav button,.tq__res a,.tq__res button{font:500 13px/1 var(--mono);letter-spacing:.05em;border-radius:999px;padding:12px 20px;cursor:pointer;text-decoration:none;transition:transform .18s,background .18s}
+.tq__go{color:#111;background:#f0d68a;border:0}
+.tq__go:hover{transform:translateY(-2px)}
+.tq__body{padding:4px 20px 22px;display:none}
+.tq.is-open .tq__body{display:block}
+.tq.is-open .tq__go{display:none}
+.tq__prog{display:flex;gap:6px;margin:0 0 16px}
+.tq__prog i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.14);transition:background .3s}
+.tq__prog i.on{background:#f0d68a}
+.tq fieldset{border:0;margin:0;padding:0;min-width:0}
+.tq legend{padding:0;margin:0 0 14px;font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);line-height:1.15;color:#fff}
+.tq__opts{display:grid;gap:10px}
+.tq__opt{display:block;text-align:left;width:100%;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:15px 18px;cursor:pointer;font:400 15px/1.35 var(--body);transition:transform .18s,background .18s,border-color .18s}
+.tq__opt:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.tq__opt:focus-visible,.tq__go:focus-visible,.tq__nav button:focus-visible,.tq__res a:focus-visible,.tq__res button:focus-visible{outline:2px solid #f0d68a;outline-offset:3px}
+.tq__nav{display:flex;justify-content:space-between;margin-top:16px}
+.tq__nav button,.tq__res button{color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3)}
+.tq__nav button:hover,.tq__res button:hover{background:#fff;color:#111}
+.tq__nav button[hidden]{display:none}
+.tq__res h3{margin:0 0 4px;font-family:var(--display);font-weight:800;font-size:clamp(30px,4vw,48px);text-transform:uppercase;line-height:1}
+.tq__res .tq__price{font-family:var(--mono);font-size:14px;color:#f0d68a;margin:0 0 12px}
+.tq__res p{margin:0 0 12px;color:rgba(255,255,255,.85);max-width:600px}
+.tq__why{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tq__why li{font:500 11px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--mute)}
+.tq__acts{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 12px}
+.tq__res a.tq__primary{color:#111;background:#f0d68a;border:0}
+.tq__res a.tq__alt{color:#fff;border:1px solid rgba(255,255,255,.3)}
+.tq__res a:hover{transform:translateY(-2px)}
+.tq__note{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--mute)}
+.tier.match{outline:2px solid #f0d68a;outline-offset:4px;transition:outline-color .3s}
+@media (prefers-reduced-motion:reduce){.tq__opt,.tq__go,.tq__nav button,.tq__res a{transition:none}.tq__opt:hover,.tq__go:hover,.tq__res a:hover{transform:none}}
