@@ -1,0 +1,9 @@
+/* nolines.css: removes the decorative divider lines and background grids.
+   Boxes keep their fills; form fields, buttons and keyboard focus rings keep their outlines. */
+:root{--line:transparent;--line-d:transparent}
+.grid-bg,.contact .kgrid,.hero::before,.hero__bg::before{display:none!important}
+section,header,footer,.svc,.svc article,.tiers__grid,.tier,.facts,.facts__in>*,.names,.names div,.names div+div,.proc>*,.founder .stats>*,.fin *,.faq details,.faq summary,.faq dt,.faq li,.cmp,.cmp *,.tier li,.tier ul,.statement,.flow *,.tour *{border-top-color:transparent!important;border-bottom-color:transparent!important;border-left-color:transparent!important;border-right-color:transparent!important}
+.tier li,.faq details,.cmp tr,.cmp td,.cmp th{border-color:transparent!important}
+hr{display:none}
+.step-line,.prog,.cue i,.fl__bar{display:none!important}
+.proc,.proc article,.marq,.marq--out{border-color:transparent!important}
