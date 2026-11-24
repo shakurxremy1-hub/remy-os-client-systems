@@ -8,3 +8,4 @@ hr{display:none}
 .step-line,.prog,.cue i,.fl__bar{display:none!important}
 .proc,.proc article,.marq,.marq--out{border-color:transparent!important}
 .svc__line,.svc__line *{display:none!important}
+.svc article::after,.caps li::after{display:none!important}
