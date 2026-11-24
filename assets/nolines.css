@@ -7,3 +7,4 @@ section,header,footer,.svc,.svc article,.tiers__grid,.tier,.facts,.facts__in>*,.
 hr{display:none}
 .step-line,.prog,.cue i,.fl__bar{display:none!important}
 .proc,.proc article,.marq,.marq--out{border-color:transparent!important}
+.svc__line,.svc__line *{display:none!important}
